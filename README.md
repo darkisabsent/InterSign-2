@@ -49,8 +49,8 @@ Frontend: Flutter
 AI Models: Generative AI models for real-time sign language translation and avatar creation
 Database: MySQL/PostgreSQL
 Deployment: Docker, AWS
-
-We have 2 AI models : one that translate sign language to text to speech and another one from speech to text to sign language represented by avatar
+# how generative ai solves this problem
+The core of InterSign's innovation lies in its use of generative AI models. These models are trained to understand spoken language and translate it into sign language, which is then performed by a 3D avatar. The AI handles complex language processing and gesture generation, ensuring that the translation is both accurate and natural.
 
 AI Model Integration
 Speech Recognition: The AI model listens to spoken language and converts it into text.
