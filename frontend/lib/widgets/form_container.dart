@@ -35,7 +35,7 @@ class _FormContainerWidgetState extends State<FormContainerWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 60,
+        height: 65,
         padding: const EdgeInsets.symmetric(horizontal: 10),
         margin: const EdgeInsets.symmetric(
             horizontal: 20,
@@ -44,8 +44,8 @@ class _FormContainerWidgetState extends State<FormContainerWidget> {
         width: double.infinity,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: Colors.white),
+          borderRadius: BorderRadius.circular(5),
+          border: Border.all(color: Colors.grey),
         ),
         child:
         Container(
@@ -63,9 +63,10 @@ class _FormContainerWidgetState extends State<FormContainerWidget> {
                 border: InputBorder.none,
                 filled: true,
                 fillColor: Colors.transparent,
+                labelText: widget.labelText,
                 hintText: widget.hintText,
                 hintStyle: const TextStyle(color: Colors.black45),
-                contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 10),
+                contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
                 suffixIcon: GestureDetector(
                   onTap: () {
                     setState(() {

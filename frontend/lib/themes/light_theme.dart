@@ -31,11 +31,18 @@ class AppTheme {
 
 // Typography
     textTheme: TextTheme(
-      headlineLarge: TextStyle(color: Colors.blue[900]),
-      headlineMedium: const TextStyle(color: Colors.black),
+      headlineLarge: const TextStyle(
+        color: Color(0xff000557),
+        fontSize: 35,
+        fontWeight: FontWeight.w900,
+      ),
+      headlineMedium: const TextStyle(
+        color: Colors.black,
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+      ),
       bodyLarge: TextStyle(color: Colors.blue[900]),
       bodyMedium: const TextStyle(color: Colors.black),
-// ... and so on for other text styles
     ),
 
 // Input Decoration themes

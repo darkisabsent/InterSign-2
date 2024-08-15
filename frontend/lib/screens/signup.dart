@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 
 import '../utils/show_toast.dart';
@@ -53,33 +52,54 @@ class _SignUpState extends State<SignUp> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  const Text("Inter Sign"),
-                  const SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Inter",
+                        style: Theme.of(context).textTheme.headlineLarge,
+                      ),
+                      const SizedBox(width: 5),
+                      Image.asset(
+                        'assets/images/avatar_image.png',
+                        height: 50,
+                        width: 50,
+                      ),
+                      const SizedBox(width: 5), // Optional spacing
+                      Text(
+                        "Sign",
+                        style: Theme.of(context).textTheme.headlineLarge,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 5),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text("Sign Up",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 25,
-                                fontWeight: FontWeight.bold)),
+                        Text(
+                          "Sign Up",
+                          style: Theme.of(context).textTheme.headlineMedium,
+                        ),
                         const SizedBox(height: 20),
                         FormContainerWidget(
-                          hintText: "Full Name",
+                          labelText: "FIRST NAME",
+                          hintText: "John",
                           isPasswordField: false,
                           controller: _fullNameController,
                         ),
                         //const SizedBox(height: 7),
                         FormContainerWidget(
-                          hintText: "Email",
+                          labelText: "EMAIL ADDRESS",
+                          hintText: "johndoe@example.com",
                           isPasswordField: false,
                           controller: _emailController,
                         ),
                         //const SizedBox(height: 7),
                         FormContainerWidget(
-                          hintText: "Password",
+                          labelText: "PASSWORD",
+                          hintText: "********",
                           isPasswordField: true,
                           controller: _passwordController,
                         ),
@@ -93,7 +113,8 @@ class _SignUpState extends State<SignUp> {
                                   fontSize: 15)),
                         ),
                         FormContainerWidget(
-                          hintText: "Confirm Password",
+                          labelText: "CONFIRM PASSWORD",
+                          hintText: "********",
                           isPasswordField: true,
                           controller: _confirmPasswordController,
                         ),
