@@ -121,10 +121,6 @@ class _SignUpState extends State<SignUp> {
                         const SizedBox(height: 15),
                         TextButton(onPressed: (){}, child: const Text(
                           "CREATE AN ACCOUNT",
-                          /*style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 17,
-                              fontWeight: FontWeight.bold),*/
                         ),),
                         /*Padding(
                           padding: const EdgeInsets.symmetric(

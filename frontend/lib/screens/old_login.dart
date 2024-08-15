@@ -27,16 +27,27 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-        color: Colors.white,
-      ),
+      decoration: BoxDecoration(
+          gradient: LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomCenter,
+        colors: [
+          Theme.of(context).colorScheme.secondary,
+          Colors.white,
+        ],
+      )),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.black),
-            onPressed: () {},
+            icon: const Icon(Icons.arrow_back, color: Colors.white),
+            onPressed: () {
+              /*Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                    builder: (context) => const FarmerAuthScreen()),
+              );*/
+            },
           ),
         ),
         body: Stack(
@@ -44,32 +55,27 @@ class _LoginState extends State<Login> {
             SingleChildScrollView(
               child: Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Inter",
-                        style: Theme.of(context).textTheme.headlineLarge,
-                      ),
-                      const SizedBox(width: 5),
-                      Image.asset(
-                        'assets/images/avatar_image.png',
-                        height: 50,
-                        width: 50,
-                      ),
-                      const SizedBox(width: 5), // Optional spacing
-                      Text(
-                        "Sign",
-                        style: Theme.of(context).textTheme.headlineLarge,
-                      ),
-                    ],
-                  ),
                   const SizedBox(height: 30),
-                  Text(
-                    'Login',
-                    style: Theme.of(context).textTheme.headlineMedium,
+                  const Text(
+                    'Welcome Back!',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 30,
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w800,
+                    ),
                     textAlign: TextAlign.left,
                   ),
+                  /*const Text(
+                    'Please sign in to your account',
+                    style: TextStyle(
+                      color: Colors.black45,
+                      fontSize: 16,
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w500,
+                    ),
+                    textAlign: TextAlign.left,
+                  ),*/
                   const SizedBox(height: 50),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -77,31 +83,18 @@ class _LoginState extends State<Login> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         FormContainerWidget(
-                          labelText: "EMAIL ADDRESS",
-                          hintText: "johndoe@example.com",
+                          hintText: "Email",
                           isPasswordField: false,
                           controller: _emailController,
                         ),
                         const SizedBox(height: 10),
                         FormContainerWidget(
-                          labelText: "PASSWORD",
-                          hintText: "********",
+                          hintText: "Password",
                           isPasswordField: true,
                           controller: _passwordController,
                         ),
                         const SizedBox(height: 30),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                  builder: (context) => const Home()),
-                            );
-                          },
-                          child: const Text(
-                            "LOGIN",
-                          ),
-                        ),
-                        /*Padding(
+                        Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 10),
                           child: GestureDetector(
@@ -132,7 +125,7 @@ class _LoginState extends State<Login> {
                               ),
                             ),
                           ),
-                        ),*/
+                        ),
                         //const SizedBox(height: 10),
                         const SizedBox(height: 20),
                         Row(
