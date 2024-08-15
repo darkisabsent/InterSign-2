@@ -119,7 +119,14 @@ class _SignUpState extends State<SignUp> {
                           controller: _confirmPasswordController,
                         ),
                         const SizedBox(height: 15),
-                        Padding(
+                        TextButton(onPressed: (){}, child: const Text(
+                          "CREATE AN ACCOUNT",
+                          /*style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold),*/
+                        ),),
+                        /*Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 10),
                           child: GestureDetector(
@@ -144,7 +151,7 @@ class _SignUpState extends State<SignUp> {
                               ),
                             ),
                           ),
-                        ),
+                        ),*/
                         const SizedBox(height: 10),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,

@@ -29,16 +29,36 @@ class AppTheme {
     secondaryHeaderColor: Colors.blue[50],
     // Background color for sticky headers
 
+    textButtonTheme: TextButtonThemeData(
+      style: ButtonStyle(
+        backgroundColor: WidgetStateProperty.all(Colors.black),
+        foregroundColor: WidgetStateProperty.all(Colors.white),
+        minimumSize: WidgetStateProperty.all(const Size(400, 60)),
+        padding: WidgetStateProperty.all(
+            const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0)),
+        textStyle: WidgetStateProperty.all(
+          const TextStyle(
+            color: Colors.white,
+            fontSize: 15,
+            fontWeight: FontWeight.normal,
+          ),
+        ),
+        shape: WidgetStateProperty.all(
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
+        ),
+      ),
+    ),
+
 // Typography
     textTheme: TextTheme(
       headlineLarge: const TextStyle(
         color: Color(0xff000557),
-        fontSize: 35,
+        fontSize: 40,
         fontWeight: FontWeight.w900,
       ),
       headlineMedium: const TextStyle(
         color: Colors.black,
-        fontSize: 20,
+        fontSize: 28,
         fontWeight: FontWeight.bold,
       ),
       bodyLarge: TextStyle(color: Colors.blue[900]),
