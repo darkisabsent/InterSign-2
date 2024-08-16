@@ -30,6 +30,8 @@ class AppTheme {
     secondaryHeaderColor: Colors.blue[50],
     // Background color for sticky headers
 
+
+    appBarTheme: const AppBarTheme(color: Colors.transparent, elevation: 1),
     textButtonTheme: TextButtonThemeData(
       style: ButtonStyle(
         backgroundColor: WidgetStateProperty.all(Colors.black),

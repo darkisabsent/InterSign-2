@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:inter_sign/screens/primary/index.dart';
+import 'package:inter_sign/screens/other/index.dart';
 
 class NavBar extends StatelessWidget {
   const NavBar({super.key});
@@ -15,9 +17,7 @@ class NavBar extends StatelessWidget {
               children: [
                 Text(
                   "Inter",
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleLarge,
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const SizedBox(width: 5),
                 Image.asset(
@@ -28,9 +28,7 @@ class NavBar extends StatelessWidget {
                 const SizedBox(width: 5),
                 Text(
                   "Sign",
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleLarge,
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
               ],
             ),
@@ -38,22 +36,46 @@ class NavBar extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.dashboard_outlined),
             title: const Text("Dashboard"),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const Dashboard(),
+                  ));
+            },
           ),
           ListTile(
             leading: const Icon(Icons.shopping_cart),
             title: const Text("Subscription Plan"),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const Subscription(),
+                  ));
+            },
           ),
           ListTile(
             leading: const Icon(Icons.translate),
             title: const Text("Avatar Translation"),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const AvatarTranslation(),
+                  ));
+            },
           ),
           ListTile(
             leading: const Icon(Icons.multitrack_audio),
             title: const Text("Translate to Speech"),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const TranslateToSpeech(),
+                  ));
+            },
           ),
           const Padding(
             padding: EdgeInsets.all(12.0),
@@ -62,22 +84,46 @@ class NavBar extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.settings),
             title: const Text("Settings"),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const Settings(),
+                  ));
+            },
           ),
           ListTile(
             leading: const Icon(Icons.payment),
             title: const Text("Payment"),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const Payment(),
+                  ));
+            },
           ),
           ListTile(
             leading: const Icon(Icons.account_circle_sharp),
             title: const Text("Accounts"),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const Accounts(),
+                  ));
+            },
           ),
           ListTile(
             leading: const Icon(Icons.help),
             title: const Text("Help"),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const Help(),
+                  ));
+            },
           ),
         ],
       ),
