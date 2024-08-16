@@ -53,12 +53,12 @@ class AppTheme {
     textTheme: TextTheme(
       headlineLarge: const TextStyle(
         color: Color(0xff000557),
-        fontSize: 40,
+        fontSize: 50,
         fontWeight: FontWeight.w900,
       ),
       headlineMedium: const TextStyle(
         color: Colors.black,
-        fontSize: 28,
+        fontSize: 27,
         fontWeight: FontWeight.bold,
       ),
       bodyLarge: TextStyle(color: Colors.blue[900]),

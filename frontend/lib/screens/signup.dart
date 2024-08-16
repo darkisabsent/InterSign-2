@@ -44,143 +44,171 @@ class _SignUpState extends State<SignUp> {
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        appBar: AppBar(backgroundColor: Colors.transparent),
+        //appBar: AppBar(backgroundColor: Colors.transparent),
         body: Stack(
           children: [
-            SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Inter",
-                        style: Theme.of(context).textTheme.headlineLarge,
+            Row(
+              children: [
+                /// Left section
+                SizedBox(
+                  height: 650,
+                  width: 650,
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Card(
+                      color: Theme.of(context).cardColor,
+                      elevation: 6.0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(6.0), // Rounded corners
                       ),
-                      const SizedBox(width: 5),
-                      Image.asset(
-                        'assets/images/avatar_image.png',
-                        height: 50,
-                        width: 50,
-                      ),
-                      const SizedBox(width: 5), // Optional spacing
-                      Text(
-                        "Sign",
-                        style: Theme.of(context).textTheme.headlineLarge,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 5),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Sign Up",
-                          style: Theme.of(context).textTheme.headlineMedium,
-                        ),
-                        const SizedBox(height: 20),
-                        FormContainerWidget(
-                          labelText: "FIRST NAME",
-                          hintText: "John",
-                          isPasswordField: false,
-                          controller: _fullNameController,
-                        ),
-                        //const SizedBox(height: 7),
-                        FormContainerWidget(
-                          labelText: "EMAIL ADDRESS",
-                          hintText: "johndoe@example.com",
-                          isPasswordField: false,
-                          controller: _emailController,
-                        ),
-                        //const SizedBox(height: 7),
-                        FormContainerWidget(
-                          labelText: "PASSWORD",
-                          hintText: "********",
-                          isPasswordField: true,
-                          controller: _passwordController,
-                        ),
-                        Visibility(
-                          visible: !passwordsMatch,
-                          child: const Text("Passwords do no match!",
-                              style: TextStyle(
-                                  color: Colors.red,
-                                  //color: errorRed,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15)),
-                        ),
-                        FormContainerWidget(
-                          labelText: "CONFIRM PASSWORD",
-                          hintText: "********",
-                          isPasswordField: true,
-                          controller: _confirmPasswordController,
-                        ),
-                        const SizedBox(height: 15),
-                        TextButton(onPressed: (){}, child: const Text(
-                          "CREATE AN ACCOUNT",
-                        ),),
-                        /*Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 10),
-                          child: GestureDetector(
-                            onTap: () {
-                              _signUp();
-                            },
-                            child: Container(
-                              width: double.infinity,
-                              height: 70,
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.secondary,
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: const Center(
-                                child: Text(
-                                  "CREATE AN ACCOUNT",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),*/
-                        const SizedBox(height: 10),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                      child: Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Column(
                           children: [
-                            const Text("Already have an account?",
-                                style: TextStyle(
-                                    color: Colors.black, fontSize: 15)),
-                            const SizedBox(width: 5),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.pushAndRemoveUntil(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => const Login(),
+                            /// Logo
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Inter",
+                                  style: Theme.of(context).textTheme.headlineLarge,
+                                ),
+                                const SizedBox(width: 5),
+                                Image.asset(
+                                  'assets/images/avatar_image.png',
+                                  height: 50,
+                                  width: 50,
+                                ),
+                                const SizedBox(width: 5), // Optional spacing
+                                Text(
+                                  "Sign",
+                                  style: Theme.of(context).textTheme.headlineLarge,
+                                ),
+                              ],
+                            ),
+                            /// Text
+                            Column(
+                              children: [
+                                Text(
+                                  "Sign Up",
+                                  style: Theme.of(context).textTheme.headlineMedium,
+                                ),
+                              ],
+                            ),
+                            /// Form
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                /// Text fields
+                                Column(
+                                  children: [
+                                    const SizedBox(height: 20),
+                                    FormContainerWidget(
+                                      labelText: "FIRST NAME",
+                                      hintText: "John",
+                                      isPasswordField: false,
+                                      controller: _fullNameController,
                                     ),
-                                    (route) => false);
-                              },
-                              child: Text(
-                                "LOGIN",
-                                style: TextStyle(
-                                    color:
-                                        Theme.of(context).colorScheme.secondary,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            )
+                                    //const SizedBox(height: 7),
+                                    FormContainerWidget(
+                                      labelText: "EMAIL ADDRESS",
+                                      hintText: "johndoe@example.com",
+                                      isPasswordField: false,
+                                      controller: _emailController,
+                                    ),
+                                    //const SizedBox(height: 7),
+                                    FormContainerWidget(
+                                      labelText: "PASSWORD",
+                                      hintText: "********",
+                                      isPasswordField: true,
+                                      controller: _passwordController,
+                                    ),
+                                    Visibility(
+                                      visible: !passwordsMatch,
+                                      child: const Text("Passwords do no match!",
+                                          style: TextStyle(
+                                              color: Colors.red,
+                                              //color: errorRed,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15)),
+                                    ),
+                                    FormContainerWidget(
+                                      labelText: "CONFIRM PASSWORD",
+                                      hintText: "********",
+                                      isPasswordField: true,
+                                      controller: _confirmPasswordController,
+                                    ),
+                                  ],
+                                ),
+                                /// Buttons and other
+                                Column(
+                                  children: [
+                                    TextButton(
+                                      onPressed: () {},
+                                      child: const Text(
+                                        "CREATE AN ACCOUNT",
+                                      ),
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        const Text(
+                                          "Already have an account?",
+                                          style: TextStyle(
+                                              color: Colors.black, fontSize: 15),
+                                        ),
+                                        const SizedBox(width: 5),
+                                        GestureDetector(
+                                          onTap: () {
+                                            Navigator.pushAndRemoveUntil(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const Login(),
+                                                ),
+                                                (route) => false);
+                                          },
+                                          child: Text(
+                                            "LOGIN",
+                                            style: TextStyle(
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .secondary,
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        )
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
                           ],
-                        )
-                      ],
+                        ),
+                      ),
                     ),
                   ),
-                ],
-              ),
+                ),
+
+                /// Right section
+                Expanded(
+                  child: Container(
+                    color: Colors.green,
+                    child: const Center(
+                      child: Text(
+                        'Green Section',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
             if (_isSigningUp)
               Container(
