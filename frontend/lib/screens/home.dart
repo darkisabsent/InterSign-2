@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inter_sign/widgets/nav_bar.dart';
 import 'package:window_manager/window_manager.dart';
 
 class Home extends StatefulWidget {
@@ -72,6 +73,11 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 1,
+      ),
+      drawer: const NavBar(),
       body: const Center(child: Text("Welcome!")),
       floatingActionButton: FloatingActionButton(
         onPressed: _setWindowAlwaysOnTop,

@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 class AppTheme {
   static ThemeData lightTheme = ThemeData(
-
     brightness: Brightness.light,
+    scaffoldBackgroundColor: Colors.white,
+    cardColor: Colors.white,
+    highlightColor: const Color(0xffa093f5),
 
     // Determines if the theme is light or dark
     /*primaryColor: Colors.blue,
@@ -13,18 +15,14 @@ class AppTheme {
     primaryColorLight: Colors.blue[100],
     // Lighter variant of the primary color
     canvasColor: Colors.grey[50],
-    // Background color for larger parts of the app*/
-
-    scaffoldBackgroundColor: Colors.white,
-    // Background color for Scaffolds
-    cardColor: Colors.white,
-    // Background color of cards
-    dividerColor: Colors.grey,
-    // Color of dividers
-    highlightColor: Colors.amber[700],
-    // Color of ink splash when tapped
+    // Background color for larger parts of the app
     splashColor: Colors.amber[200],
     // Color of ink splash during a ripple effect
+    */
+
+    dividerColor: Colors.grey,
+    // Color of dividers
+
     unselectedWidgetColor: Colors.grey[400],
     // Color for widgets like unchecked checkboxes, radio buttons, etc.
     disabledColor: Colors.grey[200],
@@ -52,7 +50,7 @@ class AppTheme {
       ),
     ),
 
-// Typography
+    /// Typography
     textTheme: TextTheme(
       headlineLarge: const TextStyle(
         color: Color(0xff000557),
@@ -64,16 +62,21 @@ class AppTheme {
         fontSize: 27,
         fontWeight: FontWeight.bold,
       ),
+      titleLarge: const TextStyle(
+        color: Color(0xff000557),
+        fontSize: 30,
+        fontWeight: FontWeight.w900,
+      ),
       bodyLarge: TextStyle(color: Colors.blue[900]),
       bodyMedium: const TextStyle(color: Colors.black),
     ),
 
-// Input Decoration themes
+    /// Input Decoration themes
     inputDecorationTheme: InputDecorationTheme(
       focusColor: Colors.blue[100],
     ),
 
-// Icon themes
+    /// Icon themes
     iconTheme: IconThemeData(
       color: Colors.blue[600],
     ),

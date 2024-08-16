@@ -85,7 +85,7 @@ class _SignUpState extends State<SignUp> {
                                     height: 60,
                                     width: 60,
                                   ),
-                                  const SizedBox(width: 5), // Optional spacing
+                                  const SizedBox(width: 5),
                                   Text(
                                     "Sign",
                                     style: Theme.of(context)
