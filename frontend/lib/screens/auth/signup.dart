@@ -67,32 +67,33 @@ class _SignUpState extends State<SignUp> {
                       child: Padding(
                         padding: const EdgeInsets.all(12.0),
                         child: Column(
-
                           children: [
-                            SizedBox(height: AppPadding.p50(context)),
-
                             /// Logo
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Inter",
-                                  style:
-                                      Theme.of(context).textTheme.headlineLarge,
-                                ),
-                                const SizedBox(width: 5),
-                                Image.asset(
-                                  'assets/images/avatar_image.png',
-                                  height: 60,
-                                  width: 60,
-                                ),
-                                const SizedBox(width: 5), // Optional spacing
-                                Text(
-                                  "Sign",
-                                  style:
-                                      Theme.of(context).textTheme.headlineLarge,
-                                ),
-                              ],
+                            Flexible(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Inter",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineLarge,
+                                  ),
+                                  const SizedBox(width: 5),
+                                  Image.asset(
+                                    'assets/images/avatar_image.png',
+                                    height: 60,
+                                    width: 60,
+                                  ),
+                                  const SizedBox(width: 5), // Optional spacing
+                                  Text(
+                                    "Sign",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineLarge,
+                                  ),
+                                ],
+                              ),
                             ),
 
                             /// Text
@@ -107,7 +108,7 @@ class _SignUpState extends State<SignUp> {
                               ],
                             ),
 
-                            SizedBox(height: AppPadding.p40(context)),
+                            //SizedBox(height: AppPadding.p40(context)),
 
                             /// Form
                             Column(
@@ -230,7 +231,7 @@ class _SignUpState extends State<SignUp> {
                       elevation: 6.0,
                       shape: RoundedRectangleBorder(
                         borderRadius:
-                        BorderRadius.circular(12.0), // Rounded corners
+                            BorderRadius.circular(12.0), // Rounded corners
                       ),
                       child: const Text(
                         '"I will be your\n personal\n interpreter\n today"',
