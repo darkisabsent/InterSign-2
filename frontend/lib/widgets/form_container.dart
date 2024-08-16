@@ -41,7 +41,7 @@ class _FormContainerWidgetState extends State<FormContainerWidget> {
             horizontal: 20,
             vertical: 10
         ),
-        //width: double.infinity,
+        width: double.infinity,
 
         decoration: BoxDecoration(
           color: Colors.white,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../utils/show_toast.dart';
+import '../../utils/layout_utils.dart';
 import '../../widgets/form_container.dart';
 import 'login.dart';
 
@@ -38,7 +39,8 @@ class _SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
-    final double screenWidth = MediaQuery.of(context).size.width;
+    //final double screenWidth = MediaQuery.of(context).size.width;
+    final double partWidth = ScreenSize.adjustedWidth(context, 50);
 
     return Container(
       decoration: const BoxDecoration(
@@ -53,9 +55,9 @@ class _SignUpState extends State<SignUp> {
               children: [
                 /// Left section
                 SizedBox(
-                  width: screenWidth / 2,
+                  width: partWidth,
                   child: Padding(
-                    padding: const EdgeInsets.all(40.0),
+                    padding: const EdgeInsets.all(50.0),
                     child: Card(
                       color: Theme.of(context).cardColor,
                       elevation: 6.0,
@@ -67,6 +69,8 @@ class _SignUpState extends State<SignUp> {
                         padding: const EdgeInsets.all(12.0),
                         child: Column(
                           children: [
+                            SizedBox(height: AppPadding.p50(context)),
+
                             /// Logo
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -102,6 +106,8 @@ class _SignUpState extends State<SignUp> {
                                 ),
                               ],
                             ),
+
+                            SizedBox(height: AppPadding.p40(context)),
 
                             /// Form
                             Column(
@@ -150,10 +156,12 @@ class _SignUpState extends State<SignUp> {
                                   ],
                                 ),
 
+                                SizedBox(height: AppPadding.p60(context)),
                                 /// Buttons and other
                                 Column(
                                   children: [
                                     TextButton(
+
                                       onPressed: () {},
                                       child: const Text(
                                         "CREATE AN ACCOUNT",
@@ -206,7 +214,7 @@ class _SignUpState extends State<SignUp> {
 
                 /// Right section
                 Container(
-                  width: screenWidth / 2,
+                  width: partWidth,
                   decoration: const BoxDecoration(
                       gradient: LinearGradient(
                     begin: Alignment.topLeft,
