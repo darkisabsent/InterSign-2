@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:inter_sign/widgets/nav_bar.dart';
 import 'package:window_manager/window_manager.dart';
+import 'package:inter_sign/screens/primary/index.dart';
+import 'package:inter_sign/screens/other/index.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -10,15 +12,51 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  int _clickCount = 0; // Counter for button presses
+  late double initialWidth;
+  late double initialHeight;
+
+  int _selectedIndex = 0; // Track the selected screen
+
+  final List<Widget> _screens = [
+    const Dashboard(),
+    const Subscription(),
+    const AvatarTranslation(),
+    const TranslateToSpeech(),
+    const Settings(),
+    const Payment(),
+    const Accounts(),
+    const Help(),
+  ];
+
   @override
   void initState() {
     super.initState();
     _getInitialDimensions();
   }
 
-  int _clickCount = 0; // Counter for button presses
-  late double initialWidth;
-  late double initialHeight;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 1,
+      ),
+      drawer: NavBar(onItemSelected: _onItemSelected),
+      body: _screens[_selectedIndex],
+      //body: const Center(child: Text("Welcome!")),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _setWindowAlwaysOnTop,
+        child: const Icon(Icons.layers),
+      ),
+    );
+  }
+
+  void _onItemSelected(int index) {
+    setState(() {
+      _selectedIndex = index; // Update the selected index
+    });
+  }
 
   Future<void> _getInitialDimensions() async {
     // Fetch the initial screen dimensions
@@ -68,21 +106,5 @@ class _HomeState extends State<Home> {
       // Set the window position to the top-right corner
       await windowManager.setPosition(Offset(x, y));
     }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 1,
-      ),
-      drawer: const NavBar(),
-      body: const Center(child: Text("Welcome!")),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _setWindowAlwaysOnTop,
-        child: const Icon(Icons.layers),
-      ),
-    );
   }
 }

@@ -3,7 +3,9 @@ import 'package:inter_sign/screens/primary/index.dart';
 import 'package:inter_sign/screens/other/index.dart';
 
 class NavBar extends StatelessWidget {
-  const NavBar({super.key});
+  final Function(int) onItemSelected;
+
+  const NavBar({super.key, required this.onItemSelected});
 
   @override
   Widget build(BuildContext context) {
@@ -37,44 +39,32 @@ class NavBar extends StatelessWidget {
             leading: const Icon(Icons.dashboard_outlined),
             title: const Text("Dashboard"),
             onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const Dashboard(),
-                  ));
+              onItemSelected(0);
+              Navigator.pop(context);
             },
           ),
           ListTile(
             leading: const Icon(Icons.shopping_cart),
             title: const Text("Subscription Plan"),
             onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const Subscription(),
-                  ));
+              onItemSelected(1); // Pass the index to the callback
+              Navigator.pop(context); // Close the drawer
             },
           ),
           ListTile(
             leading: const Icon(Icons.translate),
             title: const Text("Avatar Translation"),
             onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const AvatarTranslation(),
-                  ));
+              onItemSelected(2);
+              Navigator.pop(context);
             },
           ),
           ListTile(
             leading: const Icon(Icons.multitrack_audio),
             title: const Text("Translate to Speech"),
             onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const TranslateToSpeech(),
-                  ));
+              onItemSelected(3);
+              Navigator.pop(context);
             },
           ),
           const Padding(
@@ -85,44 +75,32 @@ class NavBar extends StatelessWidget {
             leading: const Icon(Icons.settings),
             title: const Text("Settings"),
             onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const Settings(),
-                  ));
+              onItemSelected(5);
+              Navigator.pop(context);
             },
           ),
           ListTile(
             leading: const Icon(Icons.payment),
             title: const Text("Payment"),
             onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const Payment(),
-                  ));
+              onItemSelected(5);
+              Navigator.pop(context);
             },
           ),
           ListTile(
             leading: const Icon(Icons.account_circle_sharp),
             title: const Text("Accounts"),
             onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const Accounts(),
-                  ));
+              onItemSelected(6);
+              Navigator.pop(context);
             },
           ),
           ListTile(
             leading: const Icon(Icons.help),
             title: const Text("Help"),
             onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const Help(),
-                  ));
+              onItemSelected(7);
+              Navigator.pop(context);
             },
           ),
         ],
