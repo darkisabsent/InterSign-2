@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../utils/show_toast.dart';
-import '../widgets/form_container.dart';
+import '../../utils/show_toast.dart';
+import '../../widgets/form_container.dart';
 import 'login.dart';
 
 class SignUp extends StatefulWidget {
@@ -38,6 +38,8 @@ class _SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
+
     return Container(
       decoration: const BoxDecoration(
         color: Colors.white,
@@ -51,15 +53,15 @@ class _SignUpState extends State<SignUp> {
               children: [
                 /// Left section
                 SizedBox(
-                  height: 650,
-                  width: 650,
+                  width: screenWidth / 2,
                   child: Padding(
-                    padding: const EdgeInsets.all(20.0),
+                    padding: const EdgeInsets.all(40.0),
                     child: Card(
                       color: Theme.of(context).cardColor,
                       elevation: 6.0,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6.0), // Rounded corners
+                        borderRadius:
+                            BorderRadius.circular(6.0), // Rounded corners
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(12.0),
@@ -71,7 +73,8 @@ class _SignUpState extends State<SignUp> {
                               children: [
                                 Text(
                                   "Inter",
-                                  style: Theme.of(context).textTheme.headlineLarge,
+                                  style:
+                                      Theme.of(context).textTheme.headlineLarge,
                                 ),
                                 const SizedBox(width: 5),
                                 Image.asset(
@@ -82,19 +85,24 @@ class _SignUpState extends State<SignUp> {
                                 const SizedBox(width: 5), // Optional spacing
                                 Text(
                                   "Sign",
-                                  style: Theme.of(context).textTheme.headlineLarge,
+                                  style:
+                                      Theme.of(context).textTheme.headlineLarge,
                                 ),
                               ],
                             ),
+
                             /// Text
                             Column(
                               children: [
                                 Text(
                                   "Sign Up",
-                                  style: Theme.of(context).textTheme.headlineMedium,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineMedium,
                                 ),
                               ],
                             ),
+
                             /// Form
                             Column(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -125,12 +133,13 @@ class _SignUpState extends State<SignUp> {
                                     ),
                                     Visibility(
                                       visible: !passwordsMatch,
-                                      child: const Text("Passwords do no match!",
-                                          style: TextStyle(
-                                              color: Colors.red,
-                                              //color: errorRed,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 15)),
+                                      child:
+                                          const Text("Passwords do no match!",
+                                              style: TextStyle(
+                                                  color: Colors.red,
+                                                  //color: errorRed,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 15)),
                                     ),
                                     FormContainerWidget(
                                       labelText: "CONFIRM PASSWORD",
@@ -140,6 +149,7 @@ class _SignUpState extends State<SignUp> {
                                     ),
                                   ],
                                 ),
+
                                 /// Buttons and other
                                 Column(
                                   children: [
@@ -151,12 +161,14 @@ class _SignUpState extends State<SignUp> {
                                     ),
                                     const SizedBox(height: 10),
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         const Text(
                                           "Already have an account?",
                                           style: TextStyle(
-                                              color: Colors.black, fontSize: 15),
+                                              color: Colors.black,
+                                              fontSize: 15),
                                         ),
                                         const SizedBox(width: 5),
                                         GestureDetector(
@@ -193,17 +205,25 @@ class _SignUpState extends State<SignUp> {
                 ),
 
                 /// Right section
-                Expanded(
-                  child: Container(
-                    color: Colors.green,
-                    child: const Center(
-                      child: Text(
-                        'Green Section',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
+                Container(
+                  width: screenWidth / 2,
+                  decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Color(0xff735ff1),
+                      Color(0xff625ff1),
+                    ],
+                  )),
+                  //color: Colors.green,
+                  child: const Center(
+                    child: Text(
+                      'Other Section',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),

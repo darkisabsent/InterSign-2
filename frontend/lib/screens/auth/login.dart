@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:inter_sign/screens/signup.dart';
+import 'package:inter_sign/screens/auth/signup.dart';
 
-import '../widgets/form_container.dart';
-import 'home.dart';
+import '../../widgets/form_container.dart';
+import '../home.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
