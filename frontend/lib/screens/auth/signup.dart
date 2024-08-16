@@ -39,7 +39,6 @@ class _SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
-    //final double screenWidth = MediaQuery.of(context).size.width;
     final double partWidth = ScreenSize.adjustedWidth(context, 50);
 
     return Container(
@@ -68,6 +67,7 @@ class _SignUpState extends State<SignUp> {
                       child: Padding(
                         padding: const EdgeInsets.all(12.0),
                         child: Column(
+
                           children: [
                             SizedBox(height: AppPadding.p50(context)),
 
@@ -83,8 +83,8 @@ class _SignUpState extends State<SignUp> {
                                 const SizedBox(width: 5),
                                 Image.asset(
                                   'assets/images/avatar_image.png',
-                                  height: 50,
-                                  width: 50,
+                                  height: 60,
+                                  width: 60,
                                 ),
                                 const SizedBox(width: 5), // Optional spacing
                                 Text(
@@ -157,11 +157,11 @@ class _SignUpState extends State<SignUp> {
                                 ),
 
                                 SizedBox(height: AppPadding.p60(context)),
+
                                 /// Buttons and other
                                 Column(
                                   children: [
                                     TextButton(
-
                                       onPressed: () {},
                                       child: const Text(
                                         "CREATE AN ACCOUNT",
@@ -224,14 +224,21 @@ class _SignUpState extends State<SignUp> {
                       Color(0xff625ff1),
                     ],
                   )),
-                  //color: Colors.green,
-                  child: const Center(
-                    child: Text(
-                      'Other Section',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
+                  child: Center(
+                    child: Card(
+                      color: const Color(0xffaea2f7),
+                      elevation: 6.0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius:
+                        BorderRadius.circular(12.0), // Rounded corners
+                      ),
+                      child: const Text(
+                        '"I will be your\n personal\n interpreter\n today"',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
