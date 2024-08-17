@@ -82,10 +82,10 @@ class _SignUpState extends State<SignUp> {
                                   ? screenWidth * 0.4
                                   : screenWidth * 0.35,
                           height: isDesktop
-                              ? screenHeight * 0.8
+                              ? screenHeight * 0.85
                               : isTablet
-                                  ? screenHeight * 0.7
-                                  : screenHeight * 0.6,
+                                  ? screenHeight * 0.75
+                                  : screenHeight * 0.65,
                           child: Card(
                             color: Theme.of(context).cardColor,
                             elevation: 3.0,
@@ -188,13 +188,15 @@ class _SignUpState extends State<SignUp> {
                                 ),
 
                                 const Spacer(),
+
                                 /// Buttons
                                 Center(
                                   child: SizedBox(
                                     width: buttonWidth * 0.48,
                                     height: buttonHeight * 1.2,
                                     child: Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 5),
                                       child: ElevatedButton(
                                         onPressed: () {},
                                         style: ElevatedButton.styleFrom(
@@ -230,6 +232,44 @@ class _SignUpState extends State<SignUp> {
                                       ),
                                     ),
                                   ),
+                                ),
+
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Flexible(
+                                      child: Text(
+                                        "Already have an account?",
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                            color: Colors.black, fontSize: 15),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 5),
+                                    Flexible(
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          Navigator.pushAndRemoveUntil(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const Login(),
+                                              ),
+                                              (route) => false);
+                                        },
+                                        child: Text(
+                                          "LOGIN",
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .secondary,
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                    )
+                                  ],
                                 ),
                               ],
                             ),
