@@ -3,6 +3,8 @@ import 'package:window_manager/window_manager.dart';
 
 import '../../utils/responsive.dart';
 import '../../widgets/dashboard/side_menu.dart';
+import 'package:video_player_media_kit/video_player_media_kit.dart';
+import 'package:video_player/video_player.dart';
 
 class AvatarTranslation extends StatefulWidget {
   const AvatarTranslation({super.key});
@@ -15,11 +17,27 @@ class _AvatarTranslationState extends State<AvatarTranslation> {
   late double initialWidth;
   late double initialHeight;
   bool _isMiniMode = false;
+  late VideoPlayerController _controller;
 
   @override
   void initState() {
     super.initState();
     _getInitialDimensions();
+
+    // Initialize the video controller
+    _controller = VideoPlayerController.asset('assets/videos/sample_video.mp4')
+      ..initialize().then((_) {
+        setState(() {});
+        if (_isMiniMode) {
+          _controller.play();
+        }
+      });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -39,23 +57,32 @@ class _AvatarTranslationState extends State<AvatarTranslation> {
         child: const Icon(Icons.layers),
       ),
       body: SafeArea(
-        child: Row(
-          children: [
-            if (isDesktop && !_isMiniMode)
-              const Expanded(
-                flex: 2,
-                child: SizedBox(
-                  child: SideMenuWidget(),
-                ),
+        child: _isMiniMode
+            ? Center(
+                child: _controller.value.isInitialized
+                    ? AspectRatio(
+                        aspectRatio: _controller.value.aspectRatio,
+                        child: VideoPlayer(_controller),
+                      )
+                    : const CircularProgressIndicator(),
+              )
+            : Row(
+                children: [
+                  if (isDesktop && !_isMiniMode)
+                    const Expanded(
+                      flex: 2,
+                      child: SizedBox(
+                        child: SideMenuWidget(),
+                      ),
+                    ),
+                  const Expanded(
+                    flex: 10,
+                    child: Center(
+                      child: Text("AVATAR TRANSLATION"),
+                    ),
+                  ),
+                ],
               ),
-            const Expanded(
-              flex: 10,
-              child: Center(
-                child: Text("AVATAR TRANSLATION"),
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }
@@ -97,6 +124,9 @@ class _AvatarTranslationState extends State<AvatarTranslation> {
 
       /// Set the window position to the top-right corner
       await windowManager.setPosition(Offset(x, y));
+
+      /// Play the video when in mini mode
+      _controller.play();
     } else {
       /// Unset window to always on top
       await windowManager.setAlwaysOnTop(false);
@@ -106,6 +136,9 @@ class _AvatarTranslationState extends State<AvatarTranslation> {
 
       /// Center the window on the screen
       await windowManager.center();
+
+      // Pause the video when not in mini mode
+      _controller.pause();
     }
   }
 }
