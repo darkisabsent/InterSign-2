@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../utils/responsive.dart';
-import '../../utils/show_toast.dart';
-import '../../utils/layout_utils.dart';
-import '../../widgets/form_container.dart';
+import '../utils/responsive.dart';
+import '../utils/show_toast.dart';
+import '../utils/layout_utils.dart';
+import '../widgets/form_container.dart';
 import 'login.dart';
 
 class SignUp extends StatefulWidget {
