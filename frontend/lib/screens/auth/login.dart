@@ -151,7 +151,7 @@ class _LoginState extends State<Login> {
                                 Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => const SignUp()),
+                                        builder: (context) => const SignupScreen()),
                                     (route) => false);
                               },
                               child: Text(

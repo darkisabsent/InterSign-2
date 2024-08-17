@@ -2,40 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:inter_sign/screens/right_section.dart';
 
 import '../../utils/responsive.dart';
-import '../../utils/show_toast.dart';
-import '../../utils/layout_utils.dart';
 import '../../widgets/form_container.dart';
-import 'login_screen.dart';
+import 'signup_screen.dart';
 
-class SignupScreen extends StatefulWidget {
-  const SignupScreen({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   @override
-  State<SignupScreen> createState() => _SignupScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _SignupScreenState extends State<SignupScreen> {
-  final TextEditingController _fullNameController = TextEditingController();
+class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController =
-      TextEditingController();
-  bool passwordsMatch = true;
-  bool _isSigningUp = false;
 
-  @override
-  void initState() {
-    super.initState();
-    _passwordController.addListener(_checkPasswordsMatch);
-    _confirmPasswordController.addListener(_checkPasswordsMatch);
-  }
+  bool _isSigningIn = false;
 
   @override
   void dispose() {
-    _fullNameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
-    _confirmPasswordController.dispose();
     super.dispose();
   }
 
@@ -134,7 +120,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                 /// Text
                                 Flexible(
                                   child: Text(
-                                    "Sign Up",
+                                    "Login",
                                     overflow: TextOverflow.ellipsis,
                                     style: Theme.of(context)
                                         .textTheme
@@ -150,38 +136,17 @@ class _SignupScreenState extends State<SignupScreen> {
                                     children: [
                                       const SizedBox(height: 10),
                                       FormContainerWidget(
-                                        labelText: "FIRST NAME",
-                                        hintText: "John",
-                                        isPasswordField: false,
-                                        controller: _fullNameController,
-                                      ),
-                                      FormContainerWidget(
                                         labelText: "EMAIL ADDRESS",
                                         hintText: "johndoe@example.com",
                                         isPasswordField: false,
                                         controller: _emailController,
                                       ),
+                                      const SizedBox(height: 10),
                                       FormContainerWidget(
                                         labelText: "PASSWORD",
                                         hintText: "********",
                                         isPasswordField: true,
                                         controller: _passwordController,
-                                      ),
-                                      Visibility(
-                                        visible: !passwordsMatch,
-                                        child:
-                                            const Text("Passwords do no match!",
-                                                style: TextStyle(
-                                                    color: Colors.red,
-                                                    //color: errorRed,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 13)),
-                                      ),
-                                      FormContainerWidget(
-                                        labelText: "CONFIRM PASSWORD",
-                                        hintText: "********",
-                                        isPasswordField: true,
-                                        controller: _confirmPasswordController,
                                       ),
                                     ],
                                   ),
@@ -206,29 +171,23 @@ class _SignupScreenState extends State<SignupScreen> {
                                                 BorderRadius.circular(8),
                                           ),
                                         ),
-                                        child: _isSigningUp
-                                            ? const CircularProgressIndicator(
-                                                color: Colors.white,
-                                              )
-                                            : const Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Flexible(
-                                                    child: Text(
-                                                      "SIGN UP",
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 17,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
+                                        child: const Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Flexible(
+                                              child: Text(
+                                                "LOGIN",
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 17,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
                                               ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -239,7 +198,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                   children: [
                                     const Flexible(
                                       child: Text(
-                                        "Already have an account?",
+                                        "Don't have an account?",
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                             color: Colors.black, fontSize: 15),
@@ -253,12 +212,12 @@ class _SignupScreenState extends State<SignupScreen> {
                                               context,
                                               MaterialPageRoute(
                                                 builder: (context) =>
-                                                    const LoginScreen(),
+                                                    const SignupScreen(),
                                               ),
                                               (route) => false);
                                         },
                                         child: Text(
-                                          "LOGIN",
+                                          "SIGN UP",
                                           overflow: TextOverflow.ellipsis,
                                           style: TextStyle(
                                               color: Theme.of(context)
@@ -288,7 +247,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 ],
               ),
             ),
-            if (_isSigningUp)
+            if (_isSigningIn)
               Container(
                 color: Colors.black.withOpacity(0.5),
                 child: const Center(
@@ -301,21 +260,13 @@ class _SignupScreenState extends State<SignupScreen> {
     );
   }
 
-  Future<void> _signUp() async {
-    String fullName = _fullNameController.text;
+  Future<void> _signIn() async {
     String email = _emailController.text;
     String password = _passwordController.text;
 
     // Show loading circle
     setState(() {
-      _isSigningUp = true;
-    });
-  }
-
-  void _checkPasswordsMatch() {
-    setState(() {
-      passwordsMatch =
-          _passwordController.text == _confirmPasswordController.text;
+      _isSigningIn = true;
     });
   }
 }
