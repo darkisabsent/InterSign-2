@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inter_sign/screens/auth/signup.dart';
+import 'package:inter_sign/screens/auth/signup_screen.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:inter_sign/themes/light_theme.dart';
 
