@@ -44,6 +44,13 @@ class _SignUpState extends State<SignUp> {
     final bool isTablet = Responsive.isTablet(context);
     final bool isDesktop = Responsive.isDesktop(context);
 
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double screenHeight = MediaQuery.of(context).size.height;
+
+    // Calculate responsive button size
+    double buttonWidth = screenWidth * 0.8; // 80% of screen width
+    double buttonHeight = screenHeight * 0.07; // 7% of screen height
+
     return Container(
       decoration: const BoxDecoration(
         color: Colors.white,
@@ -70,15 +77,15 @@ class _SignUpState extends State<SignUp> {
                       child: Center(
                         child: SizedBox(
                           width: isDesktop
-                              ? 550.0
+                              ? screenWidth * 0.45
                               : isTablet
-                                  ? 400.0
-                                  : 300.0,
+                                  ? screenWidth * 0.4
+                                  : screenWidth * 0.35,
                           height: isDesktop
-                              ? 600.0
+                              ? screenHeight * 0.8
                               : isTablet
-                                  ? 500.0
-                                  : 400.0,
+                                  ? screenHeight * 0.7
+                                  : screenHeight * 0.6,
                           child: Card(
                             color: Theme.of(context).cardColor,
                             elevation: 3.0,
@@ -88,43 +95,139 @@ class _SignUpState extends State<SignUp> {
                             ),
                             child: Column(
                               children: [
-                                ConstrainedBox(
-                                  constraints: BoxConstraints(
-                                    minWidth: isDesktop
-                                        ? 300.0
-                                        : isTablet
-                                            ? 250.0
-                                            : 200.0,
+                                /// Logo
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Flexible(
+                                      child: Text(
+                                        "Inter",
+                                        overflow: TextOverflow.ellipsis,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headlineLarge,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 2),
+                                    Image.asset(
+                                      'assets/images/avatar_image.png',
+                                      height: isMobile
+                                          ? screenHeight * 0.05
+                                          : screenHeight * 0.1,
+                                      width: isMobile
+                                          ? screenWidth * 0.02
+                                          : screenWidth * 0.05,
+                                    ),
+                                    const SizedBox(width: 2),
+                                    Flexible(
+                                      child: Text(
+                                        "Sign",
+                                        overflow: TextOverflow.ellipsis,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headlineLarge,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+
+                                /// Text
+                                Flexible(
+                                  child: Text(
+                                    "Sign Up",
+                                    overflow: TextOverflow.ellipsis,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineMedium,
                                   ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
+                                ),
+
+                                /// Form
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 20, left: 30, right: 30),
+                                  child: Column(
                                     children: [
-                                      Flexible(
-                                        child: Text(
-                                          "Inter",
-                                          overflow: TextOverflow.ellipsis,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headlineLarge,
-                                        ),
+                                      const SizedBox(height: 10),
+                                      FormContainerWidget(
+                                        labelText: "FIRST NAME",
+                                        hintText: "John",
+                                        isPasswordField: false,
+                                        controller: _fullNameController,
                                       ),
-                                      const SizedBox(width: 2),
-                                      Image.asset(
-                                        'assets/images/avatar_image.png',
-                                        height: isMobile ? 40 : 60,
-                                        width: isMobile ? 40 : 60,
+                                      FormContainerWidget(
+                                        labelText: "EMAIL ADDRESS",
+                                        hintText: "johndoe@example.com",
+                                        isPasswordField: false,
+                                        controller: _emailController,
                                       ),
-                                      const SizedBox(width: 2),
-                                      Flexible(
-                                        child: Text(
-                                          "Sign",
-                                          overflow: TextOverflow.ellipsis,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headlineLarge,
-                                        ),
+                                      FormContainerWidget(
+                                        labelText: "PASSWORD",
+                                        hintText: "********",
+                                        isPasswordField: true,
+                                        controller: _passwordController,
+                                      ),
+                                      Visibility(
+                                        visible: !passwordsMatch,
+                                        child:
+                                            const Text("Passwords do no match!",
+                                                style: TextStyle(
+                                                    color: Colors.red,
+                                                    //color: errorRed,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 13)),
+                                      ),
+                                      FormContainerWidget(
+                                        labelText: "CONFIRM PASSWORD",
+                                        hintText: "********",
+                                        isPasswordField: true,
+                                        controller: _confirmPasswordController,
                                       ),
                                     ],
+                                  ),
+                                ),
+
+                                /// Buttons
+                                Center(
+                                  child: SizedBox(
+                                    width: buttonWidth,
+                                    height: buttonHeight,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(top: 10),
+                                      child: ElevatedButton(
+                                        onPressed: () {},
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: Colors.black,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
+                                        ),
+                                        child: _isSigningUp
+                                            ? const CircularProgressIndicator(
+                                                color: Colors.white,
+                                              )
+                                            : const Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Flexible(
+                                                    child: Text(
+                                                      "SIGN UP",
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 17,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ],
@@ -152,15 +255,15 @@ class _SignUpState extends State<SignUp> {
                         child: Center(
                           child: SizedBox(
                             width: isDesktop
-                                ? 450.0
+                                ? screenWidth * 0.40
                                 : isTablet
-                                    ? 350.0
-                                    : 250.0,
+                                    ? screenWidth * 0.35
+                                    : screenWidth * 0.3,
                             height: isDesktop
-                                ? 550.0
+                                ? screenHeight * 0.7
                                 : isTablet
-                                    ? 450.0
-                                    : 350.0,
+                                    ? screenHeight * 0.6
+                                    : screenHeight * 0.5,
                             child: Card(
                               color: const Color(0xffaea2f7),
                               elevation: 6.0,
@@ -188,8 +291,12 @@ class _SignUpState extends State<SignUp> {
                                     bottom: 0,
                                     child: Image.asset(
                                       'assets/images/avatar_image.png',
-                                      height: isMobile ? 200 : 340,
-                                      width: isMobile ? 200 : 340,
+                                      height: isMobile
+                                          ? screenHeight * 0.4
+                                          : screenHeight * 0.5,
+                                      width: isMobile
+                                          ? screenWidth * 0.2
+                                          : screenWidth * 0.3,
                                     ),
                                   ),
                                 ],

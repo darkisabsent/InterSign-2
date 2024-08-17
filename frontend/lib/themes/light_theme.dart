@@ -32,6 +32,7 @@ class AppTheme {
 
 
     appBarTheme: const AppBarTheme(color: Colors.transparent, elevation: 1),
+
     textButtonTheme: TextButtonThemeData(
       style: ButtonStyle(
         backgroundColor: WidgetStateProperty.all(Colors.black),
