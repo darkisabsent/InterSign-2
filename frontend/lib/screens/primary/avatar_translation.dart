@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:inter_sign/const/constant.dart';
-import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:video_player/video_player.dart';
+import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../../utils/responsive.dart';
@@ -11,15 +11,16 @@ class AvatarTranslation extends StatefulWidget {
   const AvatarTranslation({super.key});
 
   @override
-  State<AvatarTranslation> createState() => _AvatarTranslationState();
+  _AvatarTranslationState createState() => _AvatarTranslationState();
 }
 
 class _AvatarTranslationState extends State<AvatarTranslation> {
   late stt.SpeechToText _speech;
   bool _isListening = false;
-  String _text = 'Press the button and start speaking';
+  String _text = '';
   List<String> _videoSequence = [];
   late VideoPlayerController _controller;
+  final TextEditingController _textController = TextEditingController();
 
   @override
   void initState() {
@@ -27,6 +28,7 @@ class _AvatarTranslationState extends State<AvatarTranslation> {
     _initializeSpeechToText();
     _initializeVideoPlayer();
   }
+
   void _initializeSpeechToText() async {
     _speech = stt.SpeechToText();
     bool available = await _speech.initialize(
@@ -37,12 +39,14 @@ class _AvatarTranslationState extends State<AvatarTranslation> {
       print('The user has denied the use of speech recognition.');
     }
   }
+
   void _initializeVideoPlayer() {
     _controller = VideoPlayerController.asset('assets/videos/placeholder.mp4')
       ..initialize().then((_) {
         setState(() {});
       });
   }
+
   void _listen() async {
     if (!_isListening) {
       bool available = await _speech.initialize(
@@ -54,13 +58,17 @@ class _AvatarTranslationState extends State<AvatarTranslation> {
         _speech.listen(
           onResult: (val) => setState(() {
             _text = val.recognizedWords;
+            _textController.text = _text;
           }),
         );
       }
-    } else {
-      setState(() => _isListening = false);
-      _speech.stop();
     }
+  }
+
+  void _stopListening() {
+    setState(() => _isListening = false);
+    _speech.stop();
+    _translateToSignLanguage(_textController.text);
   }
 
   void _translateToSignLanguage(String text) async {
@@ -106,25 +114,41 @@ class _AvatarTranslationState extends State<AvatarTranslation> {
   void dispose() {
     _speech.stop();
     _controller.dispose();
+    _textController.dispose();
     super.dispose();
   }
 
   @override
   @override
   Widget build(BuildContext context) {
-    final isDesktop = Responsive.isDesktop(context);
     return Scaffold(
-      drawer: !isDesktop
-          ? const SizedBox(width: 250, child: SideMenuWidget())
-          : null,
       appBar: AppBar(title: const Text('Avatar Translation')),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _listen,
-        child: Icon(_isListening ? Icons.mic : Icons.mic_none),
-      ),
       body: SafeArea(
         child: Column(
           children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: _textController,
+                      decoration: InputDecoration(
+                        hintText: 'Enter Text or Use Mic',
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    icon: Icon(_isListening ? Icons.mic : Icons.mic_none),
+                    onPressed: _listen,
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.stop),
+                    onPressed: _stopListening,
+                  ),
+                ],
+              ),
+            ),
             Expanded(
               child: Center(
                 child: _controller.value.isInitialized
