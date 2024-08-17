@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inter_sign/screens/right_section.dart';
+import 'package:inter_sign/widgets/info_card.dart';
 
 import '../../utils/responsive.dart';
 import '../../utils/show_toast.dart';
@@ -283,7 +283,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   if (!isMobile)
                     Expanded(
                       flex: isDesktop ? 6 : 5,
-                      child: const RightSection(),
+                      child: const InfoCard(),
                     ),
                 ],
               ),

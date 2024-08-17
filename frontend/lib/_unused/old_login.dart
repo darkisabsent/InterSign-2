@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:inter_sign/_unused/signup.dart';
 
 import '../widgets/form_container.dart';
-import '../screens/home.dart';
+import 'home.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});

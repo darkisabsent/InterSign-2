@@ -1,8 +1,8 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-import '../data/bar_graph_data.dart';
-import '../model/graph_model.dart';
+import '../../data/dashboard/bar_graph_data.dart';
+import '../../model/graph_model.dart';
 import 'custom_card_widget.dart';
 
 class BarGraphCard extends StatelessWidget {
@@ -47,7 +47,7 @@ class BarGraphCard extends StatelessWidget {
                       color: barGraphData.data[index].color,
                     ),
                     borderData: FlBorderData(border: const Border()),
-                    gridData: FlGridData(show: false),
+                    gridData: const FlGridData(show: false),
                     titlesData: FlTitlesData(
                       bottomTitles: AxisTitles(
                         sideTitles: SideTitles(
@@ -66,13 +66,13 @@ class BarGraphCard extends StatelessWidget {
                           },
                         ),
                       ),
-                      leftTitles: AxisTitles(
+                      leftTitles: const AxisTitles(
                         sideTitles: SideTitles(showTitles: false),
                       ),
-                      topTitles: AxisTitles(
+                      topTitles: const AxisTitles(
                         sideTitles: SideTitles(showTitles: false),
                       ),
-                      rightTitles: AxisTitles(
+                      rightTitles: const AxisTitles(
                         sideTitles: SideTitles(showTitles: false),
                       ),
                     ),

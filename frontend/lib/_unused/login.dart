@@ -3,7 +3,7 @@ import 'package:inter_sign/screens/auth/signup_screen.dart';
 import 'package:inter_sign/screens/home_screen.dart';
 
 import '../widgets/form_container.dart';
-import '../screens/home.dart';
+import 'home.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});

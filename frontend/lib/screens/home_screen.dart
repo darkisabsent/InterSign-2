@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:inter_sign/widgets/side_menu.dart';
+import 'package:inter_sign/widgets/dashboard/side_menu.dart';
 
 import '../utils/responsive.dart';
-import '../widgets/dashboard_widget.dart';
-import '../widgets/summary_widget.dart';
+import '../widgets/dashboard/dashboard_widget.dart';
+import '../widgets/dashboard/summary_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});

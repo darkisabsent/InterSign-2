@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../model/bar_graph_model.dart';
-import '../model/graph_model.dart';
+import '../../model/bar_graph_model.dart';
+import '../../model/graph_model.dart';
 
 class BarGraphData {
   final data = [

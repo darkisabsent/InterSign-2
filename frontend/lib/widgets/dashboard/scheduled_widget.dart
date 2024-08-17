@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../data/schedule_task_data.dart';
+import '../../data/dashboard/schedule_task_data.dart';
 import 'custom_card_widget.dart';
 
 class Scheduled extends StatelessWidget {

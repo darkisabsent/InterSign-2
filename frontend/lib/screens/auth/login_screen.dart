@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:inter_sign/screens/auth/recover_password_screen.dart';
-import 'package:inter_sign/screens/right_section.dart';
+import 'package:inter_sign/screens/home_screen.dart';
+import 'package:inter_sign/widgets/info_card.dart';
 
 import '../../utils/responsive.dart';
 import '../../widgets/form_container.dart';
@@ -204,7 +205,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 5),
                                       child: ElevatedButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          Navigator.pushAndRemoveUntil(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                const HomeScreen(),
+                                              ),
+                                                  (route) => false);
+                                        },
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor: Colors.black,
                                           shape: RoundedRectangleBorder(
@@ -283,7 +292,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   if (!isMobile)
                     Expanded(
                       flex: isDesktop ? 6 : 5,
-                      child: const RightSection(),
+                      child: const InfoCard(),
                     ),
                 ],
               ),

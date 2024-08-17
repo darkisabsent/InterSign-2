@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../utils/responsive.dart';
 
-class RightSection extends StatelessWidget {
-  const RightSection({super.key});
+class InfoCard extends StatelessWidget {
+  const InfoCard({super.key});
 
   @override
   Widget build(BuildContext context) {

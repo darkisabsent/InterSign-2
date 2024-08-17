@@ -1,4 +1,4 @@
-import '../model/health_model.dart';
+import '../../model/health_model.dart';
 
 class HealthDetails {
   final healthData = const [

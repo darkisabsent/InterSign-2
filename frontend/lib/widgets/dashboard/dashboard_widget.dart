@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:inter_sign/widgets/summary_widget.dart';
+import 'package:inter_sign/widgets/dashboard/summary_widget.dart';
 
-import '../utils/responsive.dart';
+import '../../utils/responsive.dart';
 import 'activity_details_card.dart';
 import 'bar_graph_widget.dart';
 import 'header_widget.dart';

@@ -1,4 +1,4 @@
-import '../model/schedule_model.dart';
+import '../../model/schedule_model.dart';
 
 class ScheduleTasksData {
   final scheduled = const [

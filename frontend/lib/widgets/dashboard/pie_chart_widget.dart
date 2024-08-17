@@ -1,8 +1,8 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-import '../const/constant.dart';
-import '../data/pie_chart_data.dart';
+import '../../const/constant.dart';
+import '../../data/dashboard/pie_chart_data.dart';
 
 class Chart extends StatelessWidget {
   const Chart({super.key});

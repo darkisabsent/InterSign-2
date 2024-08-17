@@ -1,8 +1,8 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-import '../const/constant.dart';
-import '../data/line_chart_data.dart';
+import '../../const/constant.dart';
+import '../../data/dashboard/line_chart_data.dart';
 import 'custom_card_widget.dart';
 
 class LineChartCard extends StatelessWidget {
