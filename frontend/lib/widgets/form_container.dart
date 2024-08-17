@@ -14,16 +14,16 @@ class FormContainerWidget extends StatefulWidget {
 
   const FormContainerWidget(
       {super.key,
-        this.controller,
-        this.fieldKey,
-        this.isPasswordField,
-        this.hintText,
-        this.labelText,
-        this.helperText,
-        this.onSaved,
-        this.validator,
-        this.onFieldSubmitted,
-        this.inputType});
+      this.controller,
+      this.fieldKey,
+      this.isPasswordField,
+      this.hintText,
+      this.labelText,
+      this.helperText,
+      this.onSaved,
+      this.validator,
+      this.onFieldSubmitted,
+      this.inputType});
 
   @override
   State<FormContainerWidget> createState() => _FormContainerWidgetState();
@@ -43,8 +43,8 @@ class _FormContainerWidgetState extends State<FormContainerWidget> {
     double containerHeight = screenHeight * 0.08; // 8% of screen height
 
     return Container(
-      //height: 60,
-      //width: double.infinity,
+        //height: 60,
+        //width: double.infinity,
         height: containerHeight,
         width: containerWidth,
         padding: const EdgeInsets.symmetric(horizontal: 4),
@@ -71,7 +71,7 @@ class _FormContainerWidgetState extends State<FormContainerWidget> {
               hintText: widget.hintText,
               hintStyle: const TextStyle(color: Colors.black45),
               contentPadding:
-              const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                  const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
               suffixIcon: GestureDetector(
                 onTap: () {
                   setState(() {
@@ -80,10 +80,10 @@ class _FormContainerWidgetState extends State<FormContainerWidget> {
                 },
                 child: widget.isPasswordField == true
                     ? Icon(
-                  _obscureText ? Icons.visibility_off : Icons.visibility,
-                  color:
-                  _obscureText == false ? Colors.blue : Colors.grey,
-                )
+                        _obscureText ? Icons.visibility_off : Icons.visibility,
+                        color:
+                            _obscureText == false ? Colors.blue : Colors.grey,
+                      )
                     : const Text(""),
               )),
         ));

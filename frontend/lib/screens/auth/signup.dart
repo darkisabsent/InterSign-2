@@ -73,7 +73,7 @@ class _SignUpState extends State<SignUp> {
                               BorderRadius.circular(6.0), // Rounded corners
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.all(12.0),
+                          padding: const EdgeInsets.all(24.0),
                           child: Column(
                             children: [
                               /// Logo
@@ -131,14 +131,12 @@ class _SignUpState extends State<SignUp> {
                                         isPasswordField: false,
                                         controller: _fullNameController,
                                       ),
-                                      //const SizedBox(height: 7),
                                       FormContainerWidget(
                                         labelText: "EMAIL ADDRESS",
                                         hintText: "johndoe@example.com",
                                         isPasswordField: false,
                                         controller: _emailController,
                                       ),
-                                      //const SizedBox(height: 7),
                                       FormContainerWidget(
                                         labelText: "PASSWORD",
                                         hintText: "********",
