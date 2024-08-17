@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inter_sign/const/constant.dart';
 
 import '../../data/dashboard/side_menu_data.dart';
 
@@ -18,7 +19,7 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
 
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 20),
-      color: const Color(0xFF171821),
+      color: whiteColor,
       child: ListView.builder(
         itemCount: data.menu.length,
         itemBuilder: (context, index) => buildMenuEntry(data, index),

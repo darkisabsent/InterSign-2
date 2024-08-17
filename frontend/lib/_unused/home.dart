@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inter_sign/widgets/nav_bar.dart';
+import 'package:inter_sign/_unused/nav_bar.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:inter_sign/screens/primary/index.dart';
 import 'package:inter_sign/screens/other/index.dart';

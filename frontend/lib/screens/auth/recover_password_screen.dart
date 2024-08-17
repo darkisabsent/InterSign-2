@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inter_sign/widgets/info_card.dart';
+import 'package:inter_sign/widgets/logo_widget.dart';
 
 import '../../utils/responsive.dart';
 import '../../widgets/form_container.dart';
@@ -80,40 +81,7 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
                             child: Column(
                               children: [
                                 /// Logo
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Flexible(
-                                      child: Text(
-                                        "Inter",
-                                        overflow: TextOverflow.ellipsis,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headlineLarge,
-                                      ),
-                                    ),
-                                    const SizedBox(width: 2),
-                                    Image.asset(
-                                      'assets/images/avatar_image.png',
-                                      height: isMobile
-                                          ? screenHeight * 0.05
-                                          : screenHeight * 0.1,
-                                      width: isMobile
-                                          ? screenWidth * 0.02
-                                          : screenWidth * 0.05,
-                                    ),
-                                    const SizedBox(width: 2),
-                                    Flexible(
-                                      child: Text(
-                                        "Sign",
-                                        overflow: TextOverflow.ellipsis,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headlineLarge,
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                const LogoWidget(),
 
                                 /// Text
                                 Flexible(
