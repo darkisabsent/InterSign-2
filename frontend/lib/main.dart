@@ -1,31 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:inter_sign/screens/auth/signup_screen.dart';
+import 'package:inter_sign/utils/navigation/menu_state.dart';
+import 'package:provider/provider.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:inter_sign/themes/light_theme.dart';
 
 void main() async {
-  // Ensure that plugin services are initialized before using them
+  ///  Ensure that plugin services are initialized before using them
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Initialize the window manager
+  /// Initialize the window manager
   await windowManager.ensureInitialized();
 
-  // Set window properties
+  /// Set window properties
   WindowOptions windowOptions = const WindowOptions(
     size: Size(1200, 800),
     center: true,
     backgroundColor: Colors.transparent,
     skipTaskbar: false,
-    // Keep the title bar visible
+
+    /// Keep the title bar visible
     titleBarStyle: TitleBarStyle.normal,
-    //titleBarStyle: TitleBarStyle.hidden,
   );
   windowManager.waitUntilReadyToShow(windowOptions, () async {
     await windowManager.show();
     await windowManager.focus();
   });
 
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [ChangeNotifierProvider(create: (_) => MenuState())],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -36,10 +43,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Inter Sign',
       theme: AppTheme.lightTheme,
-      /*theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),*/
       debugShowCheckedModeBanner: false,
       home: const SignupScreen(),
     );
