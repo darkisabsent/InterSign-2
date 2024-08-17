@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inter_sign/screens/auth/signup.dart';
+import 'package:inter_sign/screens/home_screen.dart';
 
 import '../../widgets/form_container.dart';
 import '../home.dart';
@@ -94,7 +95,7 @@ class _LoginState extends State<Login> {
                           onPressed: () {
                             Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
-                                  builder: (context) => const Home()),
+                                  builder: (context) => const HomeScreen()),
                             );
                           },
                           child: const Text(
