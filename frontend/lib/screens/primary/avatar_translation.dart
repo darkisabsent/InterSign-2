@@ -15,6 +15,7 @@ class _AvatarTranslationState extends State<AvatarTranslation> {
   int _clickCount = 0; // Counter for button presses
   late double initialWidth;
   late double initialHeight;
+  bool _isMiniMode = false;
 
   @override
   void initState() {
@@ -27,13 +28,13 @@ class _AvatarTranslationState extends State<AvatarTranslation> {
     final isDesktop = Responsive.isDesktop(context);
 
     return Scaffold(
-      drawer: !isDesktop
+      drawer: !isDesktop && !_isMiniMode
           ? const SizedBox(
               width: 250,
               child: SideMenuWidget(),
             )
           : null,
-      appBar: AppBar(),
+      appBar: !_isMiniMode?  AppBar(): null ,
       floatingActionButton: FloatingActionButton(
         onPressed: _setWindowAlwaysOnTop,
         child: const Icon(Icons.layers),
@@ -41,7 +42,7 @@ class _AvatarTranslationState extends State<AvatarTranslation> {
       body: SafeArea(
         child: Row(
           children: [
-            if (isDesktop)
+            if (isDesktop && !_isMiniMode)
               const Expanded(
                 flex: 2,
                 child: SizedBox(
@@ -89,6 +90,10 @@ class _AvatarTranslationState extends State<AvatarTranslation> {
 
       /// Center the window on the screen
       await windowManager.center();
+
+      setState(() {
+        _isMiniMode = false;
+      });
     } else {
       /// Set window to always on top
       await windowManager.setAlwaysOnTop(true);
@@ -102,11 +107,15 @@ class _AvatarTranslationState extends State<AvatarTranslation> {
 
       /// Set the position to top-right
       /// Screen width and y position for the window
-      double x = 1920 - currentWidth;
+      double x = currentWidth;
       double y = 0; // Top position
 
       /// Set the window position to the top-right corner
       await windowManager.setPosition(Offset(x, y));
+
+      setState(() {
+        _isMiniMode = true;
+      });
     }
   }
 }
