@@ -58,7 +58,11 @@ class _SignUpState extends State<SignUp> {
                 children: [
                   /// Left section
                   Expanded(
-                    flex: isDesktop ? 6 : isTablet ? 5 : 4,
+                    flex: isDesktop
+                        ? 6
+                        : isTablet
+                            ? 5
+                            : 4,
                     child: Padding(
                       padding: EdgeInsets.all(isDesktop ? 50.0 : 20.0),
                       child: Card(
@@ -217,39 +221,61 @@ class _SignUpState extends State<SignUp> {
                   ),
 
                   /// Right section
-                  if(!isMobile)
-                  Expanded(
-                    flex: isDesktop ? 6 : 5,
-                    child: Container(
-                      decoration: const BoxDecoration(
-                          gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          Color(0xff735ff1),
-                          Color(0xff625ff1),
-                        ],
-                      )),
-                      child: Center(
-                        child: Card(
-                          color: const Color(0xffaea2f7),
-                          elevation: 6.0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.circular(12.0), // Rounded corners
-                          ),
-                          child: const Text(
-                            '"I will be your\n personal\n interpreter\n today"',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
+                  if (!isMobile)
+                    Expanded(
+                      flex: isDesktop ? 6 : 5,
+                      child: Container(
+                        decoration: const BoxDecoration(
+                            gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Color(0xff735ff1),
+                            Color(0xff625ff1),
+                          ],
+                        )),
+                        child: Center(
+                          child: SizedBox(
+                            width: isDesktop ? 500.0 : isTablet ? 400.0 : 300.0,
+                            height: isDesktop ? 600.0 : isTablet ? 500.0 : 400.0,
+                            child: Card(
+                              color: const Color(0xffaea2f7),
+                              elevation: 6.0,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                    24.0), // Rounded corners
+                              ),
+                              child: Stack(
+                                children: [
+                                  const Positioned(
+                                    top: 30,
+                                    left: 40,
+                                    child: Text(
+                                      '"I will be your\n personal\n interpreter\n today"',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 30,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    //left: 120,
+                                    right: 0,
+                                    bottom: 0,
+                                    child: Image.asset(
+                                      'assets/images/avatar_image.png',
+                                      height: isMobile ? 200 : 340,
+                                      width: isMobile ? 200 : 340,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                  ),
                 ],
               ),
             ),
