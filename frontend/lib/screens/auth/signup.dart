@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../utils/responsive.dart';
 import '../../utils/show_toast.dart';
 import '../../utils/layout_utils.dart';
 import '../../widgets/form_container.dart';
@@ -39,6 +40,10 @@ class _SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
+    final bool isMobile = Responsive.isMobile(context);
+    final bool isTablet = Responsive.isTablet(context);
+    final bool isDesktop = Responsive.isDesktop(context);
+
     return Container(
       decoration: const BoxDecoration(
         color: Colors.white,
@@ -53,9 +58,9 @@ class _SignUpState extends State<SignUp> {
                 children: [
                   /// Left section
                   Expanded(
-                    flex: 6,
+                    flex: isDesktop ? 6 : isTablet ? 5 : 4,
                     child: Padding(
-                      padding: const EdgeInsets.all(50.0),
+                      padding: EdgeInsets.all(isDesktop ? 50.0 : 20.0),
                       child: Card(
                         color: Theme.of(context).cardColor,
                         elevation: 6.0,
@@ -81,8 +86,8 @@ class _SignUpState extends State<SignUp> {
                                     const SizedBox(width: 2),
                                     Image.asset(
                                       'assets/images/avatar_image.png',
-                                      height: 60,
-                                      width: 60,
+                                      height: isMobile ? 40 : 60,
+                                      width: isMobile ? 40 : 60,
                                     ),
                                     const SizedBox(width: 2),
                                     Text(
@@ -212,8 +217,9 @@ class _SignUpState extends State<SignUp> {
                   ),
 
                   /// Right section
+                  if(!isMobile)
                   Expanded(
-                    flex: 6,
+                    flex: isDesktop ? 6 : 5,
                     child: Container(
                       decoration: const BoxDecoration(
                           gradient: LinearGradient(
