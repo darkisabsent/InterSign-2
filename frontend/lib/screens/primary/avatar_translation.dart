@@ -12,7 +12,6 @@ class AvatarTranslation extends StatefulWidget {
 }
 
 class _AvatarTranslationState extends State<AvatarTranslation> {
-  int _clickCount = 0; // Counter for button presses
   late double initialWidth;
   late double initialHeight;
   bool _isMiniMode = false;
@@ -34,7 +33,7 @@ class _AvatarTranslationState extends State<AvatarTranslation> {
               child: SideMenuWidget(),
             )
           : null,
-      appBar: !_isMiniMode?  AppBar(): null ,
+      appBar: !_isMiniMode ? AppBar() : null,
       floatingActionButton: FloatingActionButton(
         onPressed: _setWindowAlwaysOnTop,
         child: const Icon(Icons.layers),
@@ -72,31 +71,18 @@ class _AvatarTranslationState extends State<AvatarTranslation> {
   }
 
   void _setWindowAlwaysOnTop() async {
-    _clickCount += 1; // Increment the click count
+    setState(() {
+      _isMiniMode = !_isMiniMode;
+    });
 
-    // Get the current window size
-    Size windowSize = await windowManager.getSize();
-    double currentWidth = windowSize.width;
-    double currentHeight = windowSize.height;
-
-    if (_clickCount == 2) {
-      _clickCount = 0; // Reset the counter
-
-      /// Unset window to always on top
-      await windowManager.setAlwaysOnTop(false);
-
-      /// Reset the window to the initial dimensions
-      await windowManager.setSize(Size(initialWidth, initialHeight));
-
-      /// Center the window on the screen
-      await windowManager.center();
-
-      setState(() {
-        _isMiniMode = false;
-      });
-    } else {
+    if (_isMiniMode) {
       /// Set window to always on top
       await windowManager.setAlwaysOnTop(true);
+
+      /// Get the current window size
+      Size windowSize = await windowManager.getSize();
+      double currentWidth = windowSize.width;
+      double currentHeight = windowSize.height;
 
       /// Calculate 40% of screen width and 30% of screen height
       double windowWidth = currentWidth * 0.40;
@@ -106,16 +92,20 @@ class _AvatarTranslationState extends State<AvatarTranslation> {
       await windowManager.setSize(Size(windowWidth, windowHeight));
 
       /// Set the position to top-right
-      /// Screen width and y position for the window
       double x = currentWidth;
       double y = 0; // Top position
 
       /// Set the window position to the top-right corner
       await windowManager.setPosition(Offset(x, y));
+    } else {
+      /// Unset window to always on top
+      await windowManager.setAlwaysOnTop(false);
 
-      setState(() {
-        _isMiniMode = true;
-      });
+      /// Reset the window to the initial dimensions
+      await windowManager.setSize(Size(initialWidth, initialHeight));
+
+      /// Center the window on the screen
+      await windowManager.center();
     }
   }
 }
