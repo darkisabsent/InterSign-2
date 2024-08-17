@@ -4,8 +4,6 @@ import 'package:video_player/video_player.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import '../../utils/responsive.dart';
-import '../../widgets/dashboard/side_menu.dart';
 
 class AvatarTranslation extends StatefulWidget {
   const AvatarTranslation({super.key});
@@ -170,5 +168,5 @@ class _AvatarTranslationState extends State<AvatarTranslation> {
         ),
       ),
     );
-  }
+  }  
 }

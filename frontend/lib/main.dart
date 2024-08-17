@@ -4,11 +4,20 @@ import 'package:inter_sign/utils/navigation/menu_state.dart';
 import 'package:provider/provider.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:inter_sign/themes/light_theme.dart';
-import 'package:video_player/video_player.dart';
-import 'package:speech_to_text/speech_to_text.dart';
+import 'package:video_player_platform_interface/video_player_platform_interface.dart'; // Import the package
+
+class MyVideoPlayerPlatform extends VideoPlayerPlatform {
+  @override
+  Future<void> init() async {
+    // Your platform-specific initialization code here.
+    print("Video player initialized");
+  }
+
+  // Implement other methods as needed.
+}
 
 void main() async {
-  ///  Ensure that plugin services are initialized before using them
+  /// Ensure that plugin services are initialized before using them
   WidgetsFlutterBinding.ensureInitialized();
 
   /// Initialize the window manager
@@ -28,6 +37,9 @@ void main() async {
     await windowManager.show();
     await windowManager.focus();
   });
+
+  /// Register the custom VideoPlayerPlatform implementation
+  VideoPlayerPlatform.instance = MyVideoPlayerPlatform();
 
   runApp(
     MultiProvider(

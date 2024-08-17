@@ -30,7 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  video_player: ^2.4.8
+  video_player: ^2.9.1
   speech_to_text: ^5.2.0
 
 
