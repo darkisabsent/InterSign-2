@@ -81,31 +81,31 @@ class _AvatarTranslationState extends State<AvatarTranslation> {
     if (_clickCount == 2) {
       _clickCount = 0; // Reset the counter
 
-      // Unset window to always on top
+      /// Unset window to always on top
       await windowManager.setAlwaysOnTop(false);
 
-      // Reset the window to the initial dimensions
+      /// Reset the window to the initial dimensions
       await windowManager.setSize(Size(initialWidth, initialHeight));
 
-      // Center the window on the screen
+      /// Center the window on the screen
       await windowManager.center();
     } else {
-      // Set window to always on top
+      /// Set window to always on top
       await windowManager.setAlwaysOnTop(true);
 
-      // Calculate 40% of screen width and 30% of screen height
+      /// Calculate 40% of screen width and 30% of screen height
       double windowWidth = currentWidth * 0.40;
       double windowHeight = currentHeight * 0.30;
 
-      // Set the window size to 20% width and 10% height
+      /// Set the window size to 20% width and 10% height
       await windowManager.setSize(Size(windowWidth, windowHeight));
 
-      // Set the position to top-right
-      // Screen width and y position for the window
+      /// Set the position to top-right
+      /// Screen width and y position for the window
       double x = 1920 - currentWidth;
       double y = 0; // Top position
 
-      // Set the window position to the top-right corner
+      /// Set the window position to the top-right corner
       await windowManager.setPosition(Offset(x, y));
     }
   }
