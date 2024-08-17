@@ -187,13 +187,14 @@ class _SignUpState extends State<SignUp> {
                                   ),
                                 ),
 
+                                const Spacer(),
                                 /// Buttons
                                 Center(
                                   child: SizedBox(
-                                    width: buttonWidth,
-                                    height: buttonHeight,
+                                    width: buttonWidth * 0.48,
+                                    height: buttonHeight * 1.2,
                                     child: Padding(
-                                      padding: const EdgeInsets.only(top: 10),
+                                      padding: const EdgeInsets.symmetric(horizontal: 5),
                                       child: ElevatedButton(
                                         onPressed: () {},
                                         style: ElevatedButton.styleFrom(
