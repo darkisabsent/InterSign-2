@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:window_manager/window_manager.dart';
-
+import 'package:inter_sign/const/constant.dart';
+import 'package:speech_to_text/speech_to_text.dart' as stt;
+import 'package:video_player/video_player.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import '../../utils/responsive.dart';
 import '../../widgets/dashboard/side_menu.dart';
 
@@ -12,100 +15,136 @@ class AvatarTranslation extends StatefulWidget {
 }
 
 class _AvatarTranslationState extends State<AvatarTranslation> {
-  late double initialWidth;
-  late double initialHeight;
-  bool _isMiniMode = false;
+  late stt.SpeechToText _speech;
+  bool _isListening = false;
+  String _text = 'Press the button and start speaking';
+  List<String> _videoSequence = [];
+  late VideoPlayerController _controller;
 
   @override
   void initState() {
     super.initState();
-    _getInitialDimensions();
+    _initializeSpeechToText();
+    _initializeVideoPlayer();
+  }
+  void _initializeSpeechToText() async {
+    _speech = stt.SpeechToText();
+    bool available = await _speech.initialize(
+      onStatus: (val) => print('onStatus: $val'),
+      onError: (val) => print('onError: $val'),
+    );
+    if (!available) {
+      print('The user has denied the use of speech recognition.');
+    }
+  }
+  void _initializeVideoPlayer() {
+    _controller = VideoPlayerController.asset('assets/videos/placeholder.mp4')
+      ..initialize().then((_) {
+        setState(() {});
+      });
+  }
+  void _listen() async {
+    if (!_isListening) {
+      bool available = await _speech.initialize(
+        onStatus: (val) => print('onStatus: $val'),
+        onError: (val) => print('onError: $val'),
+      );
+      if (available) {
+        setState(() => _isListening = true);
+        _speech.listen(
+          onResult: (val) => setState(() {
+            _text = val.recognizedWords;
+          }),
+        );
+      }
+    } else {
+      setState(() => _isListening = false);
+      _speech.stop();
+    }
+  }
+
+  void _translateToSignLanguage(String text) async {
+    final response = await http.post(
+      Uri.parse('$SERVER_URL/translate/'),
+      body: {'text': text},
+    );
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      setState(() {
+        _videoSequence = List<String>.from(data['video']);
+        _playVideoSequence();
+      });
+    } else {
+      setState(() {
+        _videoSequence = ['assets/videos/placeholder.mp4'];
+        _playVideoSequence();
+      });
+    }
+  }
+
+  void _playVideoSequence() {
+    if (_videoSequence.isNotEmpty) {
+      _controller = VideoPlayerController.asset(_videoSequence.removeAt(0))
+        ..initialize().then((_) {
+          setState(() {});
+          _controller.play();
+          _controller.addListener(() {
+            if (!_controller.value.isPlaying &&
+                _controller.value.isInitialized &&
+                _controller.value.duration == _controller.value.position) {
+              if (_videoSequence.isNotEmpty) {
+                _playVideoSequence();
+              }
+            }
+          });
+        });
+    }
   }
 
   @override
+  void dispose() {
+    _speech.stop();
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  @override
   Widget build(BuildContext context) {
     final isDesktop = Responsive.isDesktop(context);
-
     return Scaffold(
-      drawer: !isDesktop && !_isMiniMode
-          ? const SizedBox(
-              width: 250,
-              child: SideMenuWidget(),
-            )
+      drawer: !isDesktop
+          ? const SizedBox(width: 250, child: SideMenuWidget())
           : null,
-      appBar: !_isMiniMode ? AppBar() : null,
+      appBar: AppBar(title: const Text('Avatar Translation')),
       floatingActionButton: FloatingActionButton(
-        onPressed: _setWindowAlwaysOnTop,
-        child: const Icon(Icons.layers),
+        onPressed: _listen,
+        child: Icon(_isListening ? Icons.mic : Icons.mic_none),
       ),
       body: SafeArea(
-        child: Row(
+        child: Column(
           children: [
-            if (isDesktop && !_isMiniMode)
-              const Expanded(
-                flex: 2,
-                child: SizedBox(
-                  child: SideMenuWidget(),
-                ),
-              ),
-            const Expanded(
-              flex: 10,
+            Expanded(
               child: Center(
-                child: Text("AVATAR TRANSLATION"),
+                child: _controller.value.isInitialized
+                    ? AspectRatio(
+                        aspectRatio: _controller.value.aspectRatio,
+                        child: VideoPlayer(_controller),
+                      )
+                    : const CircularProgressIndicator(),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                _text,
+                style: const TextStyle(fontSize: 24.0),
               ),
             ),
           ],
         ),
       ),
     );
-  }
-
-  Future<void> _getInitialDimensions() async {
-    // Fetch the initial screen dimensions
-    final screenSize = await windowManager.getBounds();
-
-    setState(() {
-      initialWidth = screenSize.width;
-      initialHeight = screenSize.height;
-    });
-  }
-
-  void _setWindowAlwaysOnTop() async {
-    setState(() {
-      _isMiniMode = !_isMiniMode;
-    });
-
-    if (_isMiniMode) {
-      /// Set window to always on top
-      await windowManager.setAlwaysOnTop(true);
-
-      /// Get the current window size
-      Size windowSize = await windowManager.getSize();
-      double currentWidth = windowSize.width;
-      double currentHeight = windowSize.height;
-
-      /// Calculate 40% of screen width and 30% of screen height
-      double windowWidth = currentWidth * 0.40;
-      double windowHeight = currentHeight * 0.30;
-
-      /// Set the window size to 20% width and 10% height
-      await windowManager.setSize(Size(windowWidth, windowHeight));
-
-      /// Set the position to top-right
-      double x = currentWidth;
-      double y = 0; // Top position
-
-      /// Set the window position to the top-right corner
-      await windowManager.setPosition(Offset(x, y));
-    } else {
-      /// Unset window to always on top
-      await windowManager.setAlwaysOnTop(false);
-
-      /// Reset the window to the initial dimensions
-      await windowManager.setSize(Size(initialWidth, initialHeight));
-
-      /// Center the window on the screen
-      await windowManager.center();
-    }
   }
 }

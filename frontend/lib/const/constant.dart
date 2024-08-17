@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+const String SERVER_URL = 'http://127.0.0.1:3000';
+
 //const cardBackgroundColor = Color(0xFF21222D);
 const cardBackgroundColor = Colors.grey;
 const primaryColor = Color(0xFF2697FF);
