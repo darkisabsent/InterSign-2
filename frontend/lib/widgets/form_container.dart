@@ -34,55 +34,58 @@ class _FormContainerWidgetState extends State<FormContainerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        height: 60,
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        margin: const EdgeInsets.symmetric(
-            horizontal: 20,
-            vertical: 10
-        ),
-        width: double.infinity,
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double screenHeight = MediaQuery.of(context).size.height;
 
+    double horizontalPadding = screenWidth * 0.01; // 1% of screen width
+    double horizontalMargin = screenWidth * 0.02; // 2% of screen width
+    double containerWidth = screenWidth * 0.8; // 80% of screen width
+    double containerHeight = screenHeight * 0.08; // 8% of screen height
+
+    return Container(
+      //height: 60,
+      //width: double.infinity,
+        height: containerHeight,
+        width: containerWidth,
+        padding: const EdgeInsets.symmetric(horizontal: 4),
+        margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 6),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(5),
           border: Border.all(color: Colors.grey),
         ),
-        child:
-        Container(
-          width: 270,
-          child:TextFormField(
-            style: const TextStyle(color: Colors.black),
-            controller: widget.controller,
-            keyboardType: widget.inputType,
-            key: widget.fieldKey,
-            obscureText: widget.isPasswordField == true ? _obscureText : false,
-            onSaved: widget.onSaved,
-            validator: widget.validator,
-            onFieldSubmitted: widget.onFieldSubmitted,
-            decoration: InputDecoration(
-                border: InputBorder.none,
-                filled: true,
-                fillColor: Colors.transparent,
-                labelText: widget.labelText,
-                hintText: widget.hintText,
-                hintStyle: const TextStyle(color: Colors.black45),
-                contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-                suffixIcon: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      _obscureText = !_obscureText;
-                    });
-                  },
-                  child: widget.isPasswordField == true
-                      ? Icon(
-                    _obscureText ? Icons.visibility_off : Icons.visibility,
-                    color: _obscureText == false ? Colors.blue : Colors.grey,
-                  )
-                      : const Text(""),
-                )),
-          ),
-        )
-    );
+        child: TextFormField(
+          style: const TextStyle(color: Colors.black),
+          controller: widget.controller,
+          keyboardType: widget.inputType,
+          key: widget.fieldKey,
+          obscureText: widget.isPasswordField == true ? _obscureText : false,
+          onSaved: widget.onSaved,
+          validator: widget.validator,
+          onFieldSubmitted: widget.onFieldSubmitted,
+          decoration: InputDecoration(
+              border: InputBorder.none,
+              filled: true,
+              fillColor: Colors.transparent,
+              labelText: widget.labelText,
+              hintText: widget.hintText,
+              hintStyle: const TextStyle(color: Colors.black45),
+              contentPadding:
+              const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+              suffixIcon: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _obscureText = !_obscureText;
+                  });
+                },
+                child: widget.isPasswordField == true
+                    ? Icon(
+                  _obscureText ? Icons.visibility_off : Icons.visibility,
+                  color:
+                  _obscureText == false ? Colors.blue : Colors.grey,
+                )
+                    : const Text(""),
+              )),
+        ));
   }
 }
