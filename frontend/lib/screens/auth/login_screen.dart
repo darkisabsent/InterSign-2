@@ -15,8 +15,8 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
   bool _isSigningIn = false;
+  bool _rememberMe = false;
 
   @override
   void dispose() {
@@ -147,6 +147,35 @@ class _LoginScreenState extends State<LoginScreen> {
                                         hintText: "********",
                                         isPasswordField: true,
                                         controller: _passwordController,
+                                      ),
+                                      Row(
+                                        children: [
+                                          Checkbox(
+                                            value: _rememberMe,
+                                            onChanged: (bool? value) {
+                                              setState(() {
+                                                _rememberMe = value ?? false;
+                                              });
+                                            },
+                                          ),
+                                          const Text(
+                                            "Remember Me",
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                          Spacer(),
+                                          Text(
+                                            "Forgot Password?",
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                              color: Colors.blueGrey[700],
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   ),
