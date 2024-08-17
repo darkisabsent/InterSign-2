@@ -79,13 +79,13 @@ class _SignUpState extends State<SignUp> {
                                         .textTheme
                                         .headlineLarge,
                                   ),
-                                  const SizedBox(width: 5),
+                                  const SizedBox(width: 2),
                                   Image.asset(
                                     'assets/images/avatar_image.png',
                                     height: 60,
                                     width: 60,
                                   ),
-                                  const SizedBox(width: 5),
+                                  const SizedBox(width: 2),
                                   Text(
                                     "Sign",
                                     style: Theme.of(context)
@@ -108,8 +108,6 @@ class _SignUpState extends State<SignUp> {
                               ],
                             ),
 
-                            //SizedBox(height: AppPadding.p40(context)),
-
                             /// Form
                             Column(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -117,7 +115,7 @@ class _SignUpState extends State<SignUp> {
                                 /// Text fields
                                 Column(
                                   children: [
-                                    const SizedBox(height: 20),
+                                    const SizedBox(height: 10),
                                     FormContainerWidget(
                                       labelText: "FIRST NAME",
                                       hintText: "John",
@@ -146,7 +144,7 @@ class _SignUpState extends State<SignUp> {
                                                   color: Colors.red,
                                                   //color: errorRed,
                                                   fontWeight: FontWeight.bold,
-                                                  fontSize: 15)),
+                                                  fontSize: 13)),
                                     ),
                                     FormContainerWidget(
                                       labelText: "CONFIRM PASSWORD",

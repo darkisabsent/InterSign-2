@@ -11,6 +11,8 @@ class NavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
+        shrinkWrap: true,
+        padding: const EdgeInsets.all(4.0),
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 6),

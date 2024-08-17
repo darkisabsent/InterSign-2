@@ -39,6 +39,9 @@ dependencies:
   m_toast: ^0.2.4
   window_manager: ^0.4.0
 
+  # Dashboard
+  fl_chart: ^0.62.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
