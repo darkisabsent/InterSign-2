@@ -1,28 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:inter_sign/screens/auth/recover_password_screen.dart';
 import 'package:inter_sign/screens/right_section.dart';
 
 import '../../utils/responsive.dart';
 import '../../widgets/form_container.dart';
-import 'signup_screen.dart';
+import 'login_screen.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class RecoverPasswordScreen extends StatefulWidget {
+  const RecoverPasswordScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RecoverPasswordScreen> createState() => _RecoverPasswordScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  bool _isSigningIn = false;
-  bool _rememberMe = false;
+
+  bool _isSubmitting = false;
 
   @override
   void dispose() {
     _emailController.dispose();
-    _passwordController.dispose();
     super.dispose();
   }
 
@@ -55,8 +52,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     flex: isDesktop
                         ? 6
                         : isTablet
-                            ? 5
-                            : 4,
+                        ? 5
+                        : 4,
                     child: Container(
                       decoration: const BoxDecoration(
                         color: Colors.white,
@@ -66,19 +63,19 @@ class _LoginScreenState extends State<LoginScreen> {
                           width: isDesktop
                               ? screenWidth * 0.45
                               : isTablet
-                                  ? screenWidth * 0.4
-                                  : screenWidth * 0.35,
+                              ? screenWidth * 0.4
+                              : screenWidth * 0.35,
                           height: isDesktop
                               ? screenHeight * 0.85
                               : isTablet
-                                  ? screenHeight * 0.75
-                                  : screenHeight * 0.65,
+                              ? screenHeight * 0.75
+                              : screenHeight * 0.65,
                           child: Card(
                             color: Theme.of(context).cardColor,
                             elevation: 3.0,
                             shape: RoundedRectangleBorder(
                               borderRadius:
-                                  BorderRadius.circular(4.0), // Rounded corners
+                              BorderRadius.circular(4.0), // Rounded corners
                             ),
                             child: Column(
                               children: [
@@ -121,7 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 /// Text
                                 Flexible(
                                   child: Text(
-                                    "Login",
+                                    "Recover Password",
                                     overflow: TextOverflow.ellipsis,
                                     style: Theme.of(context)
                                         .textTheme
@@ -143,52 +140,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         controller: _emailController,
                                       ),
                                       const SizedBox(height: 10),
-                                      FormContainerWidget(
-                                        labelText: "PASSWORD",
-                                        hintText: "********",
-                                        isPasswordField: true,
-                                        controller: _passwordController,
-                                      ),
-                                      Row(
-                                        children: [
-                                          Checkbox(
-                                            value: _rememberMe,
-                                            onChanged: (bool? value) {
-                                              setState(() {
-                                                _rememberMe = value ?? false;
-                                              });
-                                            },
-                                          ),
-                                          const Text(
-                                            "Remember Me",
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                              fontSize: 14,
-                                            ),
-                                          ),
-                                          const Spacer(),
-                                          GestureDetector(
-                                            onTap: (){
-                                              Navigator.pushAndRemoveUntil(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                    const RecoverPasswordScreen(),
-                                                  ),
-                                                      (route) => false);
-                                            },
-                                            child: Text(
-                                              "Forgot Password?",
-                                              overflow: TextOverflow.ellipsis,
-                                              style: TextStyle(
-                                                color: Colors.blueGrey[700],
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+
                                     ],
                                   ),
                                 ),
@@ -209,16 +161,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                           backgroundColor: Colors.black,
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
-                                                BorderRadius.circular(8),
+                                            BorderRadius.circular(8),
                                           ),
                                         ),
                                         child: const Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                          MainAxisAlignment.center,
                                           children: [
                                             Flexible(
                                               child: Text(
-                                                "LOGIN",
+                                                "SUBMIT",
                                                 overflow: TextOverflow.ellipsis,
                                                 style: TextStyle(
                                                   color: Colors.white,
@@ -239,7 +191,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   children: [
                                     const Flexible(
                                       child: Text(
-                                        "Don't have an account?",
+                                        "Have an account?",
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                             color: Colors.black, fontSize: 15),
@@ -253,12 +205,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                               context,
                                               MaterialPageRoute(
                                                 builder: (context) =>
-                                                    const SignupScreen(),
+                                                const LoginScreen(),
                                               ),
-                                              (route) => false);
+                                                  (route) => false);
                                         },
                                         child: Text(
-                                          "SIGN UP",
+                                          "LOGIN",
                                           overflow: TextOverflow.ellipsis,
                                           style: TextStyle(
                                               color: Theme.of(context)
@@ -288,7 +240,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ],
               ),
             ),
-            if (_isSigningIn)
+            if (_isSubmitting)
               Container(
                 color: Colors.black.withOpacity(0.5),
                 child: const Center(
@@ -301,13 +253,12 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Future<void> _signIn() async {
+  Future<void> _recoverPassword() async {
     String email = _emailController.text;
-    String password = _passwordController.text;
 
     // Show loading circle
     setState(() {
-      _isSigningIn = true;
+      _isSubmitting = true;
     });
   }
 }
