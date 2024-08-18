@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inter_sign/widgets/video_recorder.dart';
+import 'package:inter_sign/screens/primary/video_recorder.dart';
 
 class TranslateToSpeech extends StatelessWidget {
   const TranslateToSpeech({super.key});
@@ -8,7 +8,8 @@ class TranslateToSpeech extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      floatingActionButton: FloatingActionButton(
+      body: Center(
+          child: ElevatedButton(
         onPressed: () {
           Navigator.push(
             context,
@@ -16,10 +17,7 @@ class TranslateToSpeech extends StatelessWidget {
           );
         },
         child: const Text("Record Video"),
-      ),
-      body: const Center(
-        child: Text("TRANSLATE TO SPEECH"),
-      ),
+      )),
     );
   }
 }
