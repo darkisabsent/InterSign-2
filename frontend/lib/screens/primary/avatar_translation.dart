@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
@@ -133,7 +135,7 @@ class _AvatarTranslationState extends State<AvatarTranslation>
 
   void _submit() async {
     if (_text.isEmpty) {
-      print('No text to send.');
+      log('No text to send.');
       return;
     }
 
@@ -146,7 +148,7 @@ class _AvatarTranslationState extends State<AvatarTranslation>
 
       if (response.statusCode == 200) {
         final responseBody = response.body;
-        print('Response body: $responseBody');
+        log('Response body: $responseBody');
         final videoUrls = (jsonDecode(responseBody)['video'] as List)
             .map((url) => 'http://localhost:8000/$url')
             .toList();
@@ -160,7 +162,8 @@ class _AvatarTranslationState extends State<AvatarTranslation>
         _playNextVideo();
       } else {
         if (kDebugMode) {
-          print('Failed to load video URLs. Status code: ${response.statusCode}');
+          print(
+              'Failed to load video URLs. Status code: ${response.statusCode}');
         }
         if (kDebugMode) {
           print('Response body: ${response.body}');
@@ -195,8 +198,8 @@ class _AvatarTranslationState extends State<AvatarTranslation>
   void _startRecording() async {
     // Start the Python script to record audio and convert to text
     Process.run('python', ['../backend/audio_capture.py']).then((result) {
-      print(result.stdout);
-      print(result.stderr);
+     log(result.stdout);
+      log(result.stderr);
 
       // Extract the transcribed text from the stdout
       final transcribedText = _extractTranscribedText(result.stdout);
@@ -221,6 +224,7 @@ class _AvatarTranslationState extends State<AvatarTranslation>
           ? null
           : AppBar(
               title: const Text('Avatar Translation'),
+        centerTitle: true,
             ),
       floatingActionButton: FloatingActionButton(
         onPressed: _toggleMiniMode,
@@ -234,30 +238,34 @@ class _AvatarTranslationState extends State<AvatarTranslation>
             children: [
               if (_controller != null && _controller!.value.isInitialized)
                 Transform.translate(
-                  offset: _isMiniMode
-                      ? const Offset(0, -50)
-                      : const Offset(0, 0), // Move video up by 50 pixels in mini mode
+                  offset:
+                      _isMiniMode ? const Offset(0, -50) : const Offset(0, 0),
+                  // Move video up by 50 pixels in mini mode
                   child: AspectRatio(
                     aspectRatio: _controller!.value.aspectRatio,
                     child: WinVideoPlayer(_controller!),
                   ),
                 ),
               if (!_isMiniMode) ...[
-                TextField(
-                  controller: TextEditingController(text: _text),
-                  onChanged: (value) {
-                    setState(() {
-                      _text = value;
-                    });
-                  },
-                  decoration: const InputDecoration(
-                    labelText: 'Enter text',
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: TextField(
+                    controller: TextEditingController(text: _text),
+                    onChanged: (value) {
+                      setState(() {
+                        _text = value;
+                      });
+                    },
+                    decoration: const InputDecoration(
+                      labelText: 'Enter text',
+                    ),
                   ),
                 ),
                 ElevatedButton(
                   onPressed: _submit,
                   child: const Text('Submit'),
                 ),
+                const SizedBox(height: 10,),
                 ElevatedButton(
                   onPressed: _startRecording,
                   child: const Text('Start Recording'),

@@ -24,18 +24,20 @@ class _SubscriptionState extends State<Subscription> {
     final double screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text(
+          "Subscription Plan",
+          style: Theme.of(context).textTheme.titleLarge,
+          maxLines: 1,
+        ),
+        centerTitle: true,
+      ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Flexible(
-                  child: Text(
-                "Subscription Plan",
-                style: Theme.of(context).textTheme.titleLarge,
-                maxLines: 1,
-              )),
               const SizedBox(height: 10),
               Row(
                 children: [
@@ -80,7 +82,6 @@ class _SubscriptionState extends State<Subscription> {
                   ),
                 ],
               ),
-              const Spacer(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -128,8 +129,8 @@ class _SubscriptionState extends State<Subscription> {
                                   ),
                                 ),
                                 Padding(
-                                  padding:
-                                      const EdgeInsets.only(top: 16, left: 10),
+                                  padding: const EdgeInsets.only(
+                                      top: 16, left: 10),
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -287,8 +288,8 @@ class _SubscriptionState extends State<Subscription> {
                                               backgroundColor: primaryColor),
                                           child: const Text(
                                             "Choose",
-                                            style:
-                                                TextStyle(color: Colors.white),
+                                            style: TextStyle(
+                                                color: Colors.white),
                                           ),
                                         ),
                                       )
