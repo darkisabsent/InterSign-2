@@ -15,18 +15,26 @@ class Subscription extends StatelessWidget {
               Flexible(
                   child: Text(
                 "Subscription Plan",
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                //style: Theme.of(context).textTheme.bodyMedium,
+                style: Theme.of(context).textTheme.bodyMedium,
               )),
               Row(
-                //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Flexible(
                     child: Text(
                       "Choose The Subscription Model That Suits You",
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                  ),
+                  Flexible(
+                    child: Text(
+                      "Bill Monthly",
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                  ),
+                  Flexible(
+                    child: Text(
+                      "Bill Annually",
+                      style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ),
                 ],
