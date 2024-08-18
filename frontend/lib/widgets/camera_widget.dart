@@ -20,13 +20,12 @@ class _CameraScreenState extends State<CameraScreen> {
   int _cameraId = -1;
   bool _initialized = false;
   bool _recording = false;
-  bool _recordingTimed = false;
   bool _previewPaused = false;
   Size? _previewSize;
   MediaSettings _mediaSettings = const MediaSettings(
     resolutionPreset: ResolutionPreset.low,
     fps: 15,
-    videoBitrate: 200000,
+    videoBitrate: 200000,  // Try lowering this value
     audioBitrate: 32000,
     enableAudio: true,
   );
@@ -143,7 +142,6 @@ class _CameraScreenState extends State<CameraScreen> {
           _cameraIndex = 0;
           _previewSize = null;
           _recording = false;
-          _recordingTimed = false;
           _cameraInfo =
               'Failed to initialize camera: ${e.code}: ${e.description}';
         });
@@ -162,7 +160,6 @@ class _CameraScreenState extends State<CameraScreen> {
             _cameraId = -1;
             _previewSize = null;
             _recording = false;
-            _recordingTimed = false;
             _previewPaused = false;
             _cameraInfo = 'Camera disposed';
           });
@@ -182,59 +179,21 @@ class _CameraScreenState extends State<CameraScreen> {
     return CameraPlatform.instance.buildPreview(_cameraId);
   }
 
-  Future<void> _takePicture() async {
-    final XFile file = await CameraPlatform.instance.takePicture(_cameraId);
-    _showInSnackBar('Picture captured to: ${file.path}');
-  }
+  Future<void> _toggleRecord() async {
+    if (_initialized && _cameraId > 0) {
+      if (!_recording) {
+        await CameraPlatform.instance.startVideoRecording(_cameraId);
+      } else {
+        final XFile file =
+            await CameraPlatform.instance.stopVideoRecording(_cameraId);
 
-  Future<void> _recordTimed(int seconds) async {
-    if (_initialized && _cameraId > 0 && !_recordingTimed) {
-      unawaited(CameraPlatform.instance
-          .onVideoRecordedEvent(_cameraId)
-          .first
-          .then((VideoRecordedEvent event) async {
-        if (mounted) {
-          setState(() {
-            _recordingTimed = false;
-          });
-
-          _showInSnackBar('Video captured to: ${event.file.path}');
-        }
-      }));
-
-      await CameraPlatform.instance.startVideoRecording(
-        _cameraId,
-        maxVideoDuration: Duration(seconds: seconds),
-      );
+        _showInSnackBar('Video captured to: ${file.path}');
+      }
 
       if (mounted) {
         setState(() {
-          _recordingTimed = true;
+          _recording = !_recording;
         });
-      }
-    }
-  }
-
-  Future<void> _toggleRecord() async {
-    if (_initialized && _cameraId > 0) {
-      if (_recordingTimed) {
-        /// Request to stop timed recording short.
-        await CameraPlatform.instance.stopVideoRecording(_cameraId);
-      } else {
-        if (!_recording) {
-          await CameraPlatform.instance.startVideoRecording(_cameraId);
-        } else {
-          final XFile file =
-              await CameraPlatform.instance.stopVideoRecording(_cameraId);
-
-          _showInSnackBar('Video captured to: ${file.path}');
-        }
-
-        if (mounted) {
-          setState(() {
-            _recording = !_recording;
-          });
-        }
       }
     }
   }
@@ -390,11 +349,6 @@ class _CameraScreenState extends State<CameraScreen> {
                   ),
                   const SizedBox(width: 5),
                   ElevatedButton(
-                    onPressed: _initialized ? _takePicture : null,
-                    child: const Text('Take picture'),
-                  ),
-                  const SizedBox(width: 5),
-                  ElevatedButton(
                     onPressed: _initialized ? _togglePreview : null,
                     child: Text(
                       _previewPaused ? 'Resume preview' : 'Pause preview',
@@ -404,20 +358,10 @@ class _CameraScreenState extends State<CameraScreen> {
                   ElevatedButton(
                     onPressed: _initialized ? _toggleRecord : null,
                     child: Text(
-                      (_recording || _recordingTimed)
-                          ? 'Stop recording'
-                          : 'Record Video',
+                      (_recording) ? 'Stop recording' : 'Record Video',
                     ),
                   ),
                   const SizedBox(width: 5),
-                  ElevatedButton(
-                    onPressed: (_initialized && !_recording && !_recordingTimed)
-                        ? () => _recordTimed(5)
-                        : null,
-                    child: const Text(
-                      'Record 5 seconds',
-                    ),
-                  ),
                   if (_cameras.length > 1) ...<Widget>[
                     const SizedBox(width: 5),
                     ElevatedButton(
