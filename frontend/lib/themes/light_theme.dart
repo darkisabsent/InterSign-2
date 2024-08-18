@@ -30,7 +30,6 @@ class AppTheme {
     secondaryHeaderColor: Colors.blue[50],
     // Background color for sticky headers
 
-
     appBarTheme: const AppBarTheme(color: Colors.transparent, elevation: 1),
 
     textButtonTheme: TextButtonThemeData(
@@ -59,19 +58,28 @@ class AppTheme {
         color: Color(0xff000557),
         fontSize: 50,
         fontWeight: FontWeight.w900,
+        overflow: TextOverflow.ellipsis,
       ),
       headlineMedium: const TextStyle(
         color: Colors.black,
         fontSize: 27,
         fontWeight: FontWeight.bold,
+        overflow: TextOverflow.ellipsis,
       ),
       titleLarge: const TextStyle(
         color: Color(0xff000557),
         fontSize: 30,
         fontWeight: FontWeight.w900,
+        overflow: TextOverflow.ellipsis,
       ),
-      bodyLarge: TextStyle(color: Colors.blue[900]),
-      bodyMedium: const TextStyle(color: Colors.black),
+      bodyLarge: TextStyle(
+        color: Colors.blue[900],
+        overflow: TextOverflow.ellipsis,
+      ),
+      bodyMedium: const TextStyle(
+        color: Colors.black,
+        overflow: TextOverflow.ellipsis,
+      ),
     ),
 
     /// Input Decoration themes
