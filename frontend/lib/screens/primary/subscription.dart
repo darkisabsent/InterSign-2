@@ -175,7 +175,7 @@ class _SubscriptionState extends State<Subscription> {
                                 const Spacer(),
                                 Padding(
                                   padding: const EdgeInsets.only(
-                                      left: 8, bottom: 20),
+                                      left: 8, bottom: 28),
                                   child: Column(
                                     children: [
                                       Row(
