@@ -30,7 +30,13 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  video_player: ^2.9.1
+  video_player_web: ^2.3.2
+  video_player_win: ^2.3.10
+  media_kit_libs_windows_video: any
+  speech_to_text: ^6.6.0
+  speech_to_text_platform_interface: ^2.2.0
+  http: ^0.13.3
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -71,6 +77,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/videos/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

@@ -4,7 +4,6 @@ import 'package:inter_sign/utils/navigation/menu_state.dart';
 import 'package:inter_sign/const/constant.dart';
 import 'package:inter_sign/screens/other/index.dart';
 import 'package:inter_sign/screens/primary/index.dart';
-
 import '../../data/dashboard/side_menu_data.dart';
 
 class SideMenuWidget extends StatefulWidget {
@@ -60,8 +59,7 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
           } else if (index == 2) {
             Navigator.push(
               context,
-              MaterialPageRoute(
-                  builder: (context) => const AvatarTranslation()),
+              MaterialPageRoute(builder: (context) => AvatarTranslation()),
             );
           } else if (index == 3) {
             Navigator.push(
