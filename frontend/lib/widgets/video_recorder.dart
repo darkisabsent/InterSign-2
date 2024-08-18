@@ -19,7 +19,6 @@ class _VideoRecorderState extends State<VideoRecorder> {
   int _cameraId = -1;
   bool _initialized = false;
   bool _recording = false;
-  bool _previewPaused = false;
   Size? _previewSize;
   MediaSettings _mediaSettings = const MediaSettings(
     resolutionPreset: ResolutionPreset.low,
@@ -159,7 +158,6 @@ class _VideoRecorderState extends State<VideoRecorder> {
             _cameraId = -1;
             _previewSize = null;
             _recording = false;
-            _previewPaused = false;
             _cameraInfo = 'Camera disposed';
           });
         }
@@ -195,21 +193,6 @@ class _VideoRecorderState extends State<VideoRecorder> {
       if (mounted) {
         setState(() {
           _recording = !_recording;
-        });
-      }
-    }
-  }
-
-  Future<void> _togglePreview() async {
-    if (_initialized && _cameraId >= 0) {
-      if (!_previewPaused) {
-        await CameraPlatform.instance.pausePreview(_cameraId);
-      } else {
-        await CameraPlatform.instance.resumePreview(_cameraId);
-      }
-      if (mounted) {
-        setState(() {
-          _previewPaused = !_previewPaused;
         });
       }
     }
@@ -343,13 +326,6 @@ class _VideoRecorderState extends State<VideoRecorder> {
                 ),
                 const SizedBox(width: 5),
                 ElevatedButton(
-                  onPressed: _initialized ? _togglePreview : null,
-                  child: Text(
-                    _previewPaused ? 'Resume preview' : 'Pause preview',
-                  ),
-                ),
-                const SizedBox(width: 5),
-                ElevatedButton(
                   onPressed: _initialized ? _toggleRecord : null,
                   child: Text(
                     (_recording) ? 'Stop recording' : 'Record Video',
@@ -383,12 +359,6 @@ class _VideoRecorderState extends State<VideoRecorder> {
                     child: _buildPreview(),
                   ),
                 ),
-              ),
-            ),
-          if (_previewSize != null)
-            Center(
-              child: Text(
-                'Preview size: ${_previewSize!.width.toStringAsFixed(0)}x${_previewSize!.height.toStringAsFixed(0)}',
               ),
             ),
         ],
