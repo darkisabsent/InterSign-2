@@ -127,38 +127,77 @@ class _SubscriptionState extends State<Subscription> {
                                     ),
                                   ),
                                 ),
-                                const SizedBox(height: 8),
-                                Text(
-                                  "❌ Avatar Up To 480p Resolution",
-                                  style: Theme.of(context).textTheme.bodySmall,
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.only(top: 16, left: 10),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "❌ Avatar Up To 480p Resolution",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall,
+                                      ),
+                                      const SizedBox(height: 4),
+                                      Text(
+                                        "❌ Up to 8 Hours Of Translation\n      Per Day",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall,
+                                      ),
+                                      const SizedBox(height: 4),
+                                      Text(
+                                        "❌ Sign Language To Speech",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall,
+                                      ),
+                                      const SizedBox(height: 4),
+                                      Text(
+                                        "❌ Customize Avatars",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall,
+                                      ),
+                                      const SizedBox(height: 4),
+                                      Text(
+                                        "❌ Customize Voice",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                                 const SizedBox(height: 4),
-                                Text(
-                                  "❌ Up to 8 Hours Of Translation Per Day",
-                                  style: Theme.of(context).textTheme.bodySmall,
+                                Row(
+                                  children: [
+                                    Text(
+                                      "\$30",
+                                      style:
+                                          Theme.of(context).textTheme.bodySmall,
+                                    ),
+                                    Text(
+                                      "/month",
+                                      style:
+                                          Theme.of(context).textTheme.bodySmall,
+                                    ),
+                                  ],
                                 ),
-                                const SizedBox(height: 4),
-                                Text(
-                                  "❌ Sign Language To Speech",
-                                  style: Theme.of(context).textTheme.bodySmall,
-                                ),
-                                const SizedBox(height: 4),
-                                Text(
-                                  "❌ Customize Avatars",
-                                  style: Theme.of(context).textTheme.bodySmall,
-                                ),
-                                const SizedBox(height: 4),
-                                Text(
-                                  "❌ Customize Voice",
-                                  style: Theme.of(context).textTheme.bodySmall,
-                                ),
-                                const SizedBox(height: 4),
+                                Center(
+                                  child: ElevatedButton(
+                                    onPressed: () {},
+                                    child: Text("Choose"),
+                                  ),
+                                )
                               ],
                             ),
                           ),
                           Positioned(
                             right: 0,
-                            bottom: -20,
+                            bottom: 30,
                             child: Image.asset(
                               'assets/images/avatar_2.png',
                               height: isMobile
@@ -189,32 +228,59 @@ class _SubscriptionState extends State<Subscription> {
                       elevation: 2,
                       child: Stack(
                         children: [
-                          const Padding(
-                            padding: EdgeInsets.only(top: 8, left: 10),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8, left: 10),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Center(
+                                const Center(
                                   child: Text(
                                     "BASIC PLAN",
                                     style: TextStyle(
                                       color: Colors.black,
-                                      fontSize: 18,
+                                      fontSize: 20,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                 ),
-                                Text("✅ Avatar Up To 480p Resolution"),
-                                Text("✅ Up to 8 Hours Of Translation\n  Per Day"),
-                                Text("✅ Sign Language To Speech"),
-                                Text("✅ Customize Avatars"),
-                                Text("✅ Customize Voice"),
+                                const Padding(
+                                  padding: EdgeInsets.only(left: 16, top: 8),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text("✅ Avatar Up To 480p Resolution"),
+                                      Text(
+                                          "✅ Up to 8 Hours Of Translation\n      Per Day"),
+                                      Text("✅ Sign Language To Speech"),
+                                      Text("✅ Customize Avatars"),
+                                      Text("✅ Customize Voice"),
+                                    ],
+                                  ),
+                                ),
+                                const Row(
+                                  children: [
+                                    Text("\$30"),
+                                    Text("/month"),
+                                  ],
+                                ),
+                                Center(
+                                  child: ElevatedButton(
+                                    onPressed: () {},
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor: primaryColor),
+                                    child: const Text(
+                                      "Choose",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                )
                               ],
                             ),
                           ),
                           Positioned(
                             right: -2,
-                            bottom: -30,
+                            bottom: 20,
                             child: Image.asset(
                               'assets/images/avatar_image.png',
                               height: isMobile

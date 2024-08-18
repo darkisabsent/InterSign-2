@@ -21,10 +21,9 @@ void main() async {
     windows: true,
   );
 
-  /*log("Platform: ${Platform.isWindows}");
   if (Platform.isWindows) {
     WindowManager.instance.setMinimumSize(const Size(700, 600));
-  }*/
+  }
 
   WindowOptions windowOptions = const WindowOptions(
     size: Size(1200, 800),
@@ -32,10 +31,11 @@ void main() async {
     backgroundColor: Colors.transparent,
     skipTaskbar: false,
     titleBarStyle: TitleBarStyle.normal,
-    minimumSize: Size(700, 600),
+    // minimumSize: Size(700, 600),
   );
+
   windowManager.waitUntilReadyToShow(windowOptions, () async {
-    await windowManager.setMinimumSize(const Size(700, 600));
+    // await windowManager.setMinimumSize(const Size(700, 600));
     await windowManager.show();
     await windowManager.focus();
   });
