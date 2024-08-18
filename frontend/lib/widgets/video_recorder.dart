@@ -4,16 +4,14 @@ import 'package:camera_platform_interface/camera_platform_interface.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-/// Example app for Camera Windows plugin.
-class CameraScreen extends StatefulWidget {
-  /// Default Constructor
-  const CameraScreen({super.key});
+class VideoRecorder extends StatefulWidget {
+  const VideoRecorder({super.key});
 
   @override
-  State<CameraScreen> createState() => _CameraScreenState();
+  State<VideoRecorder> createState() => _VideoRecorderState();
 }
 
-class _CameraScreenState extends State<CameraScreen> {
+class _VideoRecorderState extends State<VideoRecorder> {
   String _cameraInfo = 'Unknown';
   List<CameraDescription> _cameras = <CameraDescription>[];
   int _cameraIndex = 0;
@@ -302,10 +300,12 @@ class _CameraScreenState extends State<CameraScreen> {
     }).toList();
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       scaffoldMessengerKey: _scaffoldMessengerKey,
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title: const Text('Interpret Sign Language'),
+          centerTitle: true,
         ),
         body: ListView(
           children: <Widget>[

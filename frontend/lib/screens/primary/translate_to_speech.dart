@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inter_sign/widgets/camera_widget.dart';
+import 'package:inter_sign/widgets/video_recorder.dart';
 
 class TranslateToSpeech extends StatelessWidget {
   const TranslateToSpeech({super.key});
@@ -12,7 +12,7 @@ class TranslateToSpeech extends StatelessWidget {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const CameraScreen()),
+            MaterialPageRoute(builder: (context) => const VideoRecorder()),
           );
         },
         child: const Text("Record Video"),
