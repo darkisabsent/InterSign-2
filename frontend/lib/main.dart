@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:inter_sign/screens/auth/signup_screen.dart';
 import 'package:inter_sign/utils/navigation/menu_state.dart';
@@ -17,6 +19,10 @@ void main() async {
     android: true,
     windows: true,
   );
+
+  if (Platform.isWindows) {
+    WindowManager.instance.setMinimumSize(const Size(600, 600));
+  }
 
   /// Set window properties
   WindowOptions windowOptions = const WindowOptions(

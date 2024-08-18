@@ -13,6 +13,7 @@ class HomeScreen extends StatelessWidget {
     final isDesktop = Responsive.isDesktop(context);
 
     return Scaffold(
+      appBar: AppBar(backgroundColor: Colors.transparent,),
       drawer: !isDesktop
           ? const SizedBox(
               width: 250,
