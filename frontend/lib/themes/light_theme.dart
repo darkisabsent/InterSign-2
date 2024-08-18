@@ -79,6 +79,13 @@ class AppTheme {
       bodyMedium: const TextStyle(
         color: Colors.black,
         overflow: TextOverflow.ellipsis,
+        fontSize: 18,
+      ),
+      bodySmall: const TextStyle(
+        color: Colors.white,
+        overflow: TextOverflow.ellipsis,
+        fontSize: 17,
+
       ),
     ),
 
