@@ -12,6 +12,11 @@ def translate_text():
     data = request.get_json()
     text = data.get('text', '').upper()
     print(f'Received text: {text}')
+    
+    if not text:
+        print('No text received.')
+        return jsonify({'video': []})
+    
     words = text.split()
     video_urls = []
 
