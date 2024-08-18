@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:camera_platform_interface/camera_platform_interface.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:inter_sign/utils/show_toast.dart';
 
 class VideoRecorder extends StatefulWidget {
   const VideoRecorder({super.key});
@@ -185,7 +186,10 @@ class _VideoRecorderState extends State<VideoRecorder> {
         final XFile file =
             await CameraPlatform.instance.stopVideoRecording(_cameraId);
 
-        _showInSnackBar('Video captured to: ${file.path}');
+        if (mounted) {
+          ToastUtil.showSuccessToast(context,
+              message: 'Video captured to: ${file.path}');
+        }
       }
 
       if (mounted) {
@@ -274,15 +278,9 @@ class _VideoRecorderState extends State<VideoRecorder> {
 
   void _onCameraClosing(CameraClosingEvent event) {
     if (mounted) {
-      _showInSnackBar('Camera is closing');
+      ToastUtil.showSuccessToast(context, message: 'Camera is closing');
+      //_showInSnackBar('Camera is closing');
     }
-  }
-
-  void _showInSnackBar(String message) {
-    _scaffoldMessengerKey.currentState?.showSnackBar(SnackBar(
-      content: Text(message),
-      duration: const Duration(seconds: 1),
-    ));
   }
 
   final GlobalKey<ScaffoldMessengerState> _scaffoldMessengerKey =
@@ -299,106 +297,101 @@ class _VideoRecorderState extends State<VideoRecorder> {
       );
     }).toList();
 
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      scaffoldMessengerKey: _scaffoldMessengerKey,
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Interpret Sign Language'),
-          centerTitle: true,
-        ),
-        body: ListView(
-          children: <Widget>[
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Interpret Sign Language'),
+        centerTitle: true,
+      ),
+      body: ListView(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 5,
+              horizontal: 10,
+            ),
+            child: Text(_cameraInfo),
+          ),
+          if (_cameras.isEmpty)
+            ElevatedButton(
+              onPressed: _fetchCameras,
+              child: const Text('Re-check available cameras'),
+            ),
+          if (_cameras.isNotEmpty)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                DropdownButton<ResolutionPreset>(
+                  value: _mediaSettings.resolutionPreset,
+                  onChanged: (ResolutionPreset? value) {
+                    if (value != null) {
+                      _onResolutionChange(value);
+                    }
+                  },
+                  items: resolutionItems,
+                ),
+                const SizedBox(width: 20),
+                const Text('Audio:'),
+                Switch(
+                    value: _mediaSettings.enableAudio,
+                    onChanged: (bool state) => _onAudioChange(state)),
+                const SizedBox(width: 20),
+                ElevatedButton(
+                  onPressed:
+                      _initialized ? _disposeCurrentCamera : _initializeCamera,
+                  child:
+                      Text(_initialized ? 'Dispose camera' : 'Create camera'),
+                ),
+                const SizedBox(width: 5),
+                ElevatedButton(
+                  onPressed: _initialized ? _togglePreview : null,
+                  child: Text(
+                    _previewPaused ? 'Resume preview' : 'Pause preview',
+                  ),
+                ),
+                const SizedBox(width: 5),
+                ElevatedButton(
+                  onPressed: _initialized ? _toggleRecord : null,
+                  child: Text(
+                    (_recording) ? 'Stop recording' : 'Record Video',
+                  ),
+                ),
+                const SizedBox(width: 5),
+                if (_cameras.length > 1) ...<Widget>[
+                  const SizedBox(width: 5),
+                  ElevatedButton(
+                    onPressed: _switchCamera,
+                    child: const Text(
+                      'Switch camera',
+                    ),
+                  ),
+                ]
+              ],
+            ),
+          const SizedBox(height: 5),
+          if (_initialized && _cameraId > 0 && _previewSize != null)
             Padding(
               padding: const EdgeInsets.symmetric(
-                vertical: 5,
-                horizontal: 10,
+                vertical: 10,
               ),
-              child: Text(_cameraInfo),
+              child: Align(
+                child: Container(
+                  constraints: const BoxConstraints(
+                    maxHeight: 500,
+                  ),
+                  child: AspectRatio(
+                    aspectRatio: _previewSize!.width / _previewSize!.height,
+                    child: _buildPreview(),
+                  ),
+                ),
+              ),
             ),
-            if (_cameras.isEmpty)
-              ElevatedButton(
-                onPressed: _fetchCameras,
-                child: const Text('Re-check available cameras'),
+          if (_previewSize != null)
+            Center(
+              child: Text(
+                'Preview size: ${_previewSize!.width.toStringAsFixed(0)}x${_previewSize!.height.toStringAsFixed(0)}',
               ),
-            if (_cameras.isNotEmpty)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  DropdownButton<ResolutionPreset>(
-                    value: _mediaSettings.resolutionPreset,
-                    onChanged: (ResolutionPreset? value) {
-                      if (value != null) {
-                        _onResolutionChange(value);
-                      }
-                    },
-                    items: resolutionItems,
-                  ),
-                  const SizedBox(width: 20),
-                  const Text('Audio:'),
-                  Switch(
-                      value: _mediaSettings.enableAudio,
-                      onChanged: (bool state) => _onAudioChange(state)),
-                  const SizedBox(width: 20),
-                  ElevatedButton(
-                    onPressed: _initialized
-                        ? _disposeCurrentCamera
-                        : _initializeCamera,
-                    child:
-                        Text(_initialized ? 'Dispose camera' : 'Create camera'),
-                  ),
-                  const SizedBox(width: 5),
-                  ElevatedButton(
-                    onPressed: _initialized ? _togglePreview : null,
-                    child: Text(
-                      _previewPaused ? 'Resume preview' : 'Pause preview',
-                    ),
-                  ),
-                  const SizedBox(width: 5),
-                  ElevatedButton(
-                    onPressed: _initialized ? _toggleRecord : null,
-                    child: Text(
-                      (_recording) ? 'Stop recording' : 'Record Video',
-                    ),
-                  ),
-                  const SizedBox(width: 5),
-                  if (_cameras.length > 1) ...<Widget>[
-                    const SizedBox(width: 5),
-                    ElevatedButton(
-                      onPressed: _switchCamera,
-                      child: const Text(
-                        'Switch camera',
-                      ),
-                    ),
-                  ]
-                ],
-              ),
-            const SizedBox(height: 5),
-            if (_initialized && _cameraId > 0 && _previewSize != null)
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 10,
-                ),
-                child: Align(
-                  child: Container(
-                    constraints: const BoxConstraints(
-                      maxHeight: 500,
-                    ),
-                    child: AspectRatio(
-                      aspectRatio: _previewSize!.width / _previewSize!.height,
-                      child: _buildPreview(),
-                    ),
-                  ),
-                ),
-              ),
-            if (_previewSize != null)
-              Center(
-                child: Text(
-                  'Preview size: ${_previewSize!.width.toStringAsFixed(0)}x${_previewSize!.height.toStringAsFixed(0)}',
-                ),
-              ),
-          ],
-        ),
+            ),
+        ],
       ),
     );
   }
