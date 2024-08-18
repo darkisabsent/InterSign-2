@@ -25,8 +25,8 @@ class _CameraScreenState extends State<CameraScreen> {
   MediaSettings _mediaSettings = const MediaSettings(
     resolutionPreset: ResolutionPreset.low,
     fps: 15,
-    videoBitrate: 200000,  // Try lowering this value
-    audioBitrate: 32000,
+    videoBitrate: 200000,
+    // audioBitrate: 32000,
     enableAudio: true,
   );
   StreamSubscription<CameraErrorEvent>? _errorStreamSubscription;
