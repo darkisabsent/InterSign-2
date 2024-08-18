@@ -34,7 +34,7 @@ class _SubscriptionState extends State<Subscription> {
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
+          padding: const EdgeInsets.symmetric(horizontal: 25),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -129,8 +129,8 @@ class _SubscriptionState extends State<Subscription> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 16, left: 10),
+                                  padding:
+                                      const EdgeInsets.only(top: 16, left: 10),
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -288,8 +288,8 @@ class _SubscriptionState extends State<Subscription> {
                                               backgroundColor: primaryColor),
                                           child: const Text(
                                             "Choose",
-                                            style: TextStyle(
-                                                color: Colors.white),
+                                            style:
+                                                TextStyle(color: Colors.white),
                                           ),
                                         ),
                                       )
