@@ -171,38 +171,48 @@ class _SubscriptionState extends State<Subscription> {
                                     ],
                                   ),
                                 ),
-                                const SizedBox(height: 4),
-                                Row(
-                                  children: [
-                                    Text(
-                                      "\$30",
-                                      style:
-                                          Theme.of(context).textTheme.bodySmall,
-                                    ),
-                                    Text(
-                                      "/month",
-                                      style:
-                                          Theme.of(context).textTheme.bodySmall,
-                                    ),
-                                  ],
-                                ),
-                                Center(
-                                  child: ElevatedButton(
-                                    onPressed: () {},
-                                    child: Text("Choose"),
+                                const Spacer(),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 8, bottom: 20),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Text(
+                                            "\$30",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodySmall,
+                                          ),
+                                          Text(
+                                            "/month",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodySmall,
+                                          ),
+                                        ],
+                                      ),
+                                      Center(
+                                        child: ElevatedButton(
+                                          onPressed: () {},
+                                          child: const Text("Choose"),
+                                        ),
+                                      )
+                                    ],
                                   ),
-                                )
+                                ),
                               ],
                             ),
                           ),
                           Positioned(
-                            right: 0,
-                            bottom: 30,
+                            right: -15,
+                            bottom: 60,
                             child: Image.asset(
                               'assets/images/avatar_2.png',
                               height: isMobile
-                                  ? screenHeight * 0.22
-                                  : screenHeight * 0.32,
+                                  ? screenHeight * 0.20
+                                  : screenHeight * 0.25,
                               width: isMobile
                                   ? screenWidth * 0.1
                                   : screenWidth * 0.2,
@@ -258,29 +268,39 @@ class _SubscriptionState extends State<Subscription> {
                                     ],
                                   ),
                                 ),
-                                const Row(
-                                  children: [
-                                    Text("\$30"),
-                                    Text("/month"),
-                                  ],
-                                ),
-                                Center(
-                                  child: ElevatedButton(
-                                    onPressed: () {},
-                                    style: ElevatedButton.styleFrom(
-                                        backgroundColor: primaryColor),
-                                    child: const Text(
-                                      "Choose",
-                                      style: TextStyle(color: Colors.white),
-                                    ),
+                                const Spacer(),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 8, bottom: 20),
+                                  child: Column(
+                                    children: [
+                                      const Row(
+                                        children: [
+                                          Text("\$50"),
+                                          Text("/month"),
+                                        ],
+                                      ),
+                                      Center(
+                                        child: ElevatedButton(
+                                          onPressed: () {},
+                                          style: ElevatedButton.styleFrom(
+                                              backgroundColor: primaryColor),
+                                          child: const Text(
+                                            "Choose",
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
+                                        ),
+                                      )
+                                    ],
                                   ),
-                                )
+                                ),
                               ],
                             ),
                           ),
                           Positioned(
                             right: -2,
-                            bottom: 20,
+                            bottom: -5,
                             child: Image.asset(
                               'assets/images/avatar_image.png',
                               height: isMobile
