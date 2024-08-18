@@ -45,6 +45,7 @@ dependencies:
   m_toast: ^0.2.4
   window_manager: ^0.4.0
   bitsdojo_window: ^0.1.0
+  camera_windows: ^0.2.5
   # Dashboard
   # fl_chart: ^0.62.0
   flutter_svg: ^2.0.5
