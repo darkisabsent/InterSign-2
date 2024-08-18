@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -5,7 +6,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:video_player_win/video_player_win.dart';
 import 'package:window_manager/window_manager.dart';
 import 'dart:io';
-import 'package:bitsdojo_window/bitsdojo_window.dart';
+import 'package:path/path.dart' as path;
 
 class AvatarTranslation extends StatefulWidget {
   const AvatarTranslation({super.key});
@@ -23,7 +24,12 @@ class _AvatarTranslationState extends State<AvatarTranslation>
   List<String> _videoUrls = [];
   int _currentVideoIndex = 0;
   String _text = '';
-
+  bool _isListening = false;
+  Process? _recordingProcess;
+  bool _isTranslating = false; // Flag to track translation in progress
+  Timer? _debounce; // Timer for debounce mechanism
+  bool _wasPlayingBeforeMiniMode = false;
+  TextEditingController _textController = TextEditingController();
   @override
   void initState() {
     super.initState();
@@ -90,31 +96,31 @@ class _AvatarTranslationState extends State<AvatarTranslation>
       await windowManager.center();
 
       // Pause the video when not in mini mode
-      _controller?.pause();
+      _controller?.play();
     }
   }
 
-  void _initializeVideoPlayer(String url) {
-    print('Initializing video player with URL: $url');
+  Future<void> _initializeVideoPlayer(String url) async {
     _controller = WinVideoPlayerController.network(url)
       ..initialize().then((_) {
-        setState(() {
-          _controller?.play();
-        });
+        setState(() {});
+        _controller?.play();
         _controller?.addListener(_videoListener);
-      }).catchError((error) {
-        print('Error initializing video: $error');
-        SchedulerBinding.instance.addPostFrameCallback((_) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Error playing video: ${error.message}')),
-          );
-        });
       });
   }
 
   void _videoListener() {
     if (_controller?.value.position == _controller?.value.duration) {
+      _controller?.removeListener(_videoListener);
       _playNextVideo();
+    }
+  }
+
+  Future<void> _submitText() async {
+    final inputText = _textController.text;
+    print('$inputText');
+    if (inputText.isNotEmpty) {
+      await _translateText(inputText.toUpperCase());
     }
   }
 
@@ -123,47 +129,10 @@ class _AvatarTranslationState extends State<AvatarTranslation>
     WidgetsBinding.instance.removeObserver(this);
     _controller?.removeListener(_videoListener);
     _controller?.dispose();
+    _recordingProcess?.kill();
+    _debounce?.cancel();
+    _textController.dispose();
     super.dispose();
-  }
-
-  void _submit() async {
-    if (_text.isEmpty) {
-      print('No text to send.');
-      return;
-    }
-
-    try {
-      final response = await http.post(
-        Uri.parse('http://127.0.0.1:5000/translate_text'),
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({'text': _text}),
-      );
-
-      if (response.statusCode == 200) {
-        final responseBody = response.body;
-        print('Response body: $responseBody');
-        final videoUrls = (jsonDecode(responseBody)['video'] as List)
-            .map((url) => 'http://localhost:8000/$url')
-            .toList();
-        setState(() {
-          _videoUrls = videoUrls;
-          _currentVideoIndex = 0;
-          print('Video URLs received: $_videoUrls');
-        });
-        _playNextVideo();
-      } else {
-        print('Failed to load video URLs. Status code: ${response.statusCode}');
-        print('Response body: ${response.body}');
-      }
-    } catch (e, stackTrace) {
-      print('Error occurred during HTTP request: $e');
-      print('Stack trace: $stackTrace');
-      SchedulerBinding.instance.addPostFrameCallback((_) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error occurred during HTTP request: $e')),
-        );
-      });
-    }
   }
 
   void _playNextVideo() {
@@ -172,29 +141,94 @@ class _AvatarTranslationState extends State<AvatarTranslation>
       print('Playing video: $videoUrl');
       _initializeVideoPlayer(videoUrl);
       _currentVideoIndex++;
+    } else {
+      print('No more videos to play.');
     }
   }
 
-  void _startRecording() async {
-    // Start the Python script to record audio and convert to text
-    Process.run('python', ['../backend/audio_capture.py']).then((result) {
-      print(result.stdout);
-      print(result.stderr);
+  void _startListening() async {
+    setState(() {
+      _isListening = true;
+    });
 
-      // Extract the transcribed text from the stdout
-      final transcribedText = _extractTranscribedText(result.stdout);
-      if (transcribedText != null) {
+    final scriptPath = path.canonicalize('../backend/audio_capture.py');
+    print('Starting Python process for audio capture at path: $scriptPath');
+
+    // Ensure any previous process is killed before starting a new one
+    _recordingProcess?.kill();
+
+    _recordingProcess = await Process.start('python', [scriptPath]);
+
+    // Listen to stdout
+    _recordingProcess?.stdout.transform(utf8.decoder).listen((data) {
+      print('Received data from Python process: $data');
+      final partialText = _extractPartialText(data);
+      if (partialText != null && partialText.isNotEmpty) {
+        print('$partialText');
         setState(() {
-          _text = transcribedText;
+          _text = partialText.toUpperCase(); // Convert to uppercase
         });
+        _translateText(partialText
+            .toUpperCase()); // Automatically translate the received text
+      } else {
+        print('No partial text found in data.');
       }
+    });
+    _recordingProcess?.stderr.transform(utf8.decoder).listen((error) {
+      print('Error from Python process: $error');
     });
   }
 
-  String? _extractTranscribedText(String stdout) {
-    final regex = RegExp(r'Transcribed Text: (.+)');
-    final match = regex.firstMatch(stdout);
-    return match?.group(1);
+  void _stopListening() {
+    setState(() {
+      _isListening = false;
+    });
+    print('Stopping Python process for audio capture...');
+    _recordingProcess?.kill();
+  }
+
+  String? _extractPartialText(String data) {
+    print('$data');
+
+    // Use a regular expression to find the "partial" result
+    final regex = RegExp(r'"partial" : "(.*?)"');
+    final match = regex.firstMatch(data);
+
+    if (match != null) {
+      final partialText = match.group(1);
+      print('Match found: $partialText');
+      return partialText;
+    } else {
+      return data;
+    }
+  }
+
+  Future<void> _translateText(String text) async {
+    final url = Uri.parse('http://localhost:8000/translate_text');
+    final response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({'text': text}),
+    );
+
+    if (response.statusCode == 200) {
+      final responseBody = jsonDecode(response.body);
+      final videoUrls = (responseBody['video'] as List)
+          .map((item) => item as String)
+          .toList();
+      final transcribedText = responseBody['text'] ??
+          ''; // Assuming the backend also returns the transcribed text
+
+      setState(() {
+        _videoUrls = videoUrls;
+        _text =
+            transcribedText; // Update the text with the transcribed text from the backend
+        _currentVideoIndex = 0;
+      });
+      if (_videoUrls.isNotEmpty) {
+        _initializeVideoPlayer(_videoUrls[_currentVideoIndex]);
+      }
+    }
   }
 
   @override
@@ -226,24 +260,38 @@ class _AvatarTranslationState extends State<AvatarTranslation>
                   ),
                 ),
               if (!_isMiniMode) ...[
-                TextField(
-                  controller: TextEditingController(text: _text),
-                  onChanged: (value) {
-                    setState(() {
-                      _text = value;
-                    });
-                  },
-                  decoration: InputDecoration(
-                    labelText: 'Enter text',
+                Container(
+                  padding: EdgeInsets.all(16.0),
+                  child: RichText(
+                    text: TextSpan(
+                      children: _buildTextSpans(),
+                    ),
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.all(16.0),
+                  child: Text(
+                    _text,
+                    style: TextStyle(fontSize: 16.0),
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.all(16.0),
+                  child: TextField(
+                    controller: _textController,
+                    decoration: InputDecoration(
+                      labelText: 'Enter text to translate',
+                    ),
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: _submit,
+                  onPressed: _submitText,
                   child: Text('Submit'),
                 ),
                 ElevatedButton(
-                  onPressed: _startRecording,
-                  child: Text('Start Recording'),
+                  onPressed: _isListening ? _stopListening : _startListening,
+                  child:
+                      Text(_isListening ? 'Stop Listening' : 'Start Listening'),
                 ),
               ],
             ],
@@ -251,5 +299,22 @@ class _AvatarTranslationState extends State<AvatarTranslation>
         ),
       ),
     );
+  }
+
+  List<TextSpan> _buildTextSpans() {
+    List<TextSpan> spans = [];
+    for (int i = 0; i < _text.length; i++) {
+      spans.add(
+        TextSpan(
+          text: _text[i],
+          style: TextStyle(
+            color: i == _currentVideoIndex ? Colors.red : Colors.black,
+            fontWeight:
+                i == _currentVideoIndex ? FontWeight.bold : FontWeight.normal,
+          ),
+        ),
+      );
+    }
+    return spans;
   }
 }

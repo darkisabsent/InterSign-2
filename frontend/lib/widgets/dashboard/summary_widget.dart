@@ -21,7 +21,7 @@ class SummaryWidget extends StatelessWidget {
             SizedBox(height: 20),
             Chart(),
             Text(
-              'Summary',
+              'Precision',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             ),
             SizedBox(height: 16),
