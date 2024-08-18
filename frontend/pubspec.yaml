@@ -55,6 +55,8 @@ dependencies:
   media_kit_libs_android_video: any
   media_kit_libs_windows_video: any
   video_player: ^2.9.1
+  camera_windows: ^0.2.5
+  camera_platform_interface: ^2.8.0
 
 dev_dependencies:
   flutter_test:

@@ -59,7 +59,7 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
           } else if (index == 2) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => AvatarTranslation()),
+              MaterialPageRoute(builder: (context) => const AvatarTranslation()),
             );
           } else if (index == 3) {
             Navigator.push(
