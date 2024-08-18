@@ -103,27 +103,23 @@ class _AvatarTranslationState extends State<AvatarTranslation> {
     });
 
     if (_isMiniMode) {
-      /// Set window to always on top
       await windowManager.setAlwaysOnTop(true);
 
-      /// Get the current window size
       Size windowSize = await windowManager.getSize();
       double currentWidth = windowSize.width;
       double currentHeight = windowSize.height;
 
-      /// Calculate 40% of screen width and 30% of screen height
-      double windowWidth = currentWidth * 0.40;
+      double windowWidth = currentWidth * 0.4;
       double windowHeight = currentHeight * 0.30;
 
-      /// Set the window size to 20% width and 10% height
       await windowManager.setSize(Size(windowWidth, windowHeight));
 
       /// Set the position to top-right
-      double x = currentWidth;
+      double x = currentWidth * 0.87;
       double y = 0; // Top position
 
       /// Set the window position to the top-right corner
-      await windowManager.setPosition(Offset(x, y));
+      await windowManager.setPosition(Offset(x, 0));
 
       /// Play the video when in mini mode
       _controller.play();
