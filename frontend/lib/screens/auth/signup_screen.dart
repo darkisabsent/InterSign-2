@@ -20,7 +20,7 @@ class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
-      TextEditingController();
+  TextEditingController();
   bool passwordsMatch = true;
   bool _isSigningUp = false;
 
@@ -69,8 +69,8 @@ class _SignupScreenState extends State<SignupScreen> {
                     flex: isDesktop
                         ? 6
                         : isTablet
-                            ? 5
-                            : 4,
+                        ? 5
+                        : 4,
                     child: Container(
                       decoration: const BoxDecoration(
                         color: Colors.white,
@@ -80,19 +80,19 @@ class _SignupScreenState extends State<SignupScreen> {
                           width: isDesktop
                               ? screenWidth * 0.45
                               : isTablet
-                                  ? screenWidth * 0.4
-                                  : screenWidth * 0.35,
+                              ? screenWidth * 0.4
+                              : screenWidth * 0.35,
                           height: isDesktop
                               ? screenHeight * 0.85
                               : isTablet
-                                  ? screenHeight * 0.75
-                                  : screenHeight * 0.65,
+                              ? screenHeight * 0.75
+                              : screenHeight * 0.65,
                           child: Card(
                             color: Theme.of(context).cardColor,
                             elevation: 3.0,
                             shape: RoundedRectangleBorder(
                               borderRadius:
-                                  BorderRadius.circular(4.0), // Rounded corners
+                              BorderRadius.circular(4.0), // Rounded corners
                             ),
                             child: Column(
                               children: [
@@ -138,12 +138,12 @@ class _SignupScreenState extends State<SignupScreen> {
                                       Visibility(
                                         visible: !passwordsMatch,
                                         child:
-                                            const Text("Passwords do no match!",
-                                                style: TextStyle(
-                                                    color: Colors.red,
-                                                    //color: errorRed,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 13)),
+                                        const Text("Passwords do no match!",
+                                            style: TextStyle(
+                                                color: Colors.red,
+                                                //color: errorRed,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 13)),
                                       ),
                                       FormContainerWidget(
                                         labelText: "CONFIRM PASSWORD",
@@ -171,32 +171,32 @@ class _SignupScreenState extends State<SignupScreen> {
                                           backgroundColor: Colors.black,
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
-                                                BorderRadius.circular(8),
+                                            BorderRadius.circular(8),
                                           ),
                                         ),
                                         child: _isSigningUp
                                             ? const CircularProgressIndicator(
-                                                color: Colors.white,
-                                              )
+                                          color: Colors.white,
+                                        )
                                             : const Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Flexible(
-                                                    child: Text(
-                                                      "SIGN UP",
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 17,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                          children: [
+                                            Flexible(
+                                              child: Text(
+                                                "SIGN UP",
+                                                overflow:
+                                                TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 17,
+                                                  fontWeight:
+                                                  FontWeight.bold,
+                                                ),
                                               ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -221,9 +221,9 @@ class _SignupScreenState extends State<SignupScreen> {
                                               context,
                                               MaterialPageRoute(
                                                 builder: (context) =>
-                                                    const LoginScreen(),
+                                                const LoginScreen(),
                                               ),
-                                              (route) => false);
+                                                  (route) => false);
                                         },
                                         child: Text(
                                           "LOGIN",

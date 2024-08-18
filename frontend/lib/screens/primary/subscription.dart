@@ -80,7 +80,7 @@ class _SubscriptionState extends State<Subscription> {
                   ),
                 ],
               ),
-              Spacer(),
+              const Spacer(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -109,69 +109,65 @@ class _SubscriptionState extends State<Subscription> {
                     child: Card(
                       elevation: 0,
                       color: Colors.transparent,
-                      child: Row(
+                      child: Stack(
                         children: [
-                          Stack(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(top: 8, left: 10),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const Center(
-                                      child: Text(
-                                        "BASIC PLAN",
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8, left: 10),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Center(
+                                  child: Text(
+                                    "BASIC PLAN",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
                                     ),
-                                    const SizedBox(height: 8),
-                                    Text(
-                                      "❌ Avatar Up To 480p Resolution",
-                                      style: Theme.of(context).textTheme.bodySmall,
-                                    ),
-                                    const SizedBox(height: 4),
-                                    Text(
-                                      "❌ Up to 8 Hours Of Translation Per Day",
-                                      style: Theme.of(context).textTheme.bodySmall,
-                                    ),
-                                    const SizedBox(height: 4),
-                                    Text(
-                                      "❌ Sign Language To Speech",
-                                      style: Theme.of(context).textTheme.bodySmall,
-                                    ),
-                                    const SizedBox(height: 4),
-                                    Text(
-                                      "❌ Customize Avatars",
-                                      style: Theme.of(context).textTheme.bodySmall,
-                                    ),
-                                    const SizedBox(height: 4),
-                                    Text(
-                                      "❌ Customize Voice",
-                                      style: Theme.of(context).textTheme.bodySmall,
-                                    ),
-                                    const SizedBox(height: 4),
-                                  ],
+                                  ),
                                 ),
-                              ),
-                              Positioned(
-                                right: 0,
-                                bottom: 20,
-                                child: Image.asset(
-                                  'assets/images/avatar_2.png',
-                                  height: isMobile
-                                      ? screenHeight * 0.22
-                                      : screenHeight * 0.32,
-                                  width: isMobile
-                                      ? screenWidth * 0.1
-                                      : screenWidth * 0.2,
+                                const SizedBox(height: 8),
+                                Text(
+                                  "❌ Avatar Up To 480p Resolution",
+                                  style: Theme.of(context).textTheme.bodySmall,
                                 ),
-                              ),
-                            ],
+                                const SizedBox(height: 4),
+                                Text(
+                                  "❌ Up to 8 Hours Of Translation Per Day",
+                                  style: Theme.of(context).textTheme.bodySmall,
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  "❌ Sign Language To Speech",
+                                  style: Theme.of(context).textTheme.bodySmall,
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  "❌ Customize Avatars",
+                                  style: Theme.of(context).textTheme.bodySmall,
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  "❌ Customize Voice",
+                                  style: Theme.of(context).textTheme.bodySmall,
+                                ),
+                                const SizedBox(height: 4),
+                              ],
+                            ),
+                          ),
+                          Positioned(
+                            right: 0,
+                            bottom: -20,
+                            child: Image.asset(
+                              'assets/images/avatar_2.png',
+                              height: isMobile
+                                  ? screenHeight * 0.22
+                                  : screenHeight * 0.32,
+                              width: isMobile
+                                  ? screenWidth * 0.1
+                                  : screenWidth * 0.2,
+                            ),
                           ),
                         ],
                       ),

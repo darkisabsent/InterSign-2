@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -5,7 +6,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:video_player_win/video_player_win.dart';
 import 'package:window_manager/window_manager.dart';
 import 'dart:io';
-import 'package:bitsdojo_window/bitsdojo_window.dart';
+// import 'package:bitsdojo_window/bitsdojo_window.dart';
 
 class AvatarTranslation extends StatefulWidget {
   const AvatarTranslation({super.key});
@@ -29,21 +30,6 @@ class _AvatarTranslationState extends State<AvatarTranslation>
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     _getInitialDimensions();
-
-    // Initialize the video controller
-    _controller = VideoPlayerController.asset('assets/videos/sample_video.mp4')
-      ..initialize().then((_) {
-        setState(() {});
-        if (_isMiniMode) {
-          _controller.play();
-        }
-      });
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
   }
 
   @override
@@ -110,7 +96,9 @@ class _AvatarTranslationState extends State<AvatarTranslation>
   }
 
   void _initializeVideoPlayer(String url) {
-    print('Initializing video player with URL: $url');
+    if (kDebugMode) {
+      print('Initializing video player with URL: $url');
+    }
     _controller = WinVideoPlayerController.network(url)
       ..initialize().then((_) {
         setState(() {
@@ -118,7 +106,9 @@ class _AvatarTranslationState extends State<AvatarTranslation>
         });
         _controller?.addListener(_videoListener);
       }).catchError((error) {
-        print('Error initializing video: $error');
+        if (kDebugMode) {
+          print('Error initializing video: $error');
+        }
         SchedulerBinding.instance.addPostFrameCallback((_) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text('Error playing video: ${error.message}')),
@@ -163,16 +153,26 @@ class _AvatarTranslationState extends State<AvatarTranslation>
         setState(() {
           _videoUrls = videoUrls;
           _currentVideoIndex = 0;
-          print('Video URLs received: $_videoUrls');
+          if (kDebugMode) {
+            print('Video URLs received: $_videoUrls');
+          }
         });
         _playNextVideo();
       } else {
-        print('Failed to load video URLs. Status code: ${response.statusCode}');
-        print('Response body: ${response.body}');
+        if (kDebugMode) {
+          print('Failed to load video URLs. Status code: ${response.statusCode}');
+        }
+        if (kDebugMode) {
+          print('Response body: ${response.body}');
+        }
       }
     } catch (e, stackTrace) {
-      print('Error occurred during HTTP request: $e');
-      print('Stack trace: $stackTrace');
+      if (kDebugMode) {
+        print('Error occurred during HTTP request: $e');
+      }
+      if (kDebugMode) {
+        print('Stack trace: $stackTrace');
+      }
       SchedulerBinding.instance.addPostFrameCallback((_) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Error occurred during HTTP request: $e')),
@@ -184,7 +184,9 @@ class _AvatarTranslationState extends State<AvatarTranslation>
   void _playNextVideo() {
     if (_currentVideoIndex < _videoUrls.length) {
       final videoUrl = _videoUrls[_currentVideoIndex];
-      print('Playing video: $videoUrl');
+      if (kDebugMode) {
+        print('Playing video: $videoUrl');
+      }
       _initializeVideoPlayer(videoUrl);
       _currentVideoIndex++;
     }
@@ -218,7 +220,7 @@ class _AvatarTranslationState extends State<AvatarTranslation>
       appBar: _isMiniMode
           ? null
           : AppBar(
-              title: Text('Avatar Translation'),
+              title: const Text('Avatar Translation'),
             ),
       floatingActionButton: FloatingActionButton(
         onPressed: _toggleMiniMode,
@@ -233,8 +235,8 @@ class _AvatarTranslationState extends State<AvatarTranslation>
               if (_controller != null && _controller!.value.isInitialized)
                 Transform.translate(
                   offset: _isMiniMode
-                      ? Offset(0, -50)
-                      : Offset(0, 0), // Move video up by 50 pixels in mini mode
+                      ? const Offset(0, -50)
+                      : const Offset(0, 0), // Move video up by 50 pixels in mini mode
                   child: AspectRatio(
                     aspectRatio: _controller!.value.aspectRatio,
                     child: WinVideoPlayer(_controller!),
@@ -248,17 +250,17 @@ class _AvatarTranslationState extends State<AvatarTranslation>
                       _text = value;
                     });
                   },
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Enter text',
                   ),
                 ),
                 ElevatedButton(
                   onPressed: _submit,
-                  child: Text('Submit'),
+                  child: const Text('Submit'),
                 ),
                 ElevatedButton(
                   onPressed: _startRecording,
-                  child: Text('Start Recording'),
+                  child: const Text('Start Recording'),
                 ),
               ],
             ],
