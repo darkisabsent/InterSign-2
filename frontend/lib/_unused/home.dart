@@ -21,7 +21,7 @@ class _HomeState extends State<Home> {
   final List<Widget> _screens = [
     const Dashboard(),
     const Subscription(),
-    const AvatarTranslation(),
+    AvatarTranslation(),
     const TranslateToSpeech(),
     const Settings(),
     const Payment(),
