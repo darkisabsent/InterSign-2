@@ -8,7 +8,9 @@ import 'package:flutter/scheduler.dart';
 import 'package:video_player_win/video_player_win.dart';
 import 'package:window_manager/window_manager.dart';
 import 'dart:io';
-// import 'package:bitsdojo_window/bitsdojo_window.dart';
+
+import '../../utils/responsive.dart';
+import '../../widgets/dashboard/side_menu.dart';
 
 class AvatarTranslation extends StatefulWidget {
   const AvatarTranslation({super.key});
@@ -198,7 +200,7 @@ class _AvatarTranslationState extends State<AvatarTranslation>
   void _startRecording() async {
     // Start the Python script to record audio and convert to text
     Process.run('python', ['../backend/audio_capture.py']).then((result) {
-     log(result.stdout);
+      log(result.stdout);
       log(result.stderr);
 
       // Extract the transcribed text from the stdout
@@ -219,60 +221,84 @@ class _AvatarTranslationState extends State<AvatarTranslation>
 
   @override
   Widget build(BuildContext context) {
+    final bool isMobile = Responsive.isMobile(context);
+    final bool isTablet = Responsive.isTablet(context);
+    final bool isDesktop = Responsive.isDesktop(context);
+
     return Scaffold(
       appBar: _isMiniMode
           ? null
           : AppBar(
               title: const Text('Avatar Translation'),
-        centerTitle: true,
+              centerTitle: true,
             ),
+      drawer: !isDesktop
+          ? const SizedBox(
+              width: 250,
+              child: SideMenuWidget(),
+            )
+          : null,
       floatingActionButton: FloatingActionButton(
         onPressed: _toggleMiniMode,
         child: const Icon(Icons.layers),
       ),
-      body: Center(
-        child: SingleChildScrollView(
-          // Added SingleChildScrollView
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              if (_controller != null && _controller!.value.isInitialized)
-                Transform.translate(
-                  offset:
-                      _isMiniMode ? const Offset(0, -50) : const Offset(0, 0),
-                  // Move video up by 50 pixels in mini mode
-                  child: AspectRatio(
-                    aspectRatio: _controller!.value.aspectRatio,
-                    child: WinVideoPlayer(_controller!),
-                  ),
+      body: SafeArea(
+        child: Row(
+          children: [
+            if (isDesktop)
+              const Expanded(
+                flex: 2,
+                child: SizedBox(
+                  child: SideMenuWidget(),
                 ),
-              if (!_isMiniMode) ...[
-                Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: TextField(
-                    controller: TextEditingController(text: _text),
-                    onChanged: (value) {
-                      setState(() {
-                        _text = value;
-                      });
-                    },
-                    decoration: const InputDecoration(
-                      labelText: 'Enter text',
+              ),
+            Expanded(
+              flex: 7,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (_controller != null && _controller!.value.isInitialized)
+                    Transform.translate(
+                      offset: _isMiniMode
+                          ? const Offset(0, -50)
+                          : const Offset(0, 0),
+                      // Move video up by 50 pixels in mini mode
+                      child: AspectRatio(
+                        aspectRatio: _controller!.value.aspectRatio,
+                        child: WinVideoPlayer(_controller!),
+                      ),
                     ),
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: _submit,
-                  child: const Text('Submit'),
-                ),
-                const SizedBox(height: 10,),
-                ElevatedButton(
-                  onPressed: _startRecording,
-                  child: const Text('Start Recording'),
-                ),
-              ],
-            ],
-          ),
+                  if (!_isMiniMode) ...[
+                    Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: TextField(
+                        controller: TextEditingController(text: _text),
+                        onChanged: (value) {
+                          setState(() {
+                            _text = value;
+                          });
+                        },
+                        decoration: const InputDecoration(
+                          labelText: 'Enter text',
+                        ),
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: _submit,
+                      child: const Text('Submit'),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    ElevatedButton(
+                      onPressed: _startRecording,
+                      child: const Text('Start Recording'),
+                    ),
+                  ],
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

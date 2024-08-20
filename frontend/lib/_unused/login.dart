@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inter_sign/screens/auth/signup_screen.dart';
-import 'package:inter_sign/screens/home_screen.dart';
+import 'package:inter_sign/_unused/home_screen.dart';
 
 import '../widgets/form_container.dart';
 import 'home.dart';

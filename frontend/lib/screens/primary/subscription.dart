@@ -33,12 +33,11 @@ class _SubscriptionState extends State<Subscription> {
       ),
       drawer: !isDesktop
           ? const SizedBox(
-        width: 250,
-        child: SideMenuWidget(),
-      )
+              width: 250,
+              child: SideMenuWidget(),
+            )
           : null,
       body: SafeArea(
-
         child: Row(
           children: [
             if (isDesktop)
@@ -51,7 +50,8 @@ class _SubscriptionState extends State<Subscription> {
             Expanded(
               flex: 7,
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: AppPadding.p30(context)),
+                padding:
+                    EdgeInsets.symmetric(horizontal: AppPadding.p30(context)),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
