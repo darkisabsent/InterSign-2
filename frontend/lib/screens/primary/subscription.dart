@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:inter_sign/const/constant.dart';
+import 'package:inter_sign/widgets/dashboard/side_menu.dart';
 
 import '../../utils/responsive.dart';
 import '../../utils/layout_utils.dart';
@@ -30,78 +31,99 @@ class _SubscriptionState extends State<Subscription> {
         ),
         centerTitle: true,
       ),
+      drawer: !isDesktop
+          ? const SizedBox(
+        width: 250,
+        child: SideMenuWidget(),
+      )
+          : null,
       body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: AppPadding.p30(context)),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              SizedBox(height: AppPadding.p10(context)),
-              Row(
-                children: [
-                  SizedBox(width: AppPadding.p5(context)),
-                  Expanded(
-                    child: Text(
-                      "Choose The Subscription Model That Suits You",
-                      style: Theme.of(context).textTheme.bodyMedium,
+
+        child: Row(
+          children: [
+            if (isDesktop)
+              const Expanded(
+                flex: 2,
+                child: SizedBox(
+                  child: SideMenuWidget(),
+                ),
+              ),
+            Expanded(
+              flex: 7,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: AppPadding.p30(context)),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    SizedBox(height: AppPadding.p10(context)),
+                    Row(
+                      children: [
+                        SizedBox(width: AppPadding.p5(context)),
+                        Expanded(
+                          child: Text(
+                            "Choose The Subscription Model That Suits You",
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Flexible(
+                              child: Text(
+                                "Bill Monthly",
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: AppPadding.p5(context)),
+                              child: CupertinoSwitch(
+                                activeColor: Colors.indigo,
+                                value: isSwitched,
+                                onChanged: (bool value) {
+                                  setState(() {
+                                    isSwitched = value;
+                                  });
+                                },
+                              ),
+                            ),
+                            Flexible(
+                              child: Text(
+                                "Bill Annually",
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Flexible(
-                        child: Text(
-                          "Bill Monthly",
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: AppPadding.p5(context)),
-                        child: CupertinoSwitch(
-                          activeColor: Colors.indigo,
-                          value: isSwitched,
-                          onChanged: (bool value) {
-                            setState(() {
-                              isSwitched = value;
-                            });
-                          },
-                        ),
-                      ),
-                      Flexible(
-                        child: Text(
-                          "Bill Annually",
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        _buildPlanCard(
+                            context,
+                            isDesktop,
+                            isTablet,
+                            isMobile,
+                            "BASIC PLAN",
+                            "assets/images/rs_avatar_image_1.png",
+                            false),
+                        _buildPlanCard(
+                            context,
+                            isDesktop,
+                            isTablet,
+                            isMobile,
+                            "PREMIUM PLAN",
+                            "assets/images/rs_avatar_image_2.png",
+                            true),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  _buildPlanCard(
-                      context,
-                      isDesktop,
-                      isTablet,
-                      isMobile,
-                      "BASIC PLAN",
-                      "assets/images/rs_avatar_image_1.png",
-                      false),
-                  _buildPlanCard(
-                      context,
-                      isDesktop,
-                      isTablet,
-                      isMobile,
-                      "PREMIUM PLAN",
-                      "assets/images/rs_avatar_image_2.png",
-                      true),
-                ],
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
