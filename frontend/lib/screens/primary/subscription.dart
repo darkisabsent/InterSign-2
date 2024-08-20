@@ -82,10 +82,22 @@ class _SubscriptionState extends State<Subscription> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  _buildPlanCard(context, isDesktop, isTablet, isMobile,
-                      "BASIC PLAN", "assets/images/avatar_2.png", false),
-                  _buildPlanCard(context, isDesktop, isTablet, isMobile,
-                      "PREMIUM PLAN", "assets/images/avatar_image.png", true),
+                  _buildPlanCard(
+                      context,
+                      isDesktop,
+                      isTablet,
+                      isMobile,
+                      "BASIC PLAN",
+                      "assets/images/rs_avatar_image_1.png",
+                      false),
+                  _buildPlanCard(
+                      context,
+                      isDesktop,
+                      isTablet,
+                      isMobile,
+                      "PREMIUM PLAN",
+                      "assets/images/rs_avatar_image_2.png",
+                      true),
                 ],
               ),
             ],
@@ -188,16 +200,20 @@ class _SubscriptionState extends State<Subscription> {
               ),
             ),
             Positioned(
-              right: -15,
-              bottom: 60,
+              left: isMobile
+                  ? ScreenSize.adjustedWidth(context, 10)
+                  : ScreenSize.adjustedWidth(context, 12),
+              top: isMobile
+                  ? ScreenSize.adjustedHeight(context, 10)
+                  : ScreenSize.adjustedHeight(context, 20),
               child: Image.asset(
                 imagePath,
                 height: isMobile
-                    ? ScreenSize.adjustedHeight(context, 20)
-                    : ScreenSize.adjustedHeight(context, 25),
+                    ? ScreenSize.adjustedHeight(context, 15)
+                    : ScreenSize.adjustedHeight(context, 22),
                 width: isMobile
                     ? ScreenSize.adjustedWidth(context, 10)
-                    : ScreenSize.adjustedWidth(context, 20),
+                    : ScreenSize.adjustedWidth(context, 22),
               ),
             ),
           ],
@@ -226,7 +242,7 @@ class _SubscriptionState extends State<Subscription> {
           style: TextStyle(color: Colors.white),
         ),
         Text(
-          "❌ Sign Language To Speech",
+          "❌ Sign Language\n      To Speech",
           style: TextStyle(color: Colors.white),
         ),
         Text(
