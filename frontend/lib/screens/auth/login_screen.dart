@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inter_sign/screens/auth/recover_password_screen.dart';
-import 'package:inter_sign/screens/home_screen.dart';
+import 'package:inter_sign/screens/primary/dashboard.dart';
 import 'package:inter_sign/widgets/info_card.dart';
 import 'package:inter_sign/widgets/logo_widget.dart';
 
@@ -178,7 +178,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                               context,
                                               MaterialPageRoute(
                                                 builder: (context) =>
-                                                const HomeScreen(),
+                                                const Dashboard(),
                                               ),
                                                   (route) => false);
                                         },

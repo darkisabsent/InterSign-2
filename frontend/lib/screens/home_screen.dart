@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:inter_sign/widgets/dashboard/side_menu.dart';
 
@@ -51,3 +52,4 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
+*/
