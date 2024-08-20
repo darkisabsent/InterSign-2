@@ -200,20 +200,16 @@ class _SubscriptionState extends State<Subscription> {
               ),
             ),
             Positioned(
-              left: isMobile
-                  ? ScreenSize.adjustedWidth(context, 10)
-                  : ScreenSize.adjustedWidth(context, 12),
-              top: isMobile
-                  ? ScreenSize.adjustedHeight(context, 10)
-                  : ScreenSize.adjustedHeight(context, 20),
+              left: 150,
+              top: 150,
               child: Image.asset(
                 imagePath,
                 height: isMobile
                     ? ScreenSize.adjustedHeight(context, 15)
-                    : ScreenSize.adjustedHeight(context, 22),
+                    : ScreenSize.adjustedHeight(context, 20),
                 width: isMobile
                     ? ScreenSize.adjustedWidth(context, 10)
-                    : ScreenSize.adjustedWidth(context, 22),
+                    : ScreenSize.adjustedWidth(context, 20),
               ),
             ),
           ],
@@ -242,7 +238,7 @@ class _SubscriptionState extends State<Subscription> {
           style: TextStyle(color: Colors.white),
         ),
         Text(
-          "❌ Sign Language\n      To Speech",
+          "❌ Sign Language To Speech",
           style: TextStyle(color: Colors.white),
         ),
         Text(
