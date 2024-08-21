@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:inter_sign/widgets/side_menu_logo.dart';
 import 'package:provider/provider.dart';
 import 'package:inter_sign/utils/navigation/menu_state.dart';
 import 'package:inter_sign/const/constant.dart';
 import 'package:inter_sign/screens/other/index.dart';
 import 'package:inter_sign/screens/primary/index.dart';
 import '../../data/dashboard/side_menu_data.dart';
+import '../../utils/responsive.dart';
 
 class SideMenuWidget extends StatefulWidget {
   const SideMenuWidget({super.key});
@@ -20,12 +22,19 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
     final selectedIndex = context.watch<MenuState>().selectedIndex;
 
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       color: whiteColor,
-      child: ListView.builder(
-        itemCount: data.menu.length,
-        itemBuilder: (context, index) =>
-            buildMenuEntry(context, data, index, selectedIndex),
+      child: Column(
+        children: [
+          const SideMenuLogo(),
+          Expanded(
+            child: ListView.builder(
+              itemCount: data.menu.length,
+              itemBuilder: (context, index) =>
+                  buildMenuEntry(context, data, index, selectedIndex),
+            ),
+          ),
+        ],
       ),
     );
   }

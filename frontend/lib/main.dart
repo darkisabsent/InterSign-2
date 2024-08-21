@@ -22,7 +22,7 @@ void main() async {
   );
 
   if (Platform.isWindows) {
-    WindowManager.instance.setMinimumSize(const Size(700, 600));
+    WindowManager.instance.setMinimumSize(const Size(700, 700));
   }
 
   WindowOptions windowOptions = const WindowOptions(

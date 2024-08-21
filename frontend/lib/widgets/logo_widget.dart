@@ -26,12 +26,8 @@ class LogoWidget extends StatelessWidget {
         const SizedBox(width: 2),
         Image.asset(
           'assets/images/avatar_image.png',
-          height: isMobile
-              ? screenHeight * 0.05
-              : screenHeight * 0.1,
-          width: isMobile
-              ? screenWidth * 0.02
-              : screenWidth * 0.05,
+          height: isMobile ? screenHeight * 0.05 : screenHeight * 0.1,
+          width: isMobile ? screenWidth * 0.02 : screenWidth * 0.05,
         ),
         const SizedBox(width: 2),
         Flexible(
