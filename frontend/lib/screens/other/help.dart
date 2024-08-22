@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../utils/responsive.dart';
-import '../../widgets/dashboard/side_menu.dart';
+import '../../widgets/side_menu.dart';
 import '../../widgets/header_widget.dart';
 
 class Help extends StatelessWidget {

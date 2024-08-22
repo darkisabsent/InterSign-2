@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:inter_sign/screens/primary/video_recorder.dart';
 
 import '../../utils/responsive.dart';
-import '../../widgets/dashboard/side_menu.dart';
+import '../../widgets/side_menu.dart';
 import '../../widgets/header_widget.dart';
 
 class TranslateToSpeech extends StatelessWidget {

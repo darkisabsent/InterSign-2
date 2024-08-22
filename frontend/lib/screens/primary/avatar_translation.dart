@@ -10,7 +10,7 @@ import 'package:window_manager/window_manager.dart';
 import 'dart:io';
 
 import '../../utils/responsive.dart';
-import '../../widgets/dashboard/side_menu.dart';
+import '../../widgets/side_menu.dart';
 import '../../widgets/header_widget.dart';
 
 class AvatarTranslation extends StatefulWidget {

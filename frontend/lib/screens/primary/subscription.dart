@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:inter_sign/const/constant.dart';
-import 'package:inter_sign/widgets/dashboard/side_menu.dart';
+import 'package:inter_sign/widgets/side_menu.dart';
 
 import '../../utils/responsive.dart';
 import '../../utils/layout_utils.dart';

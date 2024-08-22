@@ -1,12 +1,11 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
 class AuthService {
-  final _storage = FlutterSecureStorage();
+  final _storage = const FlutterSecureStorage();
 
   Future<bool> login({required String email, required String password}) async {
     const baseURL = 'http://127.0.0.1:8000/api/login';

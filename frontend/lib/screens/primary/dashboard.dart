@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inter_sign/widgets/dashboard/side_menu.dart';
+import 'package:inter_sign/widgets/side_menu.dart';
 import 'package:inter_sign/widgets/header_widget.dart';
 
 import '../../utils/responsive.dart';
