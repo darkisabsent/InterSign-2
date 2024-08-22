@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../const/constant.dart';
-import '../../utils/responsive.dart';
+import '../const/constant.dart';
+import '../utils/responsive.dart';
 
 class HeaderWidget extends StatelessWidget {
   const HeaderWidget({super.key});
@@ -11,7 +11,7 @@ class HeaderWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        if (!Responsive.isDesktop(context))
+        /*if (!Responsive.isDesktop(context))
           Padding(
             padding: const EdgeInsets.only(right: 20),
             child: InkWell(
@@ -20,12 +20,12 @@ class HeaderWidget extends StatelessWidget {
                 padding: EdgeInsets.all(4.0),
                 child: Icon(
                   Icons.menu,
-                  color: Colors.grey,
+                  color: Colors.black,
                   size: 25,
                 ),
               ),
             ),
-          ),
+          ),*/
         if (!Responsive.isMobile(context))
           Expanded(
             child: TextField(
@@ -48,7 +48,7 @@ class HeaderWidget extends StatelessWidget {
                 hintText: 'Search',
                 prefixIcon: const Icon(
                   Icons.search,
-                  color: Colors.grey,
+                  color: Colors.black,
                   size: 21,
                 ),
               ),
@@ -60,7 +60,7 @@ class HeaderWidget extends StatelessWidget {
               IconButton(
                 icon: const Icon(
                   Icons.search,
-                  color: Colors.grey,
+                  color: Colors.black,
                   size: 25,
                 ),
                 onPressed: () {},

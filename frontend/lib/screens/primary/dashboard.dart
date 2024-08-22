@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inter_sign/widgets/dashboard/side_menu.dart';
+import 'package:inter_sign/widgets/header_widget.dart';
 
 import '../../utils/responsive.dart';
 import '../../widgets/dashboard/dashboard_widget.dart';
@@ -15,6 +16,8 @@ class Dashboard extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
+        //leading: const HeaderWidget(),
+        title: const HeaderWidget(),
       ),
       drawer: !isDesktop
           ? const SizedBox(

@@ -13,11 +13,12 @@ class SideMenuLogo extends StatelessWidget {
 
     return Row(
       children: [
-        const Flexible(
-          child: Text(
-            "Inter",
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(color: Colors.black),
+        Flexible(
+          child: Text("Inter",
+              //overflow: TextOverflow.fade,
+              //maxLines: 1,
+              style: Theme.of(context).textTheme.headlineSmall
+
           ),
         ),
         const SizedBox(width: 2),
@@ -27,11 +28,11 @@ class SideMenuLogo extends StatelessWidget {
           width: isMobile ? screenWidth * 0.02 : screenWidth * 0.05,
         ),
         const SizedBox(width: 2),
-        const Flexible(
+        Flexible(
           child: Text(
             "Sign",
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(color: Colors.black),
+            //overflow: TextOverflow.clip,
+            style: Theme.of(context).textTheme.headlineSmall,
           ),
         )
       ],
