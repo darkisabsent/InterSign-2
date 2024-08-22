@@ -11,6 +11,7 @@ class FormContainerWidget extends StatefulWidget {
   final FormFieldValidator<String>? validator;
   final ValueChanged<String>? onFieldSubmitted;
   final TextInputType? inputType;
+  final ValueChanged<String>? onChanged;
 
   const FormContainerWidget(
       {super.key,
@@ -23,7 +24,8 @@ class FormContainerWidget extends StatefulWidget {
       this.onSaved,
       this.validator,
       this.onFieldSubmitted,
-      this.inputType});
+      this.inputType,
+      this.onChanged,});
 
   @override
   State<FormContainerWidget> createState() => _FormContainerWidgetState();
@@ -62,6 +64,7 @@ class _FormContainerWidgetState extends State<FormContainerWidget> {
           obscureText: widget.isPasswordField == true ? _obscureText : false,
           onSaved: widget.onSaved,
           validator: widget.validator,
+          onChanged: widget.onChanged,
           onFieldSubmitted: widget.onFieldSubmitted,
           decoration: InputDecoration(
               border: InputBorder.none,
