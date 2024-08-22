@@ -2,12 +2,13 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:inter_sign/screens/auth/signup_screen.dart';
 import 'package:inter_sign/utils/navigation/menu_state.dart';
 import 'package:provider/provider.dart';
 import 'package:video_player_media_kit/video_player_media_kit.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:inter_sign/themes/light_theme.dart';
+
+import 'auth/auth_gate.dart';
 
 void main() async {
   ///  Ensure that plugin services are initialized before using them
@@ -57,7 +58,8 @@ class MyApp extends StatelessWidget {
       title: 'Inter Sign',
       theme: AppTheme.lightTheme,
       debugShowCheckedModeBanner: false,
-      home: const SignupScreen(),
+      //home: const SignupScreen(),
+      home: const AuthGate(),
     );
   }
 }

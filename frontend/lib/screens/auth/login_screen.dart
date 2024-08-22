@@ -188,11 +188,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                         onPressed: () {
                                           if (_areFieldsFilled()) {
                                             _signIn();
+                                          } else {
+                                            if (mounted) {
+                                              ToastUtil.showErrorToast(context,
+                                                  message:
+                                                      "Provide email and password!");
+                                            }
                                           }
-
-                                          ToastUtil.showErrorToast(context,
-                                              message:
-                                                  "Provide email and password!");
                                         },
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor: _areFieldsFilled()
@@ -303,8 +305,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
     bool isAuthenticated = await auth.login(email: email, password: password);
 
-    if (isAuthenticated) {
-      if (mounted) {
+    if (mounted) {
+      if (isAuthenticated) {
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
@@ -312,16 +314,15 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             (route) => false);
       }
-    }
 
-    // Pop loading circle
-    setState(() {
-      _isSigningIn = false;
-    });
+      setState(() {
+        _isSigningIn = false;
+      });
 
-    if (mounted) {
-      ToastUtil.showErrorToast(context,
-          message: "Incorrect email or password!");
+      if (!isAuthenticated) {
+        ToastUtil.showErrorToast(context,
+            message: "Incorrect email or password!");
+      }
     }
   }
 }

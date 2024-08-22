@@ -57,6 +57,7 @@ dependencies:
   video_player: ^2.9.1
   camera_windows: ^0.2.5
   camera_platform_interface: ^2.8.0
+  flutter_secure_storage: ^9.2.2
 
 dev_dependencies:
   flutter_test:
