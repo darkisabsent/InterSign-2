@@ -26,7 +26,7 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
       color: whiteColor,
       child: Column(
         children: [
-          const SideMenuLogo(),
+          //const SideMenuLogo(),
           Expanded(
             child: ListView.builder(
               itemCount: data.menu.length,

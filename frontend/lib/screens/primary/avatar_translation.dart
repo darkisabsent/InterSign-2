@@ -11,6 +11,7 @@ import 'dart:io';
 
 import '../../utils/responsive.dart';
 import '../../widgets/dashboard/side_menu.dart';
+import '../../widgets/header_widget.dart';
 
 class AvatarTranslation extends StatefulWidget {
   const AvatarTranslation({super.key});
@@ -229,8 +230,10 @@ class _AvatarTranslationState extends State<AvatarTranslation>
       appBar: _isMiniMode
           ? null
           : AppBar(
-              title: const Text('Avatar Translation'),
-              centerTitle: true,
+        title: const HeaderWidget(),
+
+        /*title: const Text('Avatar Translation'),
+              centerTitle: true,*/
             ),
       drawer: !isDesktop
           ? const SizedBox(

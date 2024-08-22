@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../utils/responsive.dart';
 import '../../widgets/dashboard/side_menu.dart';
+import '../../widgets/header_widget.dart';
 
 class Payment extends StatelessWidget {
   const Payment({super.key});
@@ -13,7 +14,9 @@ class Payment extends StatelessWidget {
     final bool isDesktop = Responsive.isDesktop(context);
 
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: const HeaderWidget(),
+      ),
       body: SafeArea(
         child: Row(
           children: [

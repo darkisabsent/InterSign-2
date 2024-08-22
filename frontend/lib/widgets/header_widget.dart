@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inter_sign/widgets/side_menu_logo.dart';
 
 import '../const/constant.dart';
 import '../utils/responsive.dart';
@@ -9,7 +10,7 @@ class HeaderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         /*if (!Responsive.isDesktop(context))
           Padding(
@@ -27,11 +28,13 @@ class HeaderWidget extends StatelessWidget {
             ),
           ),*/
         if (!Responsive.isMobile(context))
+          const Expanded(child: SideMenuLogo()),
+        if (!Responsive.isMobile(context))
           Expanded(
             child: TextField(
               decoration: InputDecoration(
-                filled: true,
-                fillColor: cardBackgroundColor,
+                /*filled: true,
+                fillColor: cardBackgroundColor,*/
                 enabledBorder: const OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.transparent),
                 ),

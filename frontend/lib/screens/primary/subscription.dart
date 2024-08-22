@@ -5,6 +5,7 @@ import 'package:inter_sign/widgets/dashboard/side_menu.dart';
 
 import '../../utils/responsive.dart';
 import '../../utils/layout_utils.dart';
+import '../../widgets/header_widget.dart';
 
 class Subscription extends StatefulWidget {
   const Subscription({super.key});
@@ -24,12 +25,14 @@ class _SubscriptionState extends State<Subscription> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const HeaderWidget(),
+
+        /*title: Text(
           "Subscription Plan",
           style: Theme.of(context).textTheme.titleLarge,
           maxLines: 1,
         ),
-        centerTitle: true,
+        centerTitle: true,*/
       ),
       drawer: !isDesktop
           ? const SizedBox(

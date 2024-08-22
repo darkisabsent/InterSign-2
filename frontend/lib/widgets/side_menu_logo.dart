@@ -14,11 +14,9 @@ class SideMenuLogo extends StatelessWidget {
     return Row(
       children: [
         Flexible(
-          child: Text("Inter",
-              //overflow: TextOverflow.fade,
-              //maxLines: 1,
-              style: Theme.of(context).textTheme.headlineSmall
-
+          child: Text(
+            "Inter",
+            style: Theme.of(context).textTheme.headlineSmall,
           ),
         ),
         const SizedBox(width: 2),
@@ -31,7 +29,6 @@ class SideMenuLogo extends StatelessWidget {
         Flexible(
           child: Text(
             "Sign",
-            //overflow: TextOverflow.clip,
             style: Theme.of(context).textTheme.headlineSmall,
           ),
         )
