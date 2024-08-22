@@ -190,7 +190,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                             _signIn();
                                           }
 
-                                          /// TODO: show toast message: fill fields
                                           ToastUtil.showErrorToast(context,
                                               message:
                                                   "Provide email and password!");
