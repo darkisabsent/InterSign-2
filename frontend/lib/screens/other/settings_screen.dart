@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inter_sign/screens/other/customize_avatar.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '../../utils/responsive.dart';
@@ -105,7 +106,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     icon: Ionicons.person_add,
                     bgColor: Colors.green.shade100,
                     iconColor: Colors.green,
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const CustomizeAvatar()));
+                    },
                   ),
                   const SizedBox(height: 20),
                   SettingItem(
