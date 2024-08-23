@@ -1,6 +1,7 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:inter_sign/screens/auth/signup_screen.dart';
-import 'package:inter_sign/screens/home_screen.dart';
+import 'package:inter_sign/_unused/home_screen.dart';
 
 import '../widgets/form_container.dart';
 import 'home.dart';
@@ -93,16 +94,19 @@ class _LoginState extends State<Login> {
                         const SizedBox(height: 30),
                         TextButton(
                           onPressed: () {
-                            Navigator.of(context).pushReplacement(
+                            */
+/*Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
                                   builder: (context) => const HomeScreen()),
-                            );
+                            );*//*
+
                           },
                           child: const Text(
                             "LOGIN",
                           ),
                         ),
-                        /*Padding(
+                        */
+/*Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 10),
                           child: GestureDetector(
@@ -133,7 +137,8 @@ class _LoginState extends State<Login> {
                               ),
                             ),
                           ),
-                        ),*/
+                        ),*//*
+
                         //const SizedBox(height: 10),
                         const SizedBox(height: 20),
                         Row(
@@ -194,3 +199,4 @@ class _LoginState extends State<Login> {
     });
   }
 }
+*/

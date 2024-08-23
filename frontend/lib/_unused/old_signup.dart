@@ -1,3 +1,4 @@
+/*
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -46,14 +47,16 @@ class _SignUpState extends State<SignUp> {
 
       decoration: const BoxDecoration(
         color: Colors.white,
-          /*gradient: LinearGradient(
+          */
+/*gradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomCenter,
         colors: [
           Theme.of(context).colorScheme.secondary,
           Colors.white,
         ],
-      ),*/
+      ),*//*
+
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
@@ -106,11 +109,13 @@ class _SignUpState extends State<SignUp> {
                                 color: Colors.black,
                                 fontSize: 25,
                                 fontWeight: FontWeight.bold)),
-                        /*const Text("Upload an image and fill the spaces below",
+                        */
+/*const Text("Upload an image and fill the spaces below",
                             style: TextStyle(
                               color: Colors.black45,
                               fontSize: 14,
-                            )),*/
+                            )),*//*
+
                         const SizedBox(height: 20),
                         FormContainerWidget(
                           hintText: "Full Name",
@@ -298,3 +303,4 @@ class _SignUpState extends State<SignUp> {
         });
   }
 }
+*/

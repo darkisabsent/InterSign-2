@@ -16,7 +16,7 @@ class LineChartCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             "Steps Overview",
             style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
           ),
@@ -25,15 +25,15 @@ class LineChartCard extends StatelessWidget {
             aspectRatio: 16 / 6,
             child: LineChart(
               LineChartData(
-                lineTouchData: LineTouchData(
+                lineTouchData: const LineTouchData(
                   handleBuiltInTouches: true,
                 ),
-                gridData: FlGridData(show: false),
+                gridData: const FlGridData(show: false),
                 titlesData: FlTitlesData(
-                  rightTitles: AxisTitles(
+                  rightTitles: const AxisTitles(
                     sideTitles: SideTitles(showTitles: false),
                   ),
-                  topTitles: AxisTitles(
+                  topTitles: const AxisTitles(
                     sideTitles: SideTitles(showTitles: false),
                   ),
                   bottomTitles: AxisTitles(
@@ -83,7 +83,7 @@ class LineChartCard extends StatelessWidget {
                       ),
                       show: true,
                     ),
-                    dotData: FlDotData(show: false),
+                    dotData: const FlDotData(show: false),
                     spots: data.spots,
                   )
                 ],

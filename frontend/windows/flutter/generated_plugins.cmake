@@ -3,11 +3,14 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  camera_windows
   file_selector_windows
+  flutter_secure_storage_windows
   media_kit_libs_windows_video
   media_kit_video
   screen_brightness_windows
   screen_retriever
+  video_player_win
   window_manager
 )
 

@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:inter_sign/widgets/info_card.dart';
 import 'package:inter_sign/widgets/logo_widget.dart';
 
+import '../../auth/auth_service.dart';
 import '../../utils/responsive.dart';
 import '../../utils/show_toast.dart';
-import '../../utils/layout_utils.dart';
 import '../../widgets/form_container.dart';
+import '../primary/dashboard.dart';
 import 'login_screen.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -16,11 +17,13 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
-  final TextEditingController _fullNameController = TextEditingController();
+  final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
+  final auth = AuthService();
+
   bool passwordsMatch = true;
   bool _isSigningUp = false;
 
@@ -33,11 +36,18 @@ class _SignupScreenState extends State<SignupScreen> {
 
   @override
   void dispose() {
-    _fullNameController.dispose();
+    _firstNameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
     super.dispose();
+  }
+
+  bool _areFieldsFilled() {
+    return _firstNameController.text.isNotEmpty &&
+        _emailController.text.isNotEmpty &&
+        _passwordController.text.isNotEmpty &&
+        _confirmPasswordController.text.isNotEmpty;
   }
 
   @override
@@ -121,19 +131,22 @@ class _SignupScreenState extends State<SignupScreen> {
                                         labelText: "FIRST NAME",
                                         hintText: "John",
                                         isPasswordField: false,
-                                        controller: _fullNameController,
+                                        controller: _firstNameController,
+                                        onChanged: (value) => setState(() {}),
                                       ),
                                       FormContainerWidget(
                                         labelText: "EMAIL ADDRESS",
                                         hintText: "johndoe@example.com",
                                         isPasswordField: false,
                                         controller: _emailController,
+                                        onChanged: (value) => setState(() {}),
                                       ),
                                       FormContainerWidget(
                                         labelText: "PASSWORD",
                                         hintText: "********",
                                         isPasswordField: true,
                                         controller: _passwordController,
+                                        onChanged: (value) => setState(() {}),
                                       ),
                                       Visibility(
                                         visible: !passwordsMatch,
@@ -150,6 +163,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                         hintText: "********",
                                         isPasswordField: true,
                                         controller: _confirmPasswordController,
+                                        onChanged: (value) => setState(() {}),
                                       ),
                                     ],
                                   ),
@@ -166,9 +180,21 @@ class _SignupScreenState extends State<SignupScreen> {
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 5),
                                       child: ElevatedButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          if (_areFieldsFilled()) {
+                                            _signUp();
+                                          } else {
+                                            if (mounted) {
+                                              ToastUtil.showErrorToast(context,
+                                                  message:
+                                                      "Provide name, email and password!");
+                                            }
+                                          }
+                                        },
                                         style: ElevatedButton.styleFrom(
-                                          backgroundColor: Colors.black,
+                                          backgroundColor: _areFieldsFilled()
+                                              ? Colors.black
+                                              : Colors.grey,
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(8),
@@ -269,21 +295,42 @@ class _SignupScreenState extends State<SignupScreen> {
     );
   }
 
-  Future<void> _signUp() async {
-    String fullName = _fullNameController.text;
-    String email = _emailController.text;
-    String password = _passwordController.text;
-
-    // Show loading circle
-    setState(() {
-      _isSigningUp = true;
-    });
-  }
-
   void _checkPasswordsMatch() {
     setState(() {
       passwordsMatch =
           _passwordController.text == _confirmPasswordController.text;
     });
+  }
+
+  Future<void> _signUp() async {
+    String firstName = _firstNameController.text;
+    String email = _emailController.text;
+    String password = _passwordController.text;
+
+    setState(() {
+      _isSigningUp = true;
+    });
+
+    bool isAuthenticated =
+        await auth.register(name: firstName, email: email, password: password);
+
+    if (mounted) {
+      if (isAuthenticated) {
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const Dashboard(),
+            ),
+            (route) => false);
+      }
+
+      setState(() {
+        _isSigningUp = false;
+      });
+
+      if (!isAuthenticated) {
+        ToastUtil.showErrorToast(context, message: "Error!");
+      }
+    }
   }
 }

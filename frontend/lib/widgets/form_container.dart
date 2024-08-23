@@ -11,6 +11,7 @@ class FormContainerWidget extends StatefulWidget {
   final FormFieldValidator<String>? validator;
   final ValueChanged<String>? onFieldSubmitted;
   final TextInputType? inputType;
+  final ValueChanged<String>? onChanged;
 
   const FormContainerWidget(
       {super.key,
@@ -23,7 +24,8 @@ class FormContainerWidget extends StatefulWidget {
       this.onSaved,
       this.validator,
       this.onFieldSubmitted,
-      this.inputType});
+      this.inputType,
+      this.onChanged,});
 
   @override
   State<FormContainerWidget> createState() => _FormContainerWidgetState();
@@ -37,8 +39,8 @@ class _FormContainerWidgetState extends State<FormContainerWidget> {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
 
-    double horizontalPadding = screenWidth * 0.01; // 1% of screen width
-    double horizontalMargin = screenWidth * 0.02; // 2% of screen width
+    //double horizontalPadding = screenWidth * 0.01; // 1% of screen width
+    //double horizontalMargin = screenWidth * 0.02; // 2% of screen width
     double containerWidth = screenWidth * 0.8; // 80% of screen width
     double containerHeight = screenHeight * 0.08; // 8% of screen height
 
@@ -62,6 +64,7 @@ class _FormContainerWidgetState extends State<FormContainerWidget> {
           obscureText: widget.isPasswordField == true ? _obscureText : false,
           onSaved: widget.onSaved,
           validator: widget.validator,
+          onChanged: widget.onChanged,
           onFieldSubmitted: widget.onFieldSubmitted,
           decoration: InputDecoration(
               border: InputBorder.none,

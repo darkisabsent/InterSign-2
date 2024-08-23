@@ -4,7 +4,6 @@ import 'package:inter_sign/widgets/dashboard/summary_widget.dart';
 import '../../utils/responsive.dart';
 import 'activity_details_card.dart';
 import 'bar_graph_widget.dart';
-import 'header_widget.dart';
 import 'line_chart_card.dart';
 
 class DashboardWidget extends StatelessWidget {
@@ -17,8 +16,7 @@ class DashboardWidget extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 18),
         child: Column(
           children: [
-            const SizedBox(height: 18),
-            /// Hide search bar
+            //const SizedBox(height: 18),
             //const HeaderWidget(),
             const SizedBox(height: 18),
             const ActivityDetailsCard(),

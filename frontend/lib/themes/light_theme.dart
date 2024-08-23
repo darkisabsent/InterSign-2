@@ -66,6 +66,12 @@ class AppTheme {
         fontWeight: FontWeight.bold,
         overflow: TextOverflow.ellipsis,
       ),
+      headlineSmall: const TextStyle(
+        color: Colors.black,
+        fontSize: 20,
+        fontWeight: FontWeight.w900,
+        //overflow: TextOverflow.ellipsis,
+      ),
       titleLarge: const TextStyle(
         color: Color(0xff000557),
         fontSize: 30,

@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:inter_sign/_unused/signup.dart';
 
@@ -43,10 +44,12 @@ class _LoginState extends State<Login> {
           leading: IconButton(
             icon: const Icon(Icons.arrow_back, color: Colors.white),
             onPressed: () {
-              /*Navigator.of(context).pushReplacement(
+              */
+/*Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
                     builder: (context) => const FarmerAuthScreen()),
-              );*/
+              );*//*
+
             },
           ),
         ),
@@ -66,7 +69,8 @@ class _LoginState extends State<Login> {
                     ),
                     textAlign: TextAlign.left,
                   ),
-                  /*const Text(
+                  */
+/*const Text(
                     'Please sign in to your account',
                     style: TextStyle(
                       color: Colors.black45,
@@ -75,7 +79,8 @@ class _LoginState extends State<Login> {
                       fontWeight: FontWeight.w500,
                     ),
                     textAlign: TextAlign.left,
-                  ),*/
+                  ),*//*
+
                   const SizedBox(height: 50),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -186,3 +191,4 @@ class _LoginState extends State<Login> {
     });
   }
 }
+*/

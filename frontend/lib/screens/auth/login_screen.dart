@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:inter_sign/screens/auth/recover_password_screen.dart';
-import 'package:inter_sign/screens/home_screen.dart';
+import 'package:inter_sign/screens/primary/dashboard.dart';
 import 'package:inter_sign/widgets/info_card.dart';
 import 'package:inter_sign/widgets/logo_widget.dart';
 
+import '../../auth/auth_service.dart';
 import '../../utils/responsive.dart';
+import '../../utils/show_toast.dart';
 import '../../widgets/form_container.dart';
 import 'signup_screen.dart';
 
@@ -18,6 +20,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final auth = AuthService();
   bool _isSigningIn = false;
   bool _rememberMe = false;
 
@@ -26,6 +29,11 @@ class _LoginScreenState extends State<LoginScreen> {
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
+  }
+
+  bool _areFieldsFilled() {
+    return _emailController.text.isNotEmpty &&
+        _passwordController.text.isNotEmpty;
   }
 
   @override
@@ -85,7 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: Column(
                               children: [
                                 /// Logo
-                               const LogoWidget(),
+                                const LogoWidget(),
 
                                 /// Text
                                 Flexible(
@@ -110,6 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         hintText: "johndoe@example.com",
                                         isPasswordField: false,
                                         controller: _emailController,
+                                        onChanged: (value) => setState(() {}),
                                       ),
                                       const SizedBox(height: 10),
                                       FormContainerWidget(
@@ -117,6 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         hintText: "********",
                                         isPasswordField: true,
                                         controller: _passwordController,
+                                        onChanged: (value) => setState(() {}),
                                       ),
                                       Row(
                                         children: [
@@ -137,14 +147,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                           ),
                                           const Spacer(),
                                           GestureDetector(
-                                            onTap: (){
+                                            onTap: () {
                                               Navigator.pushAndRemoveUntil(
                                                   context,
                                                   MaterialPageRoute(
                                                     builder: (context) =>
-                                                    const RecoverPasswordScreen(),
+                                                        const RecoverPasswordScreen(),
                                                   ),
-                                                      (route) => false);
+                                                  (route) => false);
                                             },
                                             child: Text(
                                               "Forgot Password?",
@@ -174,16 +184,20 @@ class _LoginScreenState extends State<LoginScreen> {
                                           horizontal: 5),
                                       child: ElevatedButton(
                                         onPressed: () {
-                                          Navigator.pushAndRemoveUntil(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                const HomeScreen(),
-                                              ),
-                                                  (route) => false);
+                                          if (_areFieldsFilled()) {
+                                            _signIn();
+                                          } else {
+                                            if (mounted) {
+                                              ToastUtil.showErrorToast(context,
+                                                  message:
+                                                      "Provide email and password!");
+                                            }
+                                          }
                                         },
                                         style: ElevatedButton.styleFrom(
-                                          backgroundColor: Colors.black,
+                                          backgroundColor: _areFieldsFilled()
+                                              ? Colors.black
+                                              : Colors.grey,
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(8),
@@ -286,5 +300,27 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() {
       _isSigningIn = true;
     });
+
+    bool isAuthenticated = await auth.login(email: email, password: password);
+
+    if (mounted) {
+      if (isAuthenticated) {
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const Dashboard(),
+            ),
+            (route) => false);
+      }
+
+      setState(() {
+        _isSigningIn = false;
+      });
+
+      if (!isAuthenticated) {
+        ToastUtil.showErrorToast(context,
+            message: "Incorrect email or password!");
+      }
+    }
   }
 }
