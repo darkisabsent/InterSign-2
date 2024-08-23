@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:inter_sign/screens/other/settings_screen.dart';
 
-import '../../utils/responsive.dart';
-import '../../widgets/side_menu.dart';
-import '../../widgets/header_widget.dart';
+import '../utils/responsive.dart';
+import '../widgets/side_menu.dart';
+import '../widgets/header_widget.dart';
 
 class Settings extends StatelessWidget {
   const Settings({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final bool isMobile = Responsive.isMobile(context);
-    final bool isTablet = Responsive.isTablet(context);
     final bool isDesktop = Responsive.isDesktop(context);
 
     return Scaffold(
@@ -27,10 +26,19 @@ class Settings extends StatelessWidget {
                   child: SideMenuWidget(),
                 ),
               ),
-            const Expanded(
+            Expanded(
               flex: 7,
               child: Center(
-                child: Text("SETTINGS"),
+                child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const SettingsScreen()),
+                        (route) => false,
+                      );
+                    },
+                    child: const Text("Settings")),
               ),
             )
           ],

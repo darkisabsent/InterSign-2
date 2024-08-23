@@ -93,10 +93,10 @@ class _LoginState extends State<Login> {
                         const SizedBox(height: 30),
                         TextButton(
                           onPressed: () {
-                            Navigator.of(context).pushReplacement(
+                            /*Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
                                   builder: (context) => const HomeScreen()),
-                            );
+                            );*/
                           },
                           child: const Text(
                             "LOGIN",

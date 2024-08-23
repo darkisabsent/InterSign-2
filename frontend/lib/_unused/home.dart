@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:inter_sign/_unused/nav_bar.dart';
 import 'package:window_manager/window_manager.dart';
@@ -23,7 +24,7 @@ class _HomeState extends State<Home> {
     const Subscription(),
     AvatarTranslation(),
     const TranslateToSpeech(),
-    const Settings(),
+    //const Settings(),
     const Payment(),
     const Accounts(),
     const Help(),
@@ -108,3 +109,4 @@ class _HomeState extends State<Home> {
     }
   }
 }
+*/

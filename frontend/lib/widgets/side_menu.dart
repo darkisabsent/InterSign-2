@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:inter_sign/widgets/side_menu_logo.dart';
 import 'package:provider/provider.dart';
 import 'package:inter_sign/utils/navigation/menu_state.dart';
 import 'package:inter_sign/const/constant.dart';
 import 'package:inter_sign/screens/other/index.dart';
 import 'package:inter_sign/screens/primary/index.dart';
 import '../data/dashboard/side_menu_data.dart';
-import '../utils/responsive.dart';
 
 class SideMenuWidget extends StatefulWidget {
   const SideMenuWidget({super.key});
@@ -61,54 +59,55 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (context) => const Dashboard()),
-                    (route) => false,
+                (route) => false,
               );
             } else if (index == 1) {
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (context) => const Subscription()),
-                    (route) => false,
+                (route) => false,
               );
             } else if (index == 2) {
               Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (context) => const AvatarTranslation()),
-                    (route) => false,
+                MaterialPageRoute(
+                    builder: (context) => const AvatarTranslation()),
+                (route) => false,
               );
             } else if (index == 3) {
               Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (context) => const TranslateToSpeech()),
-                    (route) => false,
+                MaterialPageRoute(
+                    builder: (context) => const TranslateToSpeech()),
+                (route) => false,
               );
             } else if (index == 4) {
               Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (context) => const Settings()),
-                    (route) => false,
+                MaterialPageRoute(builder: (context) => const SettingsScreen()),
+                (route) => false,
               );
             } else if (index == 5) {
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (context) => const Payment()),
-                    (route) => false,
+                (route) => false,
               );
             } else if (index == 6) {
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (context) => const Accounts()),
-                    (route) => false,
+                (route) => false,
               );
             } else if (index == 7) {
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (context) => const Help()),
-                    (route) => false,
+                (route) => false,
               );
             }
           }
         },
-
         child: Row(
           children: [
             Padding(
