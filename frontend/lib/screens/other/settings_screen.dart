@@ -7,6 +7,7 @@ import '../../widgets/header_widget.dart';
 import '../../widgets/settings/forward_button.dart';
 import '../../widgets/settings/setting_item.dart';
 import '../../widgets/side_menu.dart';
+import '../auth/change_password.dart';
 import 'edit_account.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -108,9 +109,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     iconColor: Colors.green,
                     onTap: () {
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const CustomizeAvatar()));
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const CustomizeAvatar()),
+                      );
                     },
                   ),
                   const SizedBox(height: 20),
@@ -119,7 +121,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     icon: Ionicons.lock_closed,
                     bgColor: Colors.blue.shade100,
                     iconColor: Colors.blue,
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ChangePassword()),
+                      );
+                    },
                   ),
                   const SizedBox(height: 20),
                   SettingItem(

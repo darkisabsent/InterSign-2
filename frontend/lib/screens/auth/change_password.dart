@@ -6,48 +6,34 @@ import '../../auth/auth_service.dart';
 import '../../utils/responsive.dart';
 import '../../utils/show_toast.dart';
 import '../../widgets/form_container.dart';
-import '../primary/dashboard.dart';
-import 'login_screen.dart';
 
-class SignupScreen extends StatefulWidget {
-  const SignupScreen({super.key});
+class ChangePassword extends StatefulWidget {
+  const ChangePassword({super.key});
 
   @override
-  State<SignupScreen> createState() => _SignupScreenState();
+  State<ChangePassword> createState() => _ChangePasswordState();
 }
 
-class _SignupScreenState extends State<SignupScreen> {
-  final TextEditingController _firstNameController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController =
-      TextEditingController();
+class _ChangePasswordState extends State<ChangePassword> {
+  final TextEditingController _currentPassword = TextEditingController();
+  final TextEditingController _newPassController = TextEditingController();
+  final TextEditingController _confirmPassController = TextEditingController();
+
   final auth = AuthService();
-
-  bool passwordsMatch = true;
-  bool _isSigningUp = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _passwordController.addListener(_checkPasswordsMatch);
-    _confirmPasswordController.addListener(_checkPasswordsMatch);
-  }
+  bool _isSubmitting = false;
 
   @override
   void dispose() {
-    _firstNameController.dispose();
-    _emailController.dispose();
-    _passwordController.dispose();
-    _confirmPasswordController.dispose();
+    _currentPassword.dispose();
+    _newPassController.dispose();
+    _confirmPassController.dispose();
     super.dispose();
   }
 
   bool _areFieldsFilled() {
-    return _firstNameController.text.isNotEmpty &&
-        _emailController.text.isNotEmpty &&
-        _passwordController.text.isNotEmpty &&
-        _confirmPasswordController.text.isNotEmpty;
+    return _currentPassword.text.isNotEmpty &&
+        _newPassController.text.isNotEmpty &&
+        _newPassController.text.isNotEmpty;
   }
 
   @override
@@ -59,7 +45,6 @@ class _SignupScreenState extends State<SignupScreen> {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
 
-    // Calculate responsive button size
     double buttonWidth = screenWidth * 0.8;
     double buttonHeight = screenHeight * 0.07;
 
@@ -112,7 +97,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                 /// Text
                                 Flexible(
                                   child: Text(
-                                    "Sign Up",
+                                    "Change Password",
                                     overflow: TextOverflow.ellipsis,
                                     style: Theme.of(context)
                                         .textTheme
@@ -128,41 +113,26 @@ class _SignupScreenState extends State<SignupScreen> {
                                     children: [
                                       const SizedBox(height: 10),
                                       FormContainerWidget(
-                                        labelText: "FIRST NAME",
-                                        hintText: "John",
-                                        isPasswordField: false,
-                                        controller: _firstNameController,
-                                        onChanged: (value) => setState(() {}),
-                                      ),
-                                      FormContainerWidget(
-                                        labelText: "EMAIL ADDRESS",
-                                        hintText: "johndoe@example.com",
-                                        isPasswordField: false,
-                                        controller: _emailController,
-                                        onChanged: (value) => setState(() {}),
-                                      ),
-                                      FormContainerWidget(
-                                        labelText: "PASSWORD",
+                                        labelText: "CURRENT PASSWORD",
                                         hintText: "********",
                                         isPasswordField: true,
-                                        controller: _passwordController,
+                                        controller: _currentPassword,
                                         onChanged: (value) => setState(() {}),
                                       ),
-                                      Visibility(
-                                        visible: !passwordsMatch,
-                                        child:
-                                            const Text("Passwords do no match!",
-                                                style: TextStyle(
-                                                    color: Colors.red,
-                                                    //color: errorRed,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 13)),
+                                      const SizedBox(height: 10),
+                                      FormContainerWidget(
+                                        labelText: "NEW PASSWORD",
+                                        hintText: "********",
+                                        isPasswordField: true,
+                                        controller: _newPassController,
+                                        onChanged: (value) => setState(() {}),
                                       ),
+                                      const SizedBox(height: 10),
                                       FormContainerWidget(
                                         labelText: "CONFIRM PASSWORD",
                                         hintText: "********",
                                         isPasswordField: true,
-                                        controller: _confirmPasswordController,
+                                        controller: _confirmPassController,
                                         onChanged: (value) => setState(() {}),
                                       ),
                                     ],
@@ -182,12 +152,14 @@ class _SignupScreenState extends State<SignupScreen> {
                                       child: ElevatedButton(
                                         onPressed: () {
                                           if (_areFieldsFilled()) {
-                                            _signUp();
+                                            /// TODO: call the implemented method
+                                            // _changePassword();
+                                            Navigator.of(context).pop();
                                           } else {
                                             if (mounted) {
                                               ToastUtil.showErrorToast(context,
                                                   message:
-                                                      "Provide name, email and password!");
+                                                      "Passwords not provided");
                                             }
                                           }
                                         },
@@ -200,70 +172,26 @@ class _SignupScreenState extends State<SignupScreen> {
                                                 BorderRadius.circular(8),
                                           ),
                                         ),
-                                        child: _isSigningUp
-                                            ? const CircularProgressIndicator(
-                                                color: Colors.white,
-                                              )
-                                            : const Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Flexible(
-                                                    child: Text(
-                                                      "SIGN UP",
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 17,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
+                                        child: const Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Flexible(
+                                              child: Text(
+                                                "SUBMIT",
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 17,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
                                               ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Flexible(
-                                      child: Text(
-                                        "Already have an account?",
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                            color: Colors.black, fontSize: 15),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 5),
-                                    Flexible(
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          Navigator.pushAndRemoveUntil(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const LoginScreen(),
-                                              ),
-                                              (route) => false);
-                                        },
-                                        child: Text(
-                                          "LOGIN",
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .secondary,
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                    )
-                                  ],
                                 ),
                               ],
                             ),
@@ -282,7 +210,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 ],
               ),
             ),
-            if (_isSigningUp)
+            if (_isSubmitting)
               Container(
                 color: Colors.black.withOpacity(0.5),
                 child: const Center(
@@ -295,24 +223,19 @@ class _SignupScreenState extends State<SignupScreen> {
     );
   }
 
-  void _checkPasswordsMatch() {
-    setState(() {
-      passwordsMatch =
-          _passwordController.text == _confirmPasswordController.text;
-    });
-  }
+  Future<void> _changePassword() async {
+    String email = _currentPassword.text;
+    String password = _newPassController.text;
 
-  Future<void> _signUp() async {
-    String firstName = _firstNameController.text;
-    String email = _emailController.text;
-    String password = _passwordController.text;
+    /// TODO: implementation
 
+    /*
+    // Show loading circle
     setState(() {
-      _isSigningUp = true;
+      _isSubmitting = true;
     });
 
-    bool isAuthenticated =
-        await auth.register(name: firstName, email: email, password: password);
+    bool isAuthenticated = await auth.login(email: email, password: password);
 
     if (mounted) {
       if (isAuthenticated) {
@@ -325,12 +248,14 @@ class _SignupScreenState extends State<SignupScreen> {
       }
 
       setState(() {
-        _isSigningUp = false;
+        _isSubmitting = false;
       });
 
       if (!isAuthenticated) {
-        ToastUtil.showErrorToast(context, message: "Error!");
+        ToastUtil.showErrorToast(context,
+            message: "Incorrect email or password!");
       }
-    }
+    }*/
+
   }
 }

@@ -22,8 +22,8 @@ class AuthService {
       final Map<String, dynamic> data = jsonDecode(response.body);
       final String token = data['access_token'];
 
-      // Save the token securely
       await _storage.write(key: 'auth_token', value: token);
+      log("Auth token: $token");
 
       log("Login: ${response.body.toString()}");
       return true;
@@ -38,6 +38,7 @@ class AuthService {
     required String name,
     required String email,
     required String password,
+    int? roleID,
   }) async {
     const baseURL = 'http://127.0.0.1:8000/api/register';
     late http.Response response;
@@ -51,11 +52,20 @@ class AuthService {
           "name": name,
           "email": email,
           "password": password,
+          "role_id": roleID ?? 3,
         }));
 
     if (response.statusCode == 200) {
       log("Register: ${response.body.toString()}");
       return true;
+    } else if (response.statusCode == 422) {
+      // Parse the message from the response body
+      final Map<String, dynamic> data = jsonDecode(response.body);
+      final String errorMessage = data['message'];
+
+      log("Error: $errorMessage");
+
+      return false;
     } else {
       log("Register: ${response.statusCode.toString()}");
       log("Register: ${response.body.toString()}");
@@ -77,10 +87,8 @@ class AuthService {
         body: jsonEncode({"in": text, "lang": "en-$localLanguage"}));
 
     if (response.statusCode == 200) {
-      // Ensure the response body is decoded as UTF-8
       String result = utf8.decode(response.bodyBytes);
 
-      // Remove the first and last quotation marks if they exist
       if (result.startsWith('"') && result.endsWith('"')) {
         result = result.substring(1, result.length - 1);
       }
