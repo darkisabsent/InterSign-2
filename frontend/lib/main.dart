@@ -10,10 +10,8 @@ import 'package:inter_sign/themes/light_theme.dart';
 import 'auth/auth_gate.dart';
 
 void main() async {
-  ///  Ensure that plugin services are initialized before using them
   WidgetsFlutterBinding.ensureInitialized();
 
-  /// Initialize the window manager
   await windowManager.ensureInitialized();
 
   VideoPlayerMediaKit.ensureInitialized(
