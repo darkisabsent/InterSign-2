@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:inter_sign/screens/primary/index.dart';
 import 'package:inter_sign/screens/other/index.dart';
@@ -110,3 +111,4 @@ class NavBar extends StatelessWidget {
     );
   }
 }
+*/

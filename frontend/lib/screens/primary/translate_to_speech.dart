@@ -10,8 +10,8 @@ class TranslateToSpeech extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isMobile = Responsive.isMobile(context);
-    final bool isTablet = Responsive.isTablet(context);
+    //final bool isMobile = Responsive.isMobile(context);
+    //final bool isTablet = Responsive.isTablet(context);
     final bool isDesktop = Responsive.isDesktop(context);
 
     return Scaffold(

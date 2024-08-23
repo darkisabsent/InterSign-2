@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 
 import '../utils/responsive.dart';
@@ -308,3 +309,4 @@ class _SignUpState extends State<SignUp> {
     });
   }
 }
+*/

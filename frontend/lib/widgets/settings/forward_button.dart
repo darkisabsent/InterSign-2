@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inter_sign/const/constant.dart';
-import 'package:ionicons/ionicons.dart';
+//import 'package:ionicons/ionicons.dart';
 
 class ForwardButton extends StatelessWidget {
   final Function() onTap;

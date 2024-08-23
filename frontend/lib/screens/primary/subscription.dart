@@ -195,11 +195,21 @@ class _SubscriptionState extends State<Subscription> {
                           children: [
                             Text(
                               isPremium ? "\$50" : "\$30",
-                              style: Theme.of(context).textTheme.bodySmall,
+                              style: isPremium
+                                  ? Theme.of(context)
+                                      .textTheme
+                                      .bodySmall
+                                      ?.copyWith(color: Colors.black)
+                                  : Theme.of(context).textTheme.bodySmall,
                             ),
                             Text(
                               "/month",
-                              style: Theme.of(context).textTheme.bodySmall,
+                              style: isPremium
+                                  ? Theme.of(context)
+                                      .textTheme
+                                      .bodySmall
+                                      ?.copyWith(color: Colors.black)
+                                  : Theme.of(context).textTheme.bodySmall,
                             ),
                           ],
                         ),

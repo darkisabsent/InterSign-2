@@ -222,8 +222,8 @@ class _AvatarTranslationState extends State<AvatarTranslation>
 
   @override
   Widget build(BuildContext context) {
-    final bool isMobile = Responsive.isMobile(context);
-    final bool isTablet = Responsive.isTablet(context);
+    //final bool isMobile = Responsive.isMobile(context);
+    //final bool isTablet = Responsive.isTablet(context);
     final bool isDesktop = Responsive.isDesktop(context);
 
     return Scaffold(

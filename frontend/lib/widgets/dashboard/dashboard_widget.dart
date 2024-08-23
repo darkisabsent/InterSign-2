@@ -4,7 +4,6 @@ import 'package:inter_sign/widgets/dashboard/summary_widget.dart';
 import '../../utils/responsive.dart';
 import 'activity_details_card.dart';
 import 'bar_graph_widget.dart';
-import '../header_widget.dart';
 import 'line_chart_card.dart';
 
 class DashboardWidget extends StatelessWidget {

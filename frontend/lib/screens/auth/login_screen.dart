@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:inter_sign/screens/auth/recover_password_screen.dart';
 import 'package:inter_sign/screens/primary/dashboard.dart';

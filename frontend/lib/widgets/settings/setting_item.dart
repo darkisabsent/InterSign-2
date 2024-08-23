@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ionicons/ionicons.dart';
+//import 'package:ionicons/ionicons.dart';
 import 'package:inter_sign/widgets/settings/forward_button.dart';
 
 class SettingItem extends StatelessWidget {
