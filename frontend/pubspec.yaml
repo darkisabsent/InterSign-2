@@ -61,6 +61,8 @@ dependencies:
 
   # Settings
   ionicons: ^0.2.2
+  rename_app: ^1.6.1
+  flutter_launcher_icons: ^0.13.1
 
 dev_dependencies:
   flutter_test:
