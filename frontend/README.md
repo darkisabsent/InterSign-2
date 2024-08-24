@@ -1,7 +1,3 @@
-# inter_sign
-
-A new Flutter project.
-
 ## Application Installation Guide
 
 Welcome! This guide will walk you through the installation process for the Flutter desktop application.
@@ -10,43 +6,47 @@ Welcome! This guide will walk you through the installation process for the Flutt
 Before you begin, make sure you have the following installed on your development machine:
 
 - [Flutter SDK](https://flutter.dev/docs/get-started/install)
-- [Android Studio](https://developer.android.com/studio) (for Android development)
+- [Git](https://git-scm.com/downloads)
+- [Visual Studio](https://visualstudio.microsoft.com/downloads/) with the "Desktop development with C++" workload (for Windows desktop development)
 
-## Building from source
+## Building From Source
+Follow the [official Flutter guide for building Windows desktop apps ](https://docs.flutter.dev/get-started/install/windows/desktop) to set up your environment.
 
-Follow these steps to build and install the app on your device:
-
-1. **Clone the Repository:**
+## Confirm The Set Up
+- After setting up the environment, open a terminal or command prompt.
+   ```bash
+   flutter doctor
    ```
+- This command checks your environment and displays a summary of any issues or missing dependencies.
+- Ensure that all checks, particularly for Visual Studio - develop for Windows, show a green checkmark (✅).
+
+## Check For Desktop Device Availability
+- Run the following command to list all available devices:
+   ```bash
+   flutter devices
+   ```
+## Install the Application
+1. **Clone the Repository:**
+   ```bash
    https://github.com/darkisabsent/InterSign-2.git
    ```
 
 2. **Move to the directory containing the Flutter code and switch to the main branch**
+   ```bash
+   cd frontend
    ```
-    cd frontend
-    ```
-    ```
-    git switch main
-    ```
+   ```bash
+   git switch main
+   ```
 
 3. **Get Dependencies:**
-   ```
+   ```bash
    flutter pub get
    ```
 
 4. **Run the App:**
-    - Connect your Android/iOS device to your computer.
-    - Ensure USB debugging is enabled on your Android device.
-    - Run the following command:
-      ```
-      flutter run
-      ```
-   This will build the app and install it on your connected device.
-
-5. **Alternatively, Use an Emulator:**
-    - Open Android Studio and launch the Android Virtual Device (AVD) Manager.
-    - Create a new virtual device and start the emulator.
-    - Once the emulator is running, repeat step 4.
-
-## API keys
-- Request for them ``` oh.shalom.0@gmail.com ```
+- Ensure that Desktop support is enabled.
+- Run the following command:
+  ```
+  flutter run
+  ```
