@@ -26,13 +26,6 @@ class _SubscriptionState extends State<Subscription> {
     return Scaffold(
       appBar: AppBar(
         title: const HeaderWidget(),
-
-        /*title: Text(
-          "Subscription Plan",
-          style: Theme.of(context).textTheme.titleLarge,
-          maxLines: 1,
-        ),
-        centerTitle: true,*/
       ),
       drawer: !isDesktop
           ? const SizedBox(

@@ -30,6 +30,7 @@ class CustomizeAvatar extends StatelessWidget {
       appBar: AppBar(
         title: const HeaderWidget(),
       ),
+
       body: SafeArea(
         child: Row(
           children: [

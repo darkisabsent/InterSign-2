@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inter_sign/const/constant.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '../../widgets/settings/edit_item.dart';
@@ -16,32 +17,7 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(Ionicons.chevron_back_outline),
-        ),
-        leadingWidth: 80,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 10),
-            child: IconButton(
-              onPressed: () {},
-              style: IconButton.styleFrom(
-                backgroundColor: Colors.lightBlueAccent,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                fixedSize: const Size(60, 50),
-                elevation: 3,
-              ),
-              icon: const Icon(Ionicons.checkmark, color: Colors.white),
-            ),
-          ),
-        ],
-      ),
+      appBar: AppBar(),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(30),
@@ -65,13 +41,19 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
                       height: 100,
                       width: 100,
                     ),
-                    TextButton(
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    ElevatedButton(
+                      /// TODO: implementation
                       onPressed: () {},
-                      style: TextButton.styleFrom(
-                        foregroundColor: Colors.lightBlueAccent,
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: purpleColor),
+                      child: const Text(
+                        "Update Image",
+                        style: TextStyle(color: Colors.white),
                       ),
-                      child: const Text("Upload Image"),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -80,55 +62,6 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
                 widget: TextField(),
               ),
               const SizedBox(height: 40),
-              EditItem(
-                title: "Gender",
-                widget: Row(
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        setState(() {
-                          gender = "man";
-                        });
-                      },
-                      style: IconButton.styleFrom(
-                        backgroundColor: gender == "man"
-                            ? Colors.deepPurple
-                            : Colors.grey.shade200,
-                        fixedSize: const Size(50, 50),
-                      ),
-                      icon: Icon(
-                        Ionicons.male,
-                        color: gender == "man" ? Colors.white : Colors.black,
-                        size: 18,
-                      ),
-                    ),
-                    const SizedBox(width: 20),
-                    IconButton(
-                      onPressed: () {
-                        setState(() {
-                          gender = "woman";
-                        });
-                      },
-                      style: IconButton.styleFrom(
-                        backgroundColor: gender == "woman"
-                            ? Colors.deepPurple
-                            : Colors.grey.shade200,
-                        fixedSize: const Size(50, 50),
-                      ),
-                      icon: Icon(
-                        Ionicons.female,
-                        color: gender == "woman" ? Colors.white : Colors.black,
-                        size: 18,
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              const SizedBox(height: 40),
-              const EditItem(
-                widget: TextField(),
-                title: "Age",
-              ),
               const SizedBox(height: 40),
               const EditItem(
                 widget: TextField(),

@@ -20,7 +20,7 @@ class _ChangePasswordState extends State<ChangePassword> {
   final TextEditingController _confirmPassController = TextEditingController();
 
   final auth = AuthService();
-  bool _isSubmitting = false;
+  final bool _isSubmitting = false;
 
   @override
   void dispose() {
@@ -53,6 +53,7 @@ class _ChangePasswordState extends State<ChangePassword> {
         color: Colors.white,
       ),
       child: Scaffold(
+        appBar: AppBar(),
         backgroundColor: Colors.transparent,
         body: Stack(
           children: [

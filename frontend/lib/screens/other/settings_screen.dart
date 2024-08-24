@@ -27,7 +27,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const HeaderWidget(),
+
       ),
+      drawer: !isDesktop
+          ? const SizedBox(
+        width: 250,
+        child: SideMenuWidget(),
+      )
+          : null,
       body: Row(
         children: [
           if (isDesktop)
