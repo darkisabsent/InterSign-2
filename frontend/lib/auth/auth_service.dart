@@ -126,9 +126,14 @@ response = await http.post(Uri.parse(baseURL),
   }
 
   Future<bool> isLoggedIn() async {
-    // Check if a token exists
-    String? token = await _storage.read(key: 'auth_token');
-    return token != null;
+    try {
+      // Check if auth_token exists in secure storage
+      String? token = await _storage.read(key: 'auth_token');
+      return token != null;
+    } catch (e) {
+      log('Error checking login status: $e');
+      return false;
+    }
   }
 
   Future<String?> getAuthToken() async {
