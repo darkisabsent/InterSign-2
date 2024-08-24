@@ -23,11 +23,10 @@ class UserAuthController extends Controller
             'password' => Hash::make($registerUserData['password']),
         ]);
         return response()->json([
+            'success' => true,
             'message' => 'User Created ',
             'data' => [
-                'name' => $registerUserData['name'],
-                'email' => $registerUserData['email'],
-                'role' => $user->role()
+                'user_data' => $user
             ]
         ]);
     }
@@ -45,11 +44,11 @@ class UserAuthController extends Controller
         }
         $token = $user->createToken($user->name.'-AuthToken')->plainTextToken;
         return response()->json([
-            'access_token' => $token,
+            'success' => true,
+            'message' => 'User login successful',
             'data' => [
-                'name' => $user->name,
-                'email' => $user->email,
-                'role' => $user->role->role
+                'access_token' => $token,
+                'user_data' => $user
             ]
         ]);
     }
