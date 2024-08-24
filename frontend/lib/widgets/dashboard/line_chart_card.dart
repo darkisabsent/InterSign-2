@@ -17,7 +17,7 @@ class LineChartCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            "Steps Overview",
+            "InterSign Usage Over Time",
             style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
           ),
           const SizedBox(height: 20),

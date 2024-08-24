@@ -52,7 +52,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    "Account",
+                    "Account Settings",
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.w500,
@@ -102,7 +102,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ),
                   const SizedBox(height: 40),
                   const Text(
-                    "Settings",
+                    "Other",
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.w500,
@@ -136,7 +136,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       );
                     },
                   ),
-                  const SizedBox(height: 20),
+                  /*const SizedBox(height: 20),
                   SettingItem(
                     title: "Language",
                     icon: Ionicons.earth,
@@ -152,7 +152,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     bgColor: Colors.red.shade100,
                     iconColor: Colors.red,
                     onTap: () {},
-                  ),
+                  ),*/
                 ],
               ),
             ),

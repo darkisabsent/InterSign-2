@@ -26,8 +26,8 @@ class SummaryWidget extends StatelessWidget {
             ),
             SizedBox(height: 16),
             SummaryDetails(),
-            SizedBox(height: 40),
-            Scheduled(),
+            /*SizedBox(height: 40),
+            Scheduled(),*/
           ],
         ),
       ),
