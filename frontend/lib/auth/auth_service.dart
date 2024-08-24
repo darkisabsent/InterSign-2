@@ -10,26 +10,36 @@ class AuthService {
     const baseURL = 'http://127.0.0.1:8000/api/login';
     late http.Response response;
 
-    response = await http.post(Uri.parse(baseURL),
-        headers: {
-          "Content-Type": "application/json",
-          "Cache-Control": "no-cache",
-        },
-        body: jsonEncode({"email": email, "password": password}));
+    try {
+      response = await http.post(Uri.parse(baseURL),
+          headers: {
+            "Content-Type": "application/json",
+            "Cache-Control": "no-cache",
+          },
+          body: jsonEncode({"email": email, "password": password}));
 
-    if (response.statusCode == 200) {
-      // Parse the token from the response body
-      final Map<String, dynamic> data = jsonDecode(response.body);
-      final String token = data['access_token'];
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> data = jsonDecode(response.body);
 
-      await _storage.write(key: 'auth_token', value: token);
-      log("Auth token: $token");
+        if (data['success']) {
+          final String token = data['data']['access_token'];
 
-      log("Login: ${response.body.toString()}");
-      return true;
-    } else {
-      log("Login: ${response.statusCode.toString()}");
+          await _storage.write(key: 'auth_token', value: token);
+          log("Auth token: $token");
 
+          log("Login: ${response.body.toString()}");
+          return true;
+        } else {
+          log("Login failed: ${data['message']}");
+          return false;
+        }
+      } else {
+        log("Login: ${response.statusCode.toString()}");
+
+        return false;
+      }
+    } catch (e) {
+      log("Login error: $e");
       return false;
     }
   }
