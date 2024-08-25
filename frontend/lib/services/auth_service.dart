@@ -54,7 +54,9 @@ class AuthService with ChangeNotifier{
     const baseURL = 'http://127.0.0.1:8000/api/register';
     late http.Response response;
 
-    response = await http.post(Uri.parse(baseURL),
+    try {
+      response = await http.post(
+        Uri.parse(baseURL),
         headers: {
           "Content-Type": "application/json",
           "Cache-Control": "no-cache",
@@ -64,26 +66,45 @@ class AuthService with ChangeNotifier{
           "email": email,
           "password": password,
           "role_id": roleID ?? 3,
-        }));
+        }),
+      );
 
-    if (response.statusCode == 200) {
-      log("Register: ${response.body.toString()}");
-      return true;
-    } else if (response.statusCode == 422) {
-      // Parse the message from the response body
-      final Map<String, dynamic> data = jsonDecode(response.body);
-      final String errorMessage = data['message'];
+      // Handle HTTP redirects
+      if (response.statusCode == 302) {
+        log("Redirect detected. Status code: 302");
+        return false;
+      }
 
-      log("Error: $errorMessage");
+      // Handle successful response
+      if (response.statusCode == 200) {
+        log("Register: ${response.body.toString()}");
+        return true;
+      }
 
-      return false;
-    } else {
+      // Handle validation errors
+      if (response.statusCode == 422) {
+        try {
+          final Map<String, dynamic> data = jsonDecode(response.body);
+          final String errorMessage = data['message'];
+
+          log("Error: $errorMessage");
+          return false;
+        } catch (e) {
+          log("Error parsing error response: $e");
+          return false;
+        }
+      }
+
+      // Handle other errors
       log("Register: ${response.statusCode.toString()}");
       log("Register: ${response.body.toString()}");
-
+      return false;
+    } catch (e) {
+      log("Register error: $e");
       return false;
     }
   }
+
 
   Future<bool> logout() async {
     const baseURL = 'http://127.0.0.1:8000/api/logout';
