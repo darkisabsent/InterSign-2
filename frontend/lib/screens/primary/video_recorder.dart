@@ -283,9 +283,6 @@ class _VideoRecorderState extends State<VideoRecorder> {
     }).toList();
 
     return Scaffold(
-      appBar: AppBar(
-        title: const HeaderWidget(),
-      ),
       body: ListView(
         children: <Widget>[
           Padding(
