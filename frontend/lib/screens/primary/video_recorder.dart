@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:inter_sign/utils/show_toast.dart';
 
-import '../../widgets/header_widget.dart';
-
 class VideoRecorder extends StatefulWidget {
   const VideoRecorder({super.key});
 

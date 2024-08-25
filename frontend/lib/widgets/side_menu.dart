@@ -21,7 +21,7 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20),
-      color: whiteColor,
+      color: sideMenuColor,
       child: Column(
         children: [
           //const SideMenuLogo(),
