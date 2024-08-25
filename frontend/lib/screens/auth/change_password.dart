@@ -21,6 +21,8 @@ class _ChangePasswordState extends State<ChangePassword> {
 
   final auth = AuthService();
   final bool _isSubmitting = false;
+  bool passwordsMatch = true;
+
 
   @override
   void dispose() {
@@ -129,6 +131,15 @@ class _ChangePasswordState extends State<ChangePassword> {
                                         onChanged: (value) => setState(() {}),
                                       ),
                                       const SizedBox(height: 10),
+                                      Visibility(
+                                        visible: !passwordsMatch,
+                                        child:
+                                        const Text("Passwords do no match!",
+                                            style: TextStyle(
+                                                color: Colors.red,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 13)),
+                                      ),
                                       FormContainerWidget(
                                         labelText: "CONFIRM PASSWORD",
                                         hintText: "********",
@@ -224,39 +235,17 @@ class _ChangePasswordState extends State<ChangePassword> {
     );
   }
 
-  Future<void> _changePassword() async {
-    String email = _currentPassword.text;
-    String password = _newPassController.text;
-
-    /// TODO: implementation
-
-    /*
-    // Show loading circle
+  void _checkPasswordsMatch() {
     setState(() {
-      _isSubmitting = true;
+      passwordsMatch =
+          _newPassController.text == _confirmPassController.text;
     });
+  }
 
-    bool isAuthenticated = await auth.login(email: email, password: password);
+  Future<void> _changePassword() async {
+    String oldPassword = _currentPassword.text;
+    String newPassword = _newPassController.text;
 
-    if (mounted) {
-      if (isAuthenticated) {
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const Dashboard(),
-            ),
-            (route) => false);
-      }
-
-      setState(() {
-        _isSubmitting = false;
-      });
-
-      if (!isAuthenticated) {
-        ToastUtil.showErrorToast(context,
-            message: "Incorrect email or password!");
-      }
-    }*/
 
   }
 }

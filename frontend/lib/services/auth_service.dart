@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
-class AuthService with ChangeNotifier{
+class AuthService with ChangeNotifier {
   final _storage = const FlutterSecureStorage();
 
   Future<bool> login({required String email, required String password}) async {
@@ -105,12 +105,10 @@ class AuthService with ChangeNotifier{
     }
   }
 
-
   Future<bool> logout() async {
     const baseURL = 'http://127.0.0.1:8000/api/logout';
     late http.Response response;
 
-    // Retrieve the authentication token
     String? token = await _storage.read(key: 'auth_token');
     if (token == null) {
       log('No auth token found, cannot log out.');
@@ -126,8 +124,7 @@ class AuthService with ChangeNotifier{
 
       if (response.statusCode == 200) {
         // Logout successful
-        await _storage.delete(
-            key: 'auth_token');
+        await _storage.delete(key: 'auth_token');
         notifyListeners();
 
         log("Logout: ${response.body.toString()}");
@@ -149,6 +146,50 @@ class AuthService with ChangeNotifier{
       return token != null;
     } catch (e) {
       log('Error checking login status: $e');
+      return false;
+    }
+  }
+
+  Future<bool> changePassword({
+    required String oldPassword,
+    required String newPassword,
+  }) async {
+    const baseURL = 'http://127.0.0.1:8000/api/users/password_reset';
+    late http.Response response;
+
+    String? token = await _storage.read(key: 'auth_token');
+    if (token == null) {
+      log('No auth token found, cannot change password');
+      return false;
+    }
+
+    try {
+      response = await http.post(
+        Uri.parse(baseURL),
+        headers: {
+          "Content-Type": "application/json",
+          "Cache-Control": "no-cache",
+          "Authorization": "Bearer $token",
+        },
+        body: jsonEncode({
+          "confirm_old_password": oldPassword,
+          "password": newPassword,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        log("Change password: ${response.body.toString()}");
+        return true;
+      } else if (response.statusCode == 401) {
+        log("Change password failed: ${response.body.toString()}");
+        return false;
+      } else {
+        log("Change password: ${response.statusCode.toString()}");
+        log("Change password: ${response.body.toString()}");
+        return false;
+      }
+    } catch (e) {
+      log("Change password error: $e");
       return false;
     }
   }

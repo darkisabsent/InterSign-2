@@ -6,7 +6,6 @@ import '../../services/auth_service.dart';
 import '../../utils/responsive.dart';
 import '../../utils/show_toast.dart';
 import '../../widgets/form_container.dart';
-import '../primary/dashboard.dart';
 import 'login_screen.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -154,7 +153,6 @@ class _SignupScreenState extends State<SignupScreen> {
                                             const Text("Passwords do no match!",
                                                 style: TextStyle(
                                                     color: Colors.red,
-                                                    //color: errorRed,
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 13)),
                                       ),
@@ -319,9 +317,10 @@ class _SignupScreenState extends State<SignupScreen> {
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (context) => const Dashboard(),
+              builder: (context) =>
+              const LoginScreen(),
             ),
-            (route) => false);
+                (route) => false);
       }
 
       setState(() {
