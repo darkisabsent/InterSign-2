@@ -1,9 +1,10 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
-class AuthService {
+class AuthService with ChangeNotifier{
   final _storage = const FlutterSecureStorage();
 
   Future<bool> login({required String email, required String password}) async {
@@ -84,45 +85,40 @@ class AuthService {
     }
   }
 
-  Future<String> logout(String text,
-      {String? currentLanguage, String? localLanguage}) async {
+  Future<bool> logout() async {
     const baseURL = 'http://127.0.0.1:8000/api/logout';
     late http.Response response;
 
-    response = await http.post(Uri.parse(baseURL),
-        headers: {
-          "Content-Type": "application/json",
-          "Cache-Control": "no-cache",
-        },
-        body: jsonEncode({"in": text, "lang": "en-$localLanguage"}));
-
-    if (response.statusCode == 200) {
-      String result = utf8.decode(response.bodyBytes);
-
-      if (result.startsWith('"') && result.endsWith('"')) {
-        result = result.substring(1, result.length - 1);
-      }
-
-      return result;
-    } else {
-      return response.statusCode.toString();
+    // Retrieve the authentication token
+    String? token = await _storage.read(key: 'auth_token');
+    if (token == null) {
+      log('No auth token found, cannot log out.');
+      return false;
     }
 
-    /// Making authenticated requests
-    /* final token = await auth.getAuthToken();
-response = await http.post(Uri.parse(baseURL),
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": "Bearer $token",
-      "Cache-Control": "no-cache",
-    },
-    body: jsonEncode({"email": email, "password": password}));
-    */
-  }
+    try {
+      response = await http.post(Uri.parse(baseURL), headers: {
+        "Content-Type": "application/json",
+        "Cache-Control": "no-cache",
+        "Authorization": "Bearer $token", // Include the token in the header
+      });
 
-  Future<void> _logout() async {
-    // Remove the token from secure storage
-    await _storage.delete(key: 'auth_token');
+      if (response.statusCode == 200) {
+        // Logout successful
+        await _storage.delete(
+            key: 'auth_token');
+        notifyListeners();  // Notify listeners about the change
+
+        log("Logout: ${response.body.toString()}");
+        return true;
+      } else {
+        log("Logout failed: ${response.statusCode.toString()}");
+        return false;
+      }
+    } catch (e) {
+      log("Logout error: $e");
+      return false;
+    }
   }
 
   Future<bool> isLoggedIn() async {
@@ -140,3 +136,14 @@ response = await http.post(Uri.parse(baseURL),
     return await _storage.read(key: 'auth_token');
   }
 }
+
+/// Making authenticated requests
+/* final token = await auth.getAuthToken();
+response = await http.post(Uri.parse(baseURL),
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer $token",
+      "Cache-Control": "no-cache",
+    },
+    body: jsonEncode({"email": email, "password": password}));
+    */

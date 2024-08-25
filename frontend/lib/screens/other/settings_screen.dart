@@ -8,6 +8,8 @@ import '../../widgets/settings/forward_button.dart';
 import '../../widgets/settings/setting_item.dart';
 import '../../widgets/side_menu.dart';
 import '../auth/change_password.dart';
+import '../../auth/auth_service.dart';
+import '../auth/login_screen.dart';
 import 'edit_account.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -20,6 +22,8 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   bool isDarkMode = false;
 
+  final AuthService _authService = AuthService();
+
   @override
   Widget build(BuildContext context) {
     final bool isDesktop = Responsive.isDesktop(context);
@@ -27,13 +31,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const HeaderWidget(),
-
       ),
       drawer: !isDesktop
           ? const SizedBox(
-        width: 250,
-        child: SideMenuWidget(),
-      )
+              width: 250,
+              child: SideMenuWidget(),
+            )
           : null,
       body: Row(
         children: [
@@ -153,6 +156,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     iconColor: Colors.red,
                     onTap: () {},
                   ),*/
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  Center(
+                    child: ElevatedButton(
+                        onPressed: () {
+                          _logout();
+                        },
+                        child: const Text(
+                          "LOGOUT",
+                          style: TextStyle(
+                            color: Colors.red,
+                          ),
+                        )),
+                  )
                 ],
               ),
             ),
@@ -160,5 +178,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ],
       ),
     );
+  }
+
+  Future<void> _logout() async {
+    bool success = await _authService.logout();
+
+    if (mounted) {
+      if (success) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const LoginScreen()),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Logout failed. Please try again.'),
+          ),
+        );
+      }
+    }
   }
 }
