@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inter_sign/widgets/info_card.dart';
+import 'package:inter_sign/widgets/auth_info_card.dart';
 import 'package:inter_sign/widgets/logo_widget.dart';
 
 import '../../utils/responsive.dart';
@@ -203,7 +203,7 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
                   if (!isMobile)
                     Expanded(
                       flex: isDesktop ? 6 : 5,
-                      child: const InfoCard(),
+                      child: const AuthInfoCard(),
                     ),
                 ],
               ),
