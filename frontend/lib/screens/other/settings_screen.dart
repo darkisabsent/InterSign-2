@@ -8,7 +8,7 @@ import '../../widgets/settings/forward_button.dart';
 import '../../widgets/settings/setting_item.dart';
 import '../../widgets/side_menu.dart';
 import '../auth/change_password.dart';
-import '../../auth/auth_service.dart';
+import '../../services/auth_service.dart';
 import '../auth/login_screen.dart';
 import 'edit_account.dart';
 
@@ -139,23 +139,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       );
                     },
                   ),
-                  /*const SizedBox(height: 20),
-                  SettingItem(
-                    title: "Language",
-                    icon: Ionicons.earth,
-                    bgColor: Colors.orange.shade100,
-                    iconColor: Colors.orange,
-                    value: "English",
-                    onTap: () {},
-                  ),
-                  const SizedBox(height: 20),
-                  SettingItem(
-                    title: "Help",
-                    icon: Ionicons.nuclear,
-                    bgColor: Colors.red.shade100,
-                    iconColor: Colors.red,
-                    onTap: () {},
-                  ),*/
                   const SizedBox(
                     height: 30,
                   ),

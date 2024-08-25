@@ -100,14 +100,14 @@ class AuthService with ChangeNotifier{
       response = await http.post(Uri.parse(baseURL), headers: {
         "Content-Type": "application/json",
         "Cache-Control": "no-cache",
-        "Authorization": "Bearer $token", // Include the token in the header
+        "Authorization": "Bearer $token",
       });
 
       if (response.statusCode == 200) {
         // Logout successful
         await _storage.delete(
             key: 'auth_token');
-        notifyListeners();  // Notify listeners about the change
+        notifyListeners();
 
         log("Logout: ${response.body.toString()}");
         return true;
@@ -136,14 +136,3 @@ class AuthService with ChangeNotifier{
     return await _storage.read(key: 'auth_token');
   }
 }
-
-/// Making authenticated requests
-/* final token = await auth.getAuthToken();
-response = await http.post(Uri.parse(baseURL),
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": "Bearer $token",
-      "Cache-Control": "no-cache",
-    },
-    body: jsonEncode({"email": email, "password": password}));
-    */

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:inter_sign/widgets/info_card.dart';
 import 'package:inter_sign/widgets/logo_widget.dart';
 
-import '../../auth/auth_service.dart';
+import '../../services/auth_service.dart';
 import '../../utils/responsive.dart';
 import '../../utils/show_toast.dart';
 import '../../widgets/form_container.dart';
