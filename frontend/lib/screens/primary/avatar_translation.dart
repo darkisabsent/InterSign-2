@@ -230,9 +230,9 @@ class _AvatarTranslationState extends State<AvatarTranslation>
       appBar: _isMiniMode
           ? null
           : AppBar(
-        title: const HeaderWidget(),
+              title: const HeaderWidget(),
 
-        /*title: const Text('Avatar Translation'),
+              /*title: const Text('Avatar Translation'),
               centerTitle: true,*/
             ),
       drawer: !isDesktop

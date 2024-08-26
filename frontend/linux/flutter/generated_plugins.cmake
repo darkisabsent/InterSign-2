@@ -3,10 +3,12 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  bitsdojo_window_linux
   file_selector_linux
   flutter_secure_storage_linux
   media_kit_video
   screen_retriever
+  vosk_flutter
   window_manager
 )
 
