@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:inter_sign/widgets/dashboard/pie_chart_widget.dart';
-import 'package:inter_sign/widgets/dashboard/scheduled_widget.dart';
 import 'package:inter_sign/widgets/dashboard/summary_details.dart';
 
 import '../../const/constant.dart';

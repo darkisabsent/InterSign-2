@@ -3,7 +3,6 @@ import 'package:inter_sign/const/constant.dart';
 
 import '../../utils/layout_utils.dart';
 import '../../utils/responsive.dart';
-import '../../widgets/side_menu.dart';
 import '../../widgets/header_widget.dart';
 
 class CustomizeAvatar extends StatelessWidget {

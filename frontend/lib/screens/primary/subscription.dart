@@ -238,6 +238,7 @@ class _SubscriptionState extends State<Subscription> {
                 width: isMobile
                     ? ScreenSize.adjustedWidth(context, 10)
                     : ScreenSize.adjustedWidth(context, 20),
+                fit: BoxFit.contain,
               ),
             ),
           ],
