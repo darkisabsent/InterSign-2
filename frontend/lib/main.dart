@@ -7,7 +7,8 @@ import 'package:video_player_media_kit/video_player_media_kit.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:inter_sign/themes/light_theme.dart';
 
-import 'auth/auth_gate.dart';
+import 'screens/auth_gate.dart';
+import 'services/auth_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,7 +41,10 @@ void main() async {
 
   runApp(
     MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => MenuState())],
+      providers: [
+        ChangeNotifierProvider(create: (_) => MenuState()),
+        ChangeNotifierProvider(create: (_) => AuthService()),
+      ],
       child: const MyApp(),
     ),
   );

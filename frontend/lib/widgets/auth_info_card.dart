@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../utils/responsive.dart';
 
-class InfoCard extends StatelessWidget {
-  const InfoCard({super.key});
+class AuthInfoCard extends StatelessWidget {
+  const AuthInfoCard({super.key});
 
   @override
   Widget build(BuildContext context) {

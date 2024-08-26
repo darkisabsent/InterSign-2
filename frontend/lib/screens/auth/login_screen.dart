@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:inter_sign/screens/auth/recover_password_screen.dart';
 import 'package:inter_sign/screens/primary/dashboard.dart';
-import 'package:inter_sign/widgets/info_card.dart';
+import 'package:inter_sign/widgets/auth_info_card.dart';
 import 'package:inter_sign/widgets/logo_widget.dart';
 
-import '../../auth/auth_service.dart';
+import '../../services/auth_service.dart';
 import '../../utils/responsive.dart';
 import '../../utils/show_toast.dart';
 import '../../widgets/form_container.dart';
@@ -274,7 +274,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   if (!isMobile)
                     Expanded(
                       flex: isDesktop ? 6 : 5,
-                      child: const InfoCard(),
+                      child: const AuthInfoCard(),
                     ),
                 ],
               ),
