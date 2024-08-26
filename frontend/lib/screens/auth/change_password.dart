@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:inter_sign/widgets/info_card.dart';
+import 'package:inter_sign/widgets/auth_info_card.dart';
 import 'package:inter_sign/widgets/logo_widget.dart';
 
-import '../../auth/auth_service.dart';
+import '../../services/auth_service.dart';
 import '../../utils/responsive.dart';
 import '../../utils/show_toast.dart';
 import '../../widgets/form_container.dart';
@@ -15,25 +15,39 @@ class ChangePassword extends StatefulWidget {
 }
 
 class _ChangePasswordState extends State<ChangePassword> {
-  final TextEditingController _currentPassword = TextEditingController();
+  final TextEditingController _currentPassController = TextEditingController();
   final TextEditingController _newPassController = TextEditingController();
   final TextEditingController _confirmPassController = TextEditingController();
 
   final auth = AuthService();
   bool _isSubmitting = false;
+  bool passwordsMatch = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _currentPassController.addListener(_checkPasswordsMatch);
+    _confirmPassController.addListener(_checkPasswordsMatch);
+  }
 
   @override
   void dispose() {
-    _currentPassword.dispose();
+    _currentPassController.dispose();
     _newPassController.dispose();
     _confirmPassController.dispose();
     super.dispose();
   }
 
   bool _areFieldsFilled() {
-    return _currentPassword.text.isNotEmpty &&
+    return _currentPassController.text.isNotEmpty &&
         _newPassController.text.isNotEmpty &&
-        _newPassController.text.isNotEmpty;
+        _confirmPassController.text.isNotEmpty;
+  }
+
+  void _checkPasswordsMatch() {
+    setState(() {
+      passwordsMatch = _newPassController.text == _confirmPassController.text;
+    });
   }
 
   @override
@@ -53,6 +67,7 @@ class _ChangePasswordState extends State<ChangePassword> {
         color: Colors.white,
       ),
       child: Scaffold(
+        appBar: AppBar(),
         backgroundColor: Colors.transparent,
         body: Stack(
           children: [
@@ -116,7 +131,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                                         labelText: "CURRENT PASSWORD",
                                         hintText: "********",
                                         isPasswordField: true,
-                                        controller: _currentPassword,
+                                        controller: _currentPassController,
                                         onChanged: (value) => setState(() {}),
                                       ),
                                       const SizedBox(height: 10),
@@ -128,6 +143,15 @@ class _ChangePasswordState extends State<ChangePassword> {
                                         onChanged: (value) => setState(() {}),
                                       ),
                                       const SizedBox(height: 10),
+                                      Visibility(
+                                        visible: !passwordsMatch,
+                                        child: const Text(
+                                            "Passwords do no match!",
+                                            style: TextStyle(
+                                                color: Colors.red,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 13)),
+                                      ),
                                       FormContainerWidget(
                                         labelText: "CONFIRM PASSWORD",
                                         hintText: "********",
@@ -152,9 +176,8 @@ class _ChangePasswordState extends State<ChangePassword> {
                                       child: ElevatedButton(
                                         onPressed: () {
                                           if (_areFieldsFilled()) {
-                                            /// TODO: call the implemented method
-                                            // _changePassword();
-                                            Navigator.of(context).pop();
+                                            _changePassword();
+                                            //Navigator.of(context).pop();
                                           } else {
                                             if (mounted) {
                                               ToastUtil.showErrorToast(context,
@@ -205,7 +228,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                   if (!isMobile)
                     Expanded(
                       flex: isDesktop ? 6 : 5,
-                      child: const InfoCard(),
+                      child: const AuthInfoCard(),
                     ),
                 ],
               ),
@@ -224,38 +247,33 @@ class _ChangePasswordState extends State<ChangePassword> {
   }
 
   Future<void> _changePassword() async {
-    String email = _currentPassword.text;
-    String password = _newPassController.text;
+    String oldPassword = _currentPassController.text;
+    String newPassword = _newPassController.text;
 
-    /// TODO: implementation
-
-    /*
-    // Show loading circle
     setState(() {
       _isSubmitting = true;
     });
 
-    bool isAuthenticated = await auth.login(email: email, password: password);
+    bool changed = await auth.changePassword(
+        oldPassword: oldPassword, newPassword: newPassword);
 
     if (mounted) {
-      if (isAuthenticated) {
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const Dashboard(),
-            ),
-            (route) => false);
+      if (changed) {
+        ToastUtil.showSuccessToast(context,
+            message: "Password changed successfully");
+
+        _currentPassController.clear();
+        _newPassController.clear();
+        _confirmPassController.clear();
       }
 
       setState(() {
         _isSubmitting = false;
       });
 
-      if (!isAuthenticated) {
-        ToastUtil.showErrorToast(context,
-            message: "Incorrect email or password!");
+      if (!changed) {
+        ToastUtil.showErrorToast(context, message: "Error!");
       }
-    }*/
-
+    }
   }
 }

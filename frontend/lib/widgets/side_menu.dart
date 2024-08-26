@@ -21,10 +21,19 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20),
-      color: whiteColor,
+      color: sideMenuColor,
       child: Column(
         children: [
-          //const SideMenuLogo(),
+          Padding(
+            padding: const EdgeInsets.only(top: 20.0),
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height * 0.15,
+              child: Image.asset(
+                'assets/images/side_menu_image.png',
+                fit: BoxFit.contain,
+              ),
+            ),
+          ),
           Expanded(
             child: ListView.builder(
               itemCount: data.menu.length,

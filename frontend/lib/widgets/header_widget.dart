@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inter_sign/widgets/side_menu_logo.dart';
+import 'package:inter_sign/widgets/header_logo.dart';
 
 //import '../const/constant.dart';
 import '../utils/responsive.dart';
@@ -28,7 +28,7 @@ class HeaderWidget extends StatelessWidget {
             ),
           ),*/
         if (!Responsive.isMobile(context))
-          const Expanded(child: SideMenuLogo()),
+          const Expanded(child: HeaderLogo()),
         if (!Responsive.isMobile(context))
           Expanded(
             child: TextField(

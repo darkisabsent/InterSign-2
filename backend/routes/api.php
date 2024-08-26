@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\UserAuthController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +19,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('/users/password_reset', \App\Http\Controllers\UserChangePassword::class)->middleware('auth:sanctum');
+
+Route::resource('/users', UserController::class)->middleware('auth:sanctum');
 
 Route::post('register',[UserAuthController::class,'register']);
 Route::post('login',[UserAuthController::class,'login']);

@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:inter_sign/screens/other/customize_avatar.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:path_provider/path_provider.dart';
 
 import '../../utils/responsive.dart';
 import '../../widgets/header_widget.dart';
@@ -8,6 +11,8 @@ import '../../widgets/settings/forward_button.dart';
 import '../../widgets/settings/setting_item.dart';
 import '../../widgets/side_menu.dart';
 import '../auth/change_password.dart';
+import '../../services/auth_service.dart';
+import '../auth/login_screen.dart';
 import 'edit_account.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -19,6 +24,26 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   bool isDarkMode = false;
+  String? profileImagePath;
+
+  final AuthService _authService = AuthService();
+
+  @override
+  void initState() {
+    super.initState();
+    _loadProfileImage();
+  }
+
+  Future<void> _loadProfileImage() async {
+    final directory = await getApplicationDocumentsDirectory();
+    final imagePath = '${directory.path}/profile_image.png';
+
+    if (await File(imagePath).exists()) {
+      setState(() {
+        profileImagePath = imagePath;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +53,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
       appBar: AppBar(
         title: const HeaderWidget(),
       ),
+      drawer: !isDesktop
+          ? const SizedBox(
+              width: 250,
+              child: SideMenuWidget(),
+            )
+          : null,
       body: Row(
         children: [
           if (isDesktop)
@@ -45,7 +76,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    "Account",
+                    "Account Settings",
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.w500,
@@ -56,8 +87,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     width: double.infinity,
                     child: Row(
                       children: [
-                        Image.asset("assets/images/no_profile.png",
-                            width: 70, height: 70),
+                        profileImagePath != null
+                            ? Image.file(
+                                File(profileImagePath!),
+                                height: 70,
+                                width: 70,
+                                fit: BoxFit.contain,
+                              )
+                            : Image.asset(
+                                "assets/images/no_profile.png",
+                                height: 70,
+                                width: 70,
+                                fit: BoxFit.contain,
+                              ),
                         const SizedBox(width: 20),
                         const Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -95,7 +137,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ),
                   const SizedBox(height: 40),
                   const Text(
-                    "Settings",
+                    "Other",
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.w500,
@@ -129,23 +171,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       );
                     },
                   ),
-                  const SizedBox(height: 20),
-                  SettingItem(
-                    title: "Language",
-                    icon: Ionicons.earth,
-                    bgColor: Colors.orange.shade100,
-                    iconColor: Colors.orange,
-                    value: "English",
-                    onTap: () {},
+                  const SizedBox(
+                    height: 30,
                   ),
-                  const SizedBox(height: 20),
-                  SettingItem(
-                    title: "Help",
-                    icon: Ionicons.nuclear,
-                    bgColor: Colors.red.shade100,
-                    iconColor: Colors.red,
-                    onTap: () {},
-                  ),
+                  Center(
+                    child: ElevatedButton(
+                        onPressed: () {
+                          _logout();
+                        },
+                        child: const Text(
+                          "LOGOUT",
+                          style: TextStyle(
+                            color: Colors.red,
+                          ),
+                        )),
+                  )
                 ],
               ),
             ),
@@ -153,5 +193,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ],
       ),
     );
+  }
+
+  Future<void> _logout() async {
+    bool success = await _authService.logout();
+
+    if (mounted) {
+      if (success) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const LoginScreen()),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Logout failed. Please try again.'),
+          ),
+        );
+      }
+    }
   }
 }

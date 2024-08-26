@@ -7,6 +7,7 @@ const purpleColor = Color(0xff8645ff);
 const primaryColor = Color(0xff000557);
 const secondaryColor = Color(0xFFFFFFFF);
 const whiteColor = Colors.white;
+const sideMenuColor = Color(0xfff1f2f7);
 //const backgroundColor = Color(0xFF15131C);
 //const backgroundColor = Colors.grey;
 const selectionColor = Color(0xFF88B2AC);

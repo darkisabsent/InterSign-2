@@ -9,13 +9,13 @@ class SummaryDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomCard(
       color: const Color(0xFF2F353E),
-      child: Row(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          buildDetails('Cal', '305'),
-          buildDetails('Steps', '10983'),
-          buildDetails('Distance', '7km'),
-          buildDetails('Sleep', '7hr'),
+          buildDetails('Text to Sign Language', '305'),
+          buildDetails('Sign Language to Speech', '10983'),
+          /*buildDetails('Distance', '7km'),
+          buildDetails('Sleep', '7hr'),*/
         ],
       ),
     );

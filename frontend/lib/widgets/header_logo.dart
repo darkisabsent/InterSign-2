@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../utils/responsive.dart';
 
-class SideMenuLogo extends StatelessWidget {
-  const SideMenuLogo({super.key});
+class HeaderLogo extends StatelessWidget {
+  const HeaderLogo({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -17,6 +17,12 @@ class Help extends StatelessWidget {
       appBar: AppBar(
         title: const HeaderWidget(),
       ),
+      drawer: !isDesktop
+          ? const SizedBox(
+        width: 250,
+        child: SideMenuWidget(),
+      )
+          : null,
       body: SafeArea(
         child: Row(
           children: [
