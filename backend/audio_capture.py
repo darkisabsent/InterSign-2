@@ -13,8 +13,6 @@ def record_audio(output_filename, duration=10):
 
     p = pyaudio.PyAudio()  # Create an interface to PortAudio
 
-    print('Recording')
-
     stream = p.open(format=sample_format,
                     channels=channels,
                     rate=fs,
@@ -33,8 +31,6 @@ def record_audio(output_filename, duration=10):
     stream.close()
     # Terminate the PortAudio interface
     p.terminate()
-
-    print('Finished recording')
 
     # Save the recorded data as a WAV file
     wf = wave.open(output_filename, 'wb')
@@ -71,7 +67,6 @@ def send_text_to_backend(text):
     response = requests.post(url, json={'text': text})
     if response.status_code == 200:
         video_urls = response.json().get('video', [])
-        print('Video URLs:', video_urls)
         return video_urls
     else:
         print('Failed to get video URLs. Status code:', response.status_code)
@@ -82,7 +77,7 @@ if __name__ == '__main__':
     record_audio(output_filename, duration=10)
     transcribed_text = transcribe_audio(output_filename)
     if transcribed_text:
-        print(f'Transcribed Text: {transcribed_text}')  # Log the transcribed text
+        print(f'{transcribed_text}')  # Log the transcribed text
         send_text_to_backend(transcribed_text)
     else:
         print('No transcribed text found.')

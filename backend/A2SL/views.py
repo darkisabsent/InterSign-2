@@ -78,7 +78,7 @@ def animation_view(request):
 
         filtered_text = []
         for w in words:
-            path = w + ".webm"
+            path = w + ".mp4"
             f = finders.find(path)
             if not f:
                 filtered_text.extend(list(w))
@@ -96,12 +96,12 @@ def translate_text(request):
     if request.method == 'POST':
         data = json.loads(request.body)
         text = data.get('text', '')
-        video_urls = [f'http://localhost:8000/{char}.webm' for char in text if char.isalpha()]
+        video_urls = [f'http://localhost:8000/{char}.mp4' for char in text if char.isalpha()]
         return JsonResponse({'video': video_urls})
     return JsonResponse({'error': 'Invalid request'}, status=400)
 
 def process_text_to_video(text):
-    return ['assets/hello.webm']
+    return ['assets/hello.mp4']
 
 def signup_view(request):
     if request.method == 'POST':
